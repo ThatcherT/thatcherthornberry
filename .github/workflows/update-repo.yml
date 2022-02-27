@@ -16,7 +16,8 @@ jobs:
 
     steps:
       - env:
-          BRANCH: ${{ github.event.client_payload.repo }}
+          PROJECT: ${{ github.event.client_payload.project }}
+          REPO: ${{ github.event.client_payload.repo }}
       - name: Checkout
         uses: actions/checkout@v2
       
@@ -26,9 +27,8 @@ jobs:
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
-      - name: commit
+      - name: Pull and Push
         run: |
-          # Stage the file, commit and push
-          git add time.txt
-          git commit -m "new date commit"
+          # pull the subtree, push those changes to the repo
+          git subtree pull --prefix=projects/$PROJECT $REPO master --squash
           git push origin master
