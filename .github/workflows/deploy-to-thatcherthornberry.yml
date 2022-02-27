@@ -34,4 +34,4 @@ jobs:
       run: gcloud compute scp --recurse --zone=us-central1-a ../thatcherthornberry thatcherthornberry:/home/sa_109683913549673363733
 
     - name: 'Rm Keyfile and Restart Server'
-      run: gcloud compute ssh --zone "us-central1-a" thatcherthornberry --command="rm -f gha-creds-*.json && bash /home/sa_109683913549673363733/startserver.sh"
+      run: gcloud compute ssh --zone "us-central1-a" thatcherthornberry --command="rm -f thatcherthornberry/gha-creds-*.json && bash /home/sa_109683913549673363733/startserver.sh"
