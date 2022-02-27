@@ -3,7 +3,7 @@ name: Deploy to thatcherthornberry on GCE
 on:
   repository_dispatch:
     types: [pull-trigger]
-    
+
 env:
   PROJECT: ${{ github.event.client_payload.project }}
   REPO: ${{ github.event.client_payload.repo }}
@@ -19,12 +19,11 @@ jobs:
       
       - name: setup git config
         run: |  
-          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
 
       - name: Pull and Push
         run: |
           # pull the subtree, push those changes to the repo
-          git subtree pull --prefix=projects/$PROJECT $REPO master --squash
+          git subtree pull --prefix=projects/$PROJECT https://${{secrets.GITHUB_PAT}}$REPO master --squash
           git push origin master
