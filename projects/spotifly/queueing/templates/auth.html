@@ -1,0 +1,7 @@
+Hello {{ listener_name }}
+{% comment %} html form with single text field and a submit button {% endcomment %}
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="password"/>
+    <input type="submit" />
+</form>
