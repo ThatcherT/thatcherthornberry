@@ -3,21 +3,17 @@ name: Deploy to thatcherthornberry on GCE
 on:
   repository_dispatch:
     types: [pull-trigger]
+    
+env:
+  PROJECT: ${{ github.event.client_payload.project }}
+  REPO: ${{ github.event.client_payload.repo }}
 
 jobs:
   Pull-Code:
     name: Pull Code For Subtree
     runs-on: ubuntu-latest
 
-    # Add "id-token" with the intended permissions.
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
     steps:
-      - env:
-          PROJECT: ${{ github.event.client_payload.project }}
-          REPO: ${{ github.event.client_payload.repo }}
       - name: Checkout
         uses: actions/checkout@v2
       
