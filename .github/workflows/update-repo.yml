@@ -1,0 +1,34 @@
+name: Deploy to thatcherthornberry on GCE
+
+on:
+  repository_dispatch:
+    types: [pull-trigger]
+
+jobs:
+  Pull-Code:
+    name: Pull Code For Subtree
+    runs-on: ubuntu-latest
+
+    # Add "id-token" with the intended permissions.
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - env:
+          BRANCH: ${{ github.event.client_payload.repo }}
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: setup git config
+        run: |  
+          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+
+      - name: commit
+        run: |
+          # Stage the file, commit and push
+          git add time.txt
+          git commit -m "new date commit"
+          git push origin master
