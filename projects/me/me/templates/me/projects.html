@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+{% load static %}
+<!--
+	Multiverse by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Projects | Thatcher Thornberry</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'me/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'me/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Projects by Thatcher Thornberry</a></h1>
+						<nav>
+							<ul>
+								<li><a href="#footer" class="icon solid fa-info-circle">Contact</a></li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<article class="thumb">
+							<a href="{% static 'me/images/fulls/spacify.jpg' %}" class="image"><img src="{% static 'me/images/thumbs/spacify.jpg' %}" alt="" /></a>
+							<h2>Spotifly</h2>
+							<p>A song queueing service that relies on Spotify's API to allow your friends to queue songs while you're on aux. <a href="http://spotifly.thatcherthornberry.com">http://spotifly.thatcherthornberry.com</a></p>
+						</article>
+						<article class="thumb">
+							<a href="{% static 'me/images/website.png' %}" class="image"><img src="{% static 'me/images/headshot.jpeg' %}" alt="" /></a>
+							<h2>thatcherthornberry.com</h2>
+							<p>
+							Not your average website. A containerized Django application running multiple Gunicorn web servers, and Postgresql databases
+							 on a single virtual machine. All of my projects are subdomains of this site and rely on an Nginx reverse proxy to route 
+							 requests to the right places for a single IP address. 
+							 <a href="https://www.thatcherthornberry.com/">thatcherthornberry.com</a>
+							</p>
+						</article>
+						<article class="thumb">
+							<a href="{% static 'me/images/thumbs/salem.svg' %}" class="image"><img src="{% static 'me/images/fulls/salem-s.png' %}" alt="" /></a>
+							<h2>COVID-19 Economic Research</h2>
+							<p>During the beginning of the pandemic, I did research with the Salem Center for Policy on the economic impacts of Covid. With Python I scraped public websites
+							did data analysis, and made this cool gif: <a href="https://salemcenter.org/unemployment-claims-in-the-state-of-texas-covid-19-data-work-and-research/">https://salemcenter.org/covid-gif</a>
+							</p>
+						</article>
+						<article class="thumb">
+							<a href="{% static 'me/images/fulls/alertme_website.png' %}" height="750" width="1000" class="image"><img src="{% static 'me/images/thumbs/alert-bell.png' %}"  alt="" /></a>
+							<h2>BEX Engine</h2>
+							<p>
+							I helped design, build, and deploy Action Point Analytics' first software product: AlertMe by BEX Engine. This social media tracker
+							incorporates cutting edge technologies like Redis and Docker to allow users to receive automated, intelligent alerts about topics 
+							they're interested in. <a href="https://alertme.bexengine.com/">https://alertme.bexengine.com</a>
+							</p>
+						</article>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer" class="panel">
+						<div class="inner split">
+							<div>
+								<section>
+									<h2>About Me</h2>
+									<p>I'm a self-taught programmer who enjoys automation, web development, and machine learning. If you're interested in contracting with me,
+									or if you'd like to collaborate, contact me! </p>
+								</section>
+								<section>
+									<h2>Follow me on ...</h2>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+										<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+										<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+									</ul>
+								</section>
+								<p class="copyright">
+									&copy; Unttled. Design: <a href="http://html5up.net">HTML5 UP</a>.
+								</p>
+							</div>
+							<div>
+								<section>
+									<h2>Get in touch</h2>
+									<form method="post" action="#">
+										<div class="fields">
+											<div class="field half">
+												<input type="text" name="name" id="name" placeholder="Name" />
+											</div>
+											<div class="field half">
+												<input type="text" name="email" id="email" placeholder="Email" />
+											</div>
+											<div class="field">
+												<textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
+											</div>
+										</div>
+										<ul class="actions">
+											<li><input type="submit" value="Send" class="primary" /></li>
+											<li><input type="reset" value="Reset" /></li>
+										</ul>
+									</form>
+								</section>
+							</div>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'me/js/jquery.min.js' %}"></script>
+			<script src="{% static 'me/js/jquery.poptrox.min.js' %}"></script>
+			<script src="{% static 'me/js/browser.min.js' %}"></script>
+			<script src="{% static 'me/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'me/js/util.js' %}"></script>
+			<script src="{% static 'me/js/main.js' %}"></script>
+
+	</body>
+</html>

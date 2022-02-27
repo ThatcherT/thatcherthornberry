@@ -1,0 +1,4 @@
+data/certbot/
+.bash_aliases
+.env
+.senv
