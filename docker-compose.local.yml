@@ -1,0 +1,13 @@
+version: "3"
+
+volumes:
+  pgdata:
+  # static_volume:
+
+services:
+  nginx:
+    volumes:
+      - ./data/nginx-local:/etc/nginx/conf.d
+  certbot:
+  postgres:
+  web:

@@ -1,0 +1,567 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta property="og:title" content="Thatcher Thornberry" />
+        <meta property="og:description" content="I'm a self-taught coder with interest in machine learning, automation, and web development."/>
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.thatcherthornberry.com/" />
+        <meta property="og:image" content="{% static 'me/images/headshot.jpeg' %}" />
+
+        <title>Thatcher Thornberry</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+        <link href="{% static 'me/css/bootstrap.min.css' %}" rel="stylesheet">
+
+        <link href="{% static 'me/css/bootstrap-icons.css' %}" rel="stylesheet">
+
+        <link href="{% static 'me/css/owl.carousel.min.css' %}" rel="stylesheet">
+
+        <link href="{% static 'me/css/owl.theme.default.min.css' %}" rel="stylesheet">
+
+        <link href="{% static 'me/css/templatemo-medic-care.css' %}" rel="stylesheet">
+<!--
+
+TemplateMo 566 Medic Care
+
+https://templatemo.com/tm-566-medic-care
+
+-->
+    </head>
+    
+    <body id="top">
+    
+        <main>
+
+            <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+                <div class="container">
+                    <a class="navbar-brand mx-auto d-lg-none" href="index.html">
+                        Thatcher Thornberry
+                        <strong class="d-block">Technical Services</strong>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#hero">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#me">Me</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'projects' %}">Projects</a>
+                            </li>
+                            
+                            
+
+                            <a class="navbar-brand d-none d-lg-block" href="{% url 'index' %}">
+                                Thatcher Thornberry
+                                <strong class="d-block">Technical Services</strong>
+                            </a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#reviews">Reviews</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#timeline">Timeline</a>
+                            </li>
+
+                            
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#contact">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+
+            <section class="hero" id="hero">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div id="myCarousel" class="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <!-- image source example -->
+                                        <img src="{% static 'me/images/headshot.jpeg' %}" style="width:500px;height:500px" class="img-fluid" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="heroText d-flex flex-column justify-content-center">
+
+                                <h1 class="mt-auto mb-2">
+                                    I love
+                                    <div class="animated-info">
+                                        <span class="animated-item">coding</span>
+                                        <span class="animated-item">coffee</span>
+                                        <span class="animated-item">AI</span>
+                                        <span class="animated-item">python</span>
+                                        <span class="animated-item">automation</span>
+                                    </div>
+                                </h1>
+
+                                <p class="mb-4">I'm a self-taught developer with experience across the web development stack. I also do science-y stuff like machine learning, neural networks, and Julia.</p>
+
+                                <div class="heroLinks d-flex flex-wrap align-items-center">
+                                    <a class="custom-link me-4" href="#me" data-hover="Learn More">Learn More</a>
+
+                                    <p class="contact-phone mb-0"><i class="bi-phone"></i> 737-275-4382</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section-padding" id="projects">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <h2 class="mb-lg-3 mb-3">Projects</h2>
+                            <p>I spend some of my free time doing coding <a href="{% url 'projects' %}" style="color: blue">projects</a>.</p>
+                            <p>Currently, I'm working on a service that allows users to queue songs based on text.</p>
+                            <p>Your friends can follow you and queue songs to your device. A great party trick. You can sign up <a style="color: blue" href="http://spotifly.thatcherthornberry.com">here</a>.</p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-5 col-12 mx-auto">
+                        <h2 class="mb-lg-3 mb-3" style="color: green">Spotlight</h2>
+                            <img src="{% static 'me/images/spotlight.png' %}" class="img-fluid" alt="">
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-padding" id="me">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <h2 class="mb-lg-3 mb-3">Hey 👋</h2>
+
+                            <p>I graduated from the University of Texas at Austin with a degree in Petroleum Engineering. I spent a lot of my free time doing web development with a startup in Austin. </p>
+
+                            <p>I designed, built, and deployed a fully functional social media monitoring system with tons of cool features. The application is also completely containerized, connects to multiple APIs, and runs a scheduler using Redis to monitor multiple social media sources.</p><br>
+                            <p>Check it out -> <a href="https://alertme.bexengine.com" target="_blank">bexengine.com</a></p>
+                        </div>
+
+                        <div class="col-lg-4 col-md-5 col-12 mx-auto">
+                            <div class="featured-circle bg-white shadow-lg d-flex justify-content-center align-items-center">
+                                <p class="featured-text"><span class="featured-number">{{ contrib }}</span> Github Contributions<br> in past year (Live)</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section class="section-padding pb-0" id="reviews">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <h2 class="text-center mb-lg-5 mb-4">The Most Important Things in Life are People</h2>
+                            <div id="owl-slideshow" class="owl-carousel reviews-carousel" autoPlay="false">
+                                {% for review in reviews %}
+                                <figure class="reviews-thumb d-flex flex-wrap align-items-center rounded">
+                                    <div class="reviews-stars">
+                                        {% with ''|center:review.rating as range %}
+                                            {% for _ in range %}
+                                                <i class="bi-star-fill"></i>
+                                            {% endfor %}
+                                        {% endwith %}
+
+                                        {% with ''|center:review.unrating as range %}
+                                            {% for _ in range %}
+                                                <i class="bi-star"></i>
+                                            {% endfor %}
+                                        {% endwith %}
+                                    </div>
+
+                                    <p class="text-primary d-block mt-2 mb-0 w-100"><strong>{{ review.title }}</strong></p>
+
+                                    <p class="reviews-text w-100">{{ review.review }}</p>
+                                    <!-- TODO: get profile pic from linkedin, we need thatcher's token so as not to get randos -->
+                                    <!-- <img src="{% static 'me/images/beautiful-woman-face-portrait-brown-background.jpeg' %}" class="img-fluid reviews-image" alt=""> -->
+
+                                    <figcaption class="ms-4">
+                                        <strong>{{ review.author }}</strong>
+
+                                        <span class="text-muted"> - {{ review.relation }}</span>
+                                    </figcaption>
+                                </figure>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section-padding" id="review-me">
+                <div class="container">
+                    <div class="row">
+                    
+                        <div class="col-lg-8 col-12 mx-auto">
+                            <div class="booking-form">
+                                
+                                <h2 class="text-center mb-lg-3 mb-2">Leave a Review</h2>
+                            
+                                <form role="form" action="{% url 'submit-review' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-6 col-12">
+                                            <input type="text" name="author" id="author" class="form-control" placeholder="Name" required>
+                                        </div>
+
+                                        <div class="col-lg-6 col-12">
+                                            <input name="relation" id="relation" class="form-control" placeholder="Relationship e.g. UT Professor or Thatcher's Friend" required>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <input class="form-control" rows="1" id="title" name="title" placeholder="Title" required></input>
+                                        </div>
+                                        <div class="col-12">
+                                            <textarea class="form-control" rows="5" id="review" name="review" placeholder="Message" required></textarea>
+                                        </div>
+
+                                        
+                                        <!-- star rating -->
+                                        <div class="col-lg-5 col-md-6 col-12 mx-auto">
+                                        <div class="container">
+                                            <div class="feedback">
+                                              <div class="rating">
+                                                <input type="radio" name="rating" id="rating-5" value="5" required>
+                                                <label for="rating-5"></label>
+                                                <input type="radio" name="rating" id="rating-4" value="4">
+                                                <label for="rating-4"></label>
+                                                <input type="radio" name="rating" id="rating-3" value="3">
+                                                <label for="rating-3"></label>
+                                                <input type="radio" name="rating" id="rating-2" value="2">
+                                                <label for="rating-2"></label>
+                                                <input type="radio" name="rating" id="rating-1" value="1">
+                                                <label for="rating-1"></label>
+                                                <div class="emoji-wrapper">
+                                                  <div class="emoji">
+                                                    <svg class="rating-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                    <circle cx="256" cy="256" r="256" fill="#ffd93b"/>
+                                                    <path d="M512 256c0 141.44-114.64 256-256 256-80.48 0-152.32-37.12-199.28-95.28 43.92 35.52 99.84 56.72 160.72 56.72 141.36 0 256-114.56 256-256 0-60.88-21.2-116.8-56.72-160.72C474.8 103.68 512 175.52 512 256z" fill="#f4c534"/>
+                                                    <ellipse transform="scale(-1) rotate(31.21 715.433 -595.455)" cx="166.318" cy="199.829" rx="56.146" ry="56.13" fill="#fff"/>
+                                                    <ellipse transform="rotate(-148.804 180.87 175.82)" cx="180.871" cy="175.822" rx="28.048" ry="28.08" fill="#3e4347"/>
+                                                    <ellipse transform="rotate(-113.778 194.434 165.995)" cx="194.433" cy="165.993" rx="8.016" ry="5.296" fill="#5a5f63"/>
+                                                    <ellipse transform="scale(-1) rotate(31.21 715.397 -1237.664)" cx="345.695" cy="199.819" rx="56.146" ry="56.13" fill="#fff"/>
+                                                    <ellipse transform="rotate(-148.804 360.25 175.837)" cx="360.252" cy="175.84" rx="28.048" ry="28.08" fill="#3e4347"/>
+                                                    <ellipse transform="scale(-1) rotate(66.227 254.508 -573.138)" cx="373.794" cy="165.987" rx="8.016" ry="5.296" fill="#5a5f63"/>
+                                                    <path d="M370.56 344.4c0 7.696-6.224 13.92-13.92 13.92H155.36c-7.616 0-13.92-6.224-13.92-13.92s6.304-13.92 13.92-13.92h201.296c7.696.016 13.904 6.224 13.904 13.92z" fill="#3e4347"/>
+                                                  </svg>
+                                                    <svg class="rating-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                    <circle cx="256" cy="256" r="256" fill="#ffd93b"/>
+                                                    <path d="M512 256A256 256 0 0 1 56.7 416.7a256 256 0 0 0 360-360c58.1 47 95.3 118.8 95.3 199.3z" fill="#f4c534"/>
+                                                    <path d="M328.4 428a92.8 92.8 0 0 0-145-.1 6.8 6.8 0 0 1-12-5.8 86.6 86.6 0 0 1 84.5-69 86.6 86.6 0 0 1 84.7 69.8c1.3 6.9-7.7 10.6-12.2 5.1z" fill="#3e4347"/>
+                                                    <path d="M269.2 222.3c5.3 62.8 52 113.9 104.8 113.9 52.3 0 90.8-51.1 85.6-113.9-2-25-10.8-47.9-23.7-66.7-4.1-6.1-12.2-8-18.5-4.2a111.8 111.8 0 0 1-60.1 16.2c-22.8 0-42.1-5.6-57.8-14.8-6.8-4-15.4-1.5-18.9 5.4-9 18.2-13.2 40.3-11.4 64.1z" fill="#f4c534"/>
+                                                    <path d="M357 189.5c25.8 0 47-7.1 63.7-18.7 10 14.6 17 32.1 18.7 51.6 4 49.6-26.1 89.7-67.5 89.7-41.6 0-78.4-40.1-82.5-89.7A95 95 0 0 1 298 174c16 9.7 35.6 15.5 59 15.5z" fill="#fff"/>
+                                                    <path d="M396.2 246.1a38.5 38.5 0 0 1-38.7 38.6 38.5 38.5 0 0 1-38.6-38.6 38.6 38.6 0 1 1 77.3 0z" fill="#3e4347"/>
+                                                    <path d="M380.4 241.1c-3.2 3.2-9.9 1.7-14.9-3.2-4.8-4.8-6.2-11.5-3-14.7 3.3-3.4 10-2 14.9 2.9 4.9 5 6.4 11.7 3 15z" fill="#fff"/>
+                                                    <path d="M242.8 222.3c-5.3 62.8-52 113.9-104.8 113.9-52.3 0-90.8-51.1-85.6-113.9 2-25 10.8-47.9 23.7-66.7 4.1-6.1 12.2-8 18.5-4.2 16.2 10.1 36.2 16.2 60.1 16.2 22.8 0 42.1-5.6 57.8-14.8 6.8-4 15.4-1.5 18.9 5.4 9 18.2 13.2 40.3 11.4 64.1z" fill="#f4c534"/>
+                                                    <path d="M155 189.5c-25.8 0-47-7.1-63.7-18.7-10 14.6-17 32.1-18.7 51.6-4 49.6 26.1 89.7 67.5 89.7 41.6 0 78.4-40.1 82.5-89.7A95 95 0 0 0 214 174c-16 9.7-35.6 15.5-59 15.5z" fill="#fff"/>
+                                                    <path d="M115.8 246.1a38.5 38.5 0 0 0 38.7 38.6 38.5 38.5 0 0 0 38.6-38.6 38.6 38.6 0 1 0-77.3 0z" fill="#3e4347"/>
+                                                    <path d="M131.6 241.1c3.2 3.2 9.9 1.7 14.9-3.2 4.8-4.8 6.2-11.5 3-14.7-3.3-3.4-10-2-14.9 2.9-4.9 5-6.4 11.7-3 15z" fill="#fff"/>
+                                                  </svg>
+                                                    <svg class="rating-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                    <circle cx="256" cy="256" r="256" fill="#ffd93b"/>
+                                                    <path d="M512 256A256 256 0 0 1 56.7 416.7a256 256 0 0 0 360-360c58.1 47 95.3 118.8 95.3 199.3z" fill="#f4c534"/>
+                                                    <path d="M336.6 403.2c-6.5 8-16 10-25.5 5.2a117.6 117.6 0 0 0-110.2 0c-9.4 4.9-19 3.3-25.6-4.6-6.5-7.7-4.7-21.1 8.4-28 45.1-24 99.5-24 144.6 0 13 7 14.8 19.7 8.3 27.4z" fill="#3e4347"/>
+                                                    <path d="M276.6 244.3a79.3 79.3 0 1 1 158.8 0 79.5 79.5 0 1 1-158.8 0z" fill="#fff"/>
+                                                    <circle cx="340" cy="260.4" r="36.2" fill="#3e4347"/>
+                                                    <g fill="#fff">
+                                                      <ellipse transform="rotate(-135 326.4 246.6)" cx="326.4" cy="246.6" rx="6.5" ry="10"/>
+                                                      <path d="M231.9 244.3a79.3 79.3 0 1 0-158.8 0 79.5 79.5 0 1 0 158.8 0z"/>
+                                                    </g>
+                                                    <circle cx="168.5" cy="260.4" r="36.2" fill="#3e4347"/>
+                                                    <ellipse transform="rotate(-135 182.1 246.7)" cx="182.1" cy="246.7" rx="10" ry="6.5" fill="#fff"/>
+                                                  </svg>
+                                                    <svg class="rating-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                              <circle cx="256" cy="256" r="256" fill="#ffd93b"/>
+                                              <path d="M407.7 352.8a163.9 163.9 0 0 1-303.5 0c-2.3-5.5 1.5-12 7.5-13.2a780.8 780.8 0 0 1 288.4 0c6 1.2 9.9 7.7 7.6 13.2z" fill="#3e4347"/>
+                                              <path d="M512 256A256 256 0 0 1 56.7 416.7a256 256 0 0 0 360-360c58.1 47 95.3 118.8 95.3 199.3z" fill="#f4c534"/>
+                                              <g fill="#fff">
+                                                <path d="M115.3 339c18.2 29.6 75.1 32.8 143.1 32.8 67.1 0 124.2-3.2 143.2-31.6l-1.5-.6a780.6 780.6 0 0 0-284.8-.6z"/>
+                                                <ellipse cx="356.4" cy="205.3" rx="81.1" ry="81"/>
+                                              </g>
+                                              <ellipse cx="356.4" cy="205.3" rx="44.2" ry="44.2" fill="#3e4347"/>
+                                              <g fill="#fff">
+                                                <ellipse transform="scale(-1) rotate(45 454 -906)" cx="375.3" cy="188.1" rx="12" ry="8.1"/>
+                                                <ellipse cx="155.6" cy="205.3" rx="81.1" ry="81"/>
+                                              </g>
+                                              <ellipse cx="155.6" cy="205.3" rx="44.2" ry="44.2" fill="#3e4347"/>
+                                              <ellipse transform="scale(-1) rotate(45 454 -421.3)" cx="174.5" cy="188" rx="12" ry="8.1" fill="#fff"/>
+                                            </svg>
+                                                    <svg class="rating-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                    <circle cx="256" cy="256" r="256" fill="#ffd93b"/>
+                                                    <path d="M512 256A256 256 0 0 1 56.7 416.7a256 256 0 0 0 360-360c58.1 47 95.3 118.8 95.3 199.3z" fill="#f4c534"/>
+                                                    <path d="M232.3 201.3c0 49.2-74.3 94.2-74.3 94.2s-74.4-45-74.4-94.2a38 38 0 0 1 74.4-11.1 38 38 0 0 1 74.3 11.1z" fill="#e24b4b"/>
+                                                    <path d="M96.1 173.3a37.7 37.7 0 0 0-12.4 28c0 49.2 74.3 94.2 74.3 94.2C80.2 229.8 95.6 175.2 96 173.3z" fill="#d03f3f"/>
+                                                    <path d="M215.2 200c-3.6 3-9.8 1-13.8-4.1-4.2-5.2-4.6-11.5-1.2-14.1 3.6-2.8 9.7-.7 13.9 4.4 4 5.2 4.6 11.4 1.1 13.8z" fill="#fff"/>
+                                                    <path d="M428.4 201.3c0 49.2-74.4 94.2-74.4 94.2s-74.3-45-74.3-94.2a38 38 0 0 1 74.4-11.1 38 38 0 0 1 74.3 11.1z" fill="#e24b4b"/>
+                                                    <path d="M292.2 173.3a37.7 37.7 0 0 0-12.4 28c0 49.2 74.3 94.2 74.3 94.2-77.8-65.7-62.4-120.3-61.9-122.2z" fill="#d03f3f"/>
+                                                    <path d="M411.3 200c-3.6 3-9.8 1-13.8-4.1-4.2-5.2-4.6-11.5-1.2-14.1 3.6-2.8 9.7-.7 13.9 4.4 4 5.2 4.6 11.4 1.1 13.8z" fill="#fff"/>
+                                                    <path d="M381.7 374.1c-30.2 35.9-75.3 64.4-125.7 64.4s-95.4-28.5-125.8-64.2a17.6 17.6 0 0 1 16.5-28.7 627.7 627.7 0 0 0 218.7-.1c16.2-2.7 27 16.1 16.3 28.6z" fill="#3e4347"/>
+                                                    <path d="M256 438.5c25.7 0 50-7.5 71.7-19.5-9-33.7-40.7-43.3-62.6-31.7-29.7 15.8-62.8-4.7-75.6 34.3 20.3 10.4 42.8 17 66.5 17z" fill="#e24b4b"/>
+                                                  </svg>
+                                                    <svg class="rating-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                    <g fill="#ffd93b">
+                                                      <circle cx="256" cy="256" r="256"/>
+                                                      <path d="M512 256A256 256 0 0 1 56.8 416.7a256 256 0 0 0 360-360c58 47 95.2 118.8 95.2 199.3z"/>
+                                                    </g>
+                                                    <path d="M512 99.4v165.1c0 11-8.9 19.9-19.7 19.9h-187c-13 0-23.5-10.5-23.5-23.5v-21.3c0-12.9-8.9-24.8-21.6-26.7-16.2-2.5-30 10-30 25.5V261c0 13-10.5 23.5-23.5 23.5h-187A19.7 19.7 0 0 1 0 264.7V99.4c0-10.9 8.8-19.7 19.7-19.7h472.6c10.8 0 19.7 8.7 19.7 19.7z" fill="#e9eff4"/>
+                                                    <path d="M204.6 138v88.2a23 23 0 0 1-23 23H58.2a23 23 0 0 1-23-23v-88.3a23 23 0 0 1 23-23h123.4a23 23 0 0 1 23 23z" fill="#45cbea"/>
+                                                    <path d="M476.9 138v88.2a23 23 0 0 1-23 23H330.3a23 23 0 0 1-23-23v-88.3a23 23 0 0 1 23-23h123.4a23 23 0 0 1 23 23z" fill="#e84d88"/>
+                                                    <g fill="#38c0dc">
+                                                      <path d="M95.2 114.9l-60 60v15.2l75.2-75.2zM123.3 114.9L35.1 203v23.2c0 1.8.3 3.7.7 5.4l116.8-116.7h-29.3z"/>
+                                                    </g>
+                                                    <g fill="#d23f77">
+                                                      <path d="M373.3 114.9l-66 66V196l81.3-81.2zM401.5 114.9l-94.1 94v17.3c0 3.5.8 6.8 2.2 9.8l121.1-121.1h-29.2z"/>
+                                                    </g>
+                                                    <path d="M329.5 395.2c0 44.7-33 81-73.4 81-40.7 0-73.5-36.3-73.5-81s32.8-81 73.5-81c40.5 0 73.4 36.3 73.4 81z" fill="#3e4347"/>
+                                                    <path d="M256 476.2a70 70 0 0 0 53.3-25.5 34.6 34.6 0 0 0-58-25 34.4 34.4 0 0 0-47.8 26 69.9 69.9 0 0 0 52.6 24.5z" fill="#e24b4b"/>
+                                                    <path d="M290.3 434.8c-1 3.4-5.8 5.2-11 3.9s-8.4-5.1-7.4-8.7c.8-3.3 5.7-5 10.7-3.8 5.1 1.4 8.5 5.3 7.7 8.6z" fill="#fff" opacity=".2"/>
+                                                  </svg>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                          <!-- star rating -->
+                                        <div class="col-lg-3 col-md-4 col-6 mx-auto">
+                                            <button type="submit" class="form-control" id="submit-button">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!-- <section class="gallery">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-6 ps-0">
+                            <img src="{% static 'me/images/medium-shot-man-getting-vaccine.jpg' %}" class="img-fluid galleryImage" alt="get a vaccine" title="get a vaccine for yourself">
+                        </div>
+
+                        <div class="col-lg-6 col-6 pe-0">
+                            <img src="{% static 'me/images/female-doctor-with-presenting-hand-gesture.jpg' %}" class="img-fluid galleryImage" alt="wear a mask" title="wear a mask to protect yourself">
+                        </div>
+
+                    </div>
+                </div>
+            </section> -->
+
+            <section class="section-padding pb-0" id="timeline">
+                <div class="container">
+                    <div class="row">
+
+                        <h2 class="text-center mb-lg-5 mb-4">My Timeline</h2>
+                        
+                        <div class="timeline">
+                            <div class="row g-0 justify-content-end justify-content-md-around align-items-start timeline-nodes">
+                                <div class="col-9 col-md-5 me-md-4 me-lg-0 order-3 order-md-1 timeline-content bg-white shadow-lg">
+                                    <h3 class=" text-light">The Language of Computers</h3>
+
+                                    <p>My first introduction to coding was in a class at the University of Texas.</p>
+                                </div>
+
+                                <div class="col-3 col-sm-1 order-2 timeline-icons text-md-center">
+                                    <i class="bi-cpu-fill timeline-icon"></i>
+                                </div>
+
+                                <div class="col-9 col-md-5 ps-md-3 ps-lg-0 order-1 order-md-3 py-4 timeline-date">
+                                    <span class="featured-number">2018</span>
+                                </div>
+                            </div>
+
+                            <div class="row g-0 justify-content-end justify-content-md-around align-items-start timeline-nodes my-lg-5 my-4">
+                                <div class="col-9 col-md-5 ms-md-4 ms-lg-0 order-3 order-md-1 timeline-content bg-white shadow-lg">
+                                    <h3 class=" text-light">More Python...</h3>
+
+                                    <p>During my time in college, I applied Python to oil and gas engineering problems. Specifically, I routinely excersized data analysis and visualisations with the following packages: Pandas, Numpy, Matplotlib, Seaborn, and Sklearn.</p>
+                                </div>
+
+                                <div class="col-3 col-sm-1 order-2 timeline-icons text-md-center">
+                                    <i class="bi-code timeline-icon"></i>
+                                </div>
+
+                                <div class="col-9 col-md-5 pe-md-3 pe-lg-0 order-1 order-md-3 py-4 timeline-date">
+                                    <span class="featured-number">2019</span>
+                                </div>
+                            </div>
+
+                            <div class="row g-0 justify-content-end justify-content-md-around align-items-start timeline-nodes">
+                                <div class="col-9 col-md-5 me-md-4 me-lg-0 order-3 order-md-1 timeline-content bg-white shadow-lg">
+                                    <h3 class=" text-light">Web Development</h3>
+
+                                    <p>I designed, built, tested, and deployed a fully functioning social media tracking tool. Along the way I learned how to use cool, open source systems like Django, Postgresql, Redis, Docker, Gunicorn, Nginx, and more... </p>
+                                </div>
+
+                                <div class="col-3 col-sm-1 order-2 timeline-icons text-md-center">
+                                    <i class="bi-window-sidebar timeline-icon"></i>
+                                </div>
+
+                                <div class="col-9 col-md-5 ps-md-3 ps-lg-0 order-1 order-md-3 py-4 timeline-date">
+                                    <span class="featured-number">2020</span>
+                                </div>
+                            </div>
+
+                            <div class="row g-0 justify-content-end justify-content-md-around align-items-start timeline-nodes my-lg-5 my-4">
+                                <div class="col-9 col-md-5 ms-md-4 ms-lg-0 order-3 order-md-1 timeline-content bg-white shadow-lg">
+                                    <h3 class=" text-light">Learning Machine Learning</h3>
+
+                                    <p class="mb-0 pb-0">Through University courses and online resources, I got a taste of what machine learning was. I've created neural networks to classify images, used random forest to classify rock formations, and used multi-linear regression to determine how much oil would be produced from thousands of wells. </p>
+                                    
+                                </div>
+
+                                <div class="col-3 col-sm-1 order-2 timeline-icons text-md-center">
+                                    <i class="bi-rss timeline-icon"></i>
+                                </div>
+
+                                <div class="col-9 col-md-5 pe-md-3 pe-lg-0 order-1 order-md-3 py-4 timeline-date">
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row g-0 justify-content-end justify-content-md-around align-items-start timeline-nodes">
+                                <div class="col-9 col-md-5 me-md-4 me-lg-0 order-3 order-md-1 timeline-content bg-white shadow-lg">
+                                    <h3 class=" text-light">Applied Neural Networks</h3>
+
+                                    <p>During an internship at BP, I built, trained, and deployed a neural network model to classify audio. Its small enough to fit on an edge device. Smart, though trained on only a few hundred samples. And efficient enough to run battery powered for about 1 year.</p>
+                                </div>
+
+                                <div class="col-3 col-sm-1 order-2 timeline-icons text-md-center">
+                                    <i class="bi-bezier2 timeline-icon"></i>
+                                </div>
+
+                                <div class="col-9 col-md-5 ps-md-3 ps-lg-0 order-1 order-md-3 py-4 timeline-date">
+                                    <span class="featured-number">2021</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            
+
+            <section class="section-padding" id="contact">
+                <div class="container">
+                    <div class="row">
+                    
+                        <div class="col-lg-8 col-12 mx-auto">
+                            <div class="booking-form">
+                                
+                                <h2 class="text-center mb-lg-3 mb-2">Contact Me</h2>
+                                {% if not contact %}
+                                <h4 class="text-center mb-lg-3 mb-2">Need a cool website? Technical engineering problem? Automation? Machine Learning solutions?</h4>
+                                {% else %}
+                                <h4 class="text-center mb-lg-3 mb-2">I'll get back with you shortly!</h4>
+                                {% endif %}
+                            
+                                <form role="form" action="{% url 'contact-me' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-6 col-12">
+                                            <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+                                        </div>
+
+                                        <div class="col-lg-6 col-12">
+                                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <textarea class="form-control" rows="5" id="message" name="message" placeholder="Message" required></textarea>
+                                        </div>
+
+                                        <div class="col-lg-3 col-md-4 col-6 mx-auto">
+                                            <button type="submit" class="form-control" id="submit-button">Contact</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="{% static 'me/js/jquery.min.js' %}"></script>
+        <script src="{% static 'me/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'me/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'me/js/scrollspy.min.js' %}"></script>
+        <script src="{% static 'me/js/custom.js' %}"></script>
+        <script>
+            // get total github contributions for user ThatcherT
+            $.getJSON('https://api.github.com/users/ThatcherT/repos?callback=foo', function(data) {
+                var contributions = 0;
+                $.each(data, function(i, val) {
+                    contributions += val.stargazers_count;
+                });
+                $('#contributions').html(contributions);
+            });
+        </script>
+        <!-- <script>
+            async function getContributions(token, username) {
+                const headers = {
+                    'Authorization': `bearer ${GITHUB_TOKEN}`,
+                }
+                const body = {
+                    "query": `query {
+                        user(login: "${GITHUB_USERNAME}") {
+                        contributionsCollection {
+                            contributionCalendar {
+                            totalContributions
+                            }
+                        }
+                        }
+                    }`
+                }
+                const response = await fetch('https://api.github.com/graphql', { method: 'POST', body: JSON.stringify(body), headers: headers })
+                const data = await response.json()
+                return data
+            }
+
+            const data = await getContributions('token', 'MeiK2333')
+            console.log(data) -->
+        </script>
+        <!--
+
+TemplateMo 566 Medic Care
+
+https://templatemo.com/tm-566-medic-care
+
+-->
+    </body>
+</html>
