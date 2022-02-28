@@ -18,9 +18,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.PAT_TOKEN }}
-
+      - name: see whats up
+        run: ls -la
       - name: Pull and Push
         run: |
           # pull the subtree, push those changes to the repo
-          git subtree pull --prefix=projects/$PROJECT https://ThatcherT:${{ secrets.PAT_TOKEN }}$REPO master
+          git subtree pull --prefix=projects/$PROJECT https://ThatcherT:${{ secrets.PAT_TOKEN }}$REPO master --squash -m "trigger update"
           git push origin master
