@@ -21,7 +21,7 @@ jobs:
         run: |  
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          git config github.token ${{ secrete.PAT_TOKEN}}
+          git config github.token ${{ secret.PAT_TOKEN}}
 
       - name: Pull and Push
         run: |
