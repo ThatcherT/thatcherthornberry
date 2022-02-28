@@ -3,35 +3,20 @@ name: Deploy to thatcherthornberry on GCE
 on:
   push:
     branches:
-    - prod
+    - master
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  notify-thatcherthornberry:
+    name: Notify thatcherthornberry of Code Update
     runs-on: ubuntu-latest
 
-    # Add "id-token" with the intended permissions.
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v0'
-      with:
-        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v0'
-
-    - name: 'Remove hidden files'
-      run: rm -rf .[^.]*
-    
-    - name: 'Copy files to gcloud'
-      run: gcloud compute scp --recurse --zone=us-central1-a ../me thatcherthornberry:/home/sa_109683913549673363733
-
-    - name: 'Rm Keyfile and Restart Server'
-      run: gcloud compute ssh --zone "us-central1-a" thatcherthornberry --command="rm -f me/gha-creds-*.json && bash /home/sa_109683913549673363733/startserver.sh"
+    - name: Send Repository Dispatch to thatcherthornberry
+      run: |
+        curl \
+        -X POST \
+        -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" \
+        -H "Accept: application/vnd.github.everest-preview+json" \
+        https://api.github.com/repos/ThatcherT/thatcherthornberry/dispatches \
+        --data '{"event_type": "pull-trigger", "client_payload": {"project": "me", "repo": "@github.com:ThatcherT/me.git"}}'
+      # PAT_TOKEN is in the important folder
