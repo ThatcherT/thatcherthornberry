@@ -22,5 +22,5 @@ jobs:
       - name: Pull and Push
         run: |
           # pull the subtree, push those changes to the repo
-          git subtree pull --prefix=projects/$PROJECT https://ThatcherT:${{ secrets.PAT_TOKEN }}$REPO master --squash -m "trigger update"
+          git subtree pull --prefix=projects/$PROJECT https://ThatcherT:${{ secrets.PAT_TOKEN }}$REPO master
           git push origin master
