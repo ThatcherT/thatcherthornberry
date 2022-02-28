@@ -20,8 +20,10 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
           ref: master
           fetch-depth: 0
-      - name: see whats up
-        run: ls -la
+      - name: Git Config
+        run: |
+          git config user.email "thatcherthornberry@gmail.com"
+          git config user.name "Thatcher Thornberry"
       - name: Pull and Push
         run: |
           # pull the subtree, push those changes to the repo
