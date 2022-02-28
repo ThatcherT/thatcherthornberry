@@ -3,7 +3,7 @@ name: Deploy to thatcherthornberry on GCE
 on:
   push:
     branches:
-    - prod
+    - master
 
 jobs:
   setup-build-publish-deploy:
