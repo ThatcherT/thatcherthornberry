@@ -21,9 +21,10 @@ jobs:
         run: |  
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
+          git config github.token ${{ secrete.PAT_TOKEN}}
 
       - name: Pull and Push
         run: |
           # pull the subtree, push those changes to the repo
-          git subtree pull --prefix=projects/$PROJECT https://${{secrets.PAT_TOKEN}}$REPO master --squash
+          git subtree pull --prefix=projects/$PROJECT $REPO master --squash
           git push origin master
