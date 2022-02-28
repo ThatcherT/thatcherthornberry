@@ -1,4 +1,4 @@
-name: Deploy to thatcherthornberry on GCE
+name: Pull Code on Trigger
 
 on:
   repository_dispatch:
