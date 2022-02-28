@@ -1,4 +1,4 @@
-name: Deploy to thatcherthornberry on GCE
+name: Notify thatcherthornberry of Code Changes
 
 on:
   push:
