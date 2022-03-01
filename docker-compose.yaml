@@ -1,1 +1,29 @@
 # This is the master compose file that includes all the other ones.
+version: "3"
+
+volumes:
+  pgdata:
+
+services:
+  nginx:
+    restart: always
+    image: nginx:1.15-alpine
+    depends_on:
+      - web
+    volumes:
+      - ./me/staticfiles:/home/app/web/staticfiles
+      - ./spotifly/staticfiles:/home/app/staticfiles
+      - ./config/etc/letsencrypt:/etc/letsencrypt
+      - ./data/nginx:/etc/nginx/conf.d # this is how we use custom nginx build
+    ports:
+      - "80:80"
+      - "443:443"
+  postgres:
+    restart: always
+    image: postgres:12.0-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
