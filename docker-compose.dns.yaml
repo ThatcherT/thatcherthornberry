@@ -15,5 +15,5 @@ services:
       - EMAIL=thatcherthornberry@gmail.com
       - DHLEVEL=4096
     volumes:
-      - /home/sa_109683913549673363733/config:/config
+      - ./config:/config
     restart: unless-stopped
