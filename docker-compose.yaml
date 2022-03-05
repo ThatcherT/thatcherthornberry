@@ -29,7 +29,7 @@ services:
       - .env
   spotiflyweb:
     restart: always
-    build: .
+    build: ./projects/spotifly
     image: thatcherthornberry/spotifly:latest
     command: gunicorn music.wsgi:application --bind 0.0.0.0:8001
     expose:
@@ -38,7 +38,7 @@ services:
       - ./projects/spotifly/.env
   web:
     restart: always
-    build: .
+    build: ./projects/me
     image: thatcherthornberry
     command: gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000
     expose:
