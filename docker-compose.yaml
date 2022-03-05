@@ -31,16 +31,18 @@ services:
     restart: always
     build: ./projects/spotifly
     image: thatcherthornberry/spotifly:latest
-    command: gunicorn music.wsgi:application --bind 0.0.0.0:8001
+    command: gunicorn music.wsgi:application --bind 0.0.0.0:8001 && python manage.py migrate
     expose:
       - "8001"
     env_file:
       - ./projects/spotifly/.env
+    depends_on:
+      - postgres
   web:
     restart: always
     build: ./projects/me
     image: thatcherthornberry
-    command: gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000
+    command: gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000 && python manage.py migrate
     expose:
       - "8000"
     env_file:
