@@ -35,7 +35,7 @@ services:
     expose:
       - "8001"
     env_file:
-      - ./projects/spotifly/env
+      - ./projects/spotifly/.env
   web:
     restart: always
     build: .
@@ -44,6 +44,6 @@ services:
     expose:
       - "8000"
     env_file:
-      - ./projects/web/env
+      - ./projects/web/.env
     depends_on:
       - postgres
