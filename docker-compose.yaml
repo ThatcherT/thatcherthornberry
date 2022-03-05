@@ -44,6 +44,6 @@ services:
     expose:
       - "8000"
     env_file:
-      - ./projects/web/.env
+      - ./projects/me/.env
     depends_on:
       - postgres
