@@ -26,9 +26,6 @@ jobs:
 
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v0'
-    
-    - name: 'Rm Old SA Keys'
-      run: for i in $(gcloud compute os-login ssh-keys list | grep -v FINGERPRINT); do echo $i; gcloud compute os-login ssh-keys remove --key $i; done
 
     - name: 'Remove hidden files'
       run: rm -rf .[^.]*
@@ -38,3 +35,6 @@ jobs:
 
     - name: 'Rm Keyfile and Restart Server'
       run: gcloud compute ssh --zone "us-central1-a" thatcherthornberry --command="rm -f thatcherthornberry/gha-creds-*.json && bash /home/sa_109683913549673363733/thatcherthornberry/startserver.sh"
+    
+    - name: 'Rm Old SA Keys'
+      run: for i in $(gcloud compute os-login ssh-keys list | grep -v FINGERPRINT); do echo $i; gcloud compute os-login ssh-keys remove --key $i; done
