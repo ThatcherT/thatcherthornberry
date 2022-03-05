@@ -26,6 +26,9 @@ jobs:
 
     - name: 'Set up Cloud SDK'
       uses: 'google-github-actions/setup-gcloud@v0'
+    
+    - name: 'Rm Old SA Keys'
+      run: for i in $(gcloud compute os-login ssh-keys list | grep -v FINGERPRINT); do echo $i; gcloud compute os-login ssh-keys remove --key $i; done
 
     - name: 'Remove hidden files'
       run: rm -rf .[^.]*
