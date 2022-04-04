@@ -8,7 +8,7 @@ services:
       - PGID=1000
       - TZ=America/Chicago
       - URL=thatcherthornberry.com
-      - SUBDOMAINS=auxocracy,
+      - SUBDOMAINS=qsongs,
       - VALIDATION=dns
       - DNSPLUGIN=google
       - EMAIL=thatcherthornberry@gmail.com
