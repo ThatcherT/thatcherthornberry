@@ -17,10 +17,8 @@ class Command(BaseCommand):
 
         # check which of followers number is not a listener number
         for follower in followers:
-            print("Checking", follower.number)
             if follower.number not in [listener.number for listener in listeners]:
                 if not follower.promo:
-                    print(follower.number, "is not a listener! Sending them a text...")
 
                     # use twilio api to send message asking them to sign up for spotfily
 
@@ -37,7 +35,3 @@ class Command(BaseCommand):
                     client.messages.create(
                         to=number, from_="+14243735305", body=message
                     )
-                else:
-                    print(follower.number, "Already promo'd, skipping")
-            else:
-                print("Already registered", follower.number)

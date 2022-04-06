@@ -22,7 +22,6 @@ def follow_message(message_body, from_number):
     # get user from database
     following = message_body.partition(" ")[-1]
     # get user
-    print("Trying to follow: ", following)
     try:
         user = Listener.objects.get(name=following)
     # TODO: use django's ObjectDoesNotExist exception
