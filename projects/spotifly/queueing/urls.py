@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from queueing.views import views, SMS, ajax 
+
 urlpatterns = [
     path("", views.home, name="home"),
     path('spotify/connect-link/', views.spotify_connect_link, name="spotify_connect_link"),
