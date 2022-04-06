@@ -10,13 +10,13 @@ def get_uri_from_song_artist(song, artist, sp):
     print('searching for: ' + q)
     uri_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
     if len(uri_lst) == 0:
-        uri_lst = sp.search(q=song, type="track", market="US")["tracks"]["items"]
+        uri_lst = sp.search(q=song, type="track", market="US")[
+            "tracks"]["items"]
         if len(uri_lst) == 0:
             no_results_msg = f"No results found for `{song} by {artist}`. Try again."
             # if there are no results,  guess we should return a string saying so
-            return no_results_msg, None # return two variables so things work
+            return no_results_msg, None  # return two variables so things work
     uri = uri_lst[0]["id"]
-    print(uri, 'uir')
     return uri, uri_lst
 
 
@@ -36,7 +36,8 @@ def get_uri_from_q(message_body, sp):
             "items"
         ]
         if len(uri_lst) == 0:
-            uri_lst = sp.search(q=track, type="track", market="US")["tracks"]["items"]
+            uri_lst = sp.search(q=track, type="track", market="US")[
+                "tracks"]["items"]
             if len(uri_lst) == 0:
                 no_results_msg = f"No results found for `{track_by_artist}`. Try again."
                 # TODO im pretty sure I broke this while refactoring...
@@ -45,7 +46,7 @@ def get_uri_from_q(message_body, sp):
     return uri, uri_lst
 
 
-
+# queue 50 random songs
 def queue_50_songs(sp, listener):
     for _ in range(50):
         # init empty list to queue next song
@@ -54,7 +55,8 @@ def queue_50_songs(sp, listener):
             random_offset = random.randint(
                 0, listener.max_offset
             )  # get a random song between 0 and current known max offset
-            results = sp.current_user_saved_tracks(limit=1, offset=random_offset)
+            results = sp.current_user_saved_tracks(
+                limit=1, offset=random_offset)
             song = list(results["items"])
             if song == []:
                 # max_offset is too high rebase it at one under current random offset

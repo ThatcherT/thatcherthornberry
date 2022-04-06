@@ -1,20 +1,15 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from queueing import views
-
+from queueing.views import views, SMS, ajax 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("home/", views.home, name="home"),
-    path("home/<dj>/", views.home, name="home"),
-    path("sms/", views.SMS.as_view()),
-    path("sms-failed/", views.sms_failed),
+    path('spotify/connect-link/', views.spotify_connect_link, name="spotify_connect_link"),
+    path('ajax/follow-dj/', ajax.follow_dj, name="follow_dj"),
+    path('ajax/shuffle/', ajax.shuffle, name="shuffle"),
     path("redirect/", views.sp_redirect),
-    path("register/<code>/", views.register, name="register"),
-    path("send/", views.send.as_view()),
-    path("queue/", views.queue, name="queue"),
-    path("choose-dj/", views.choose_dj, name="choose-dj"),
-    path("shuffle/", views.shuffle, name="shuffle"),
-    path('auth/<listener_name>/', views.auth, name='auth'),
+    path("sms/", SMS.SMS.as_view()),
+    path("sms-failed/", SMS.sms_failed),
+    path("send/", SMS.send.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

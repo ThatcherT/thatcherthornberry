@@ -3,9 +3,9 @@ import spotipy
 
 
 sp_oauth = spotipy.oauth2.SpotifyOAuth(
-    config("SPOTIPY_CLIENT_ID"),
-    config("SPOTIPY_CLIENT_SECRET"),
-    config("SPOTIPY_REDIRECT_URI"),
+    config("SPOTIFY_CLIENT_ID"),
+    config("SPOTIFY_CLIENT_SECRET"),
+    config("SPOTIFY_REDIRECT_URI"),
     scope=[
         "user-library-read",
         "user-read-playback-state",
