@@ -20,6 +20,11 @@ def get_uri_from_song_artist(song, artist, sp):
     return uri, uri_lst
 
 
+# gets the first song URI that shows up from search
+def get_uri_from_song_name(song, sp):
+    return sp.search(q=f'track: {song}', type="track", market="US")["tracks"]["items"][0]["id"]
+
+
 def get_uri_from_q(message_body, sp):
     track_by_artist = message_body.partition(" ")[-1]
     if "by" in track_by_artist:
@@ -30,6 +35,7 @@ def get_uri_from_q(message_body, sp):
     else:
         track = track_by_artist
         q = "track:" + track
+    print('searching for: ' + q)
     uri_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
     if len(uri_lst) == 0:
         uri_lst = sp.search(q=track_by_artist, type="track", market="US")["tracks"][

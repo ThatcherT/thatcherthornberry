@@ -6,6 +6,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path('spotify/connect-link/', views.spotify_connect_link, name="spotify_connect_link"),
     path('ajax/follow-dj/', ajax.follow_dj, name="follow_dj"),
+    path('ajax/queue/', ajax.queue, name="queue"),
     path('ajax/shuffle/', ajax.shuffle, name="shuffle"),
     path("redirect/", views.sp_redirect),
     path("sms/", SMS.SMS.as_view()),

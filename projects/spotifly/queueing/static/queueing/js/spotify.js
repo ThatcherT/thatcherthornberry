@@ -36,10 +36,7 @@ function followDJ() {
     dataType: "json",
     success: function (data) {
       // update jQuery data
-      console.log("success!");
       jQuery.data(document.body, "followingDJ", followingDJ);
-      console.log("loading page");
-      console.log(jQuery.data(document.body, "followingDJ"));
       loadPage();
 
       return true;
@@ -49,5 +46,24 @@ function followDJ() {
       console.log(status, error);
       return false;
     },
+  });
+}
+
+function queue() {
+  console.log("queue");
+  // get dj from session
+  const followingDJ = jQuery.data(document.body, "followingDJ");
+  const song = document.getElementById("queue-song-input").value;
+  $.ajax({
+    url: "/ajax/queue/",
+    type: "POST",
+    data: {
+      csrfmiddlewaretoken: window.CSRF_TOKEN,
+      song: song,
+      dj: followingDJ,
+    },
+    success: function (data) {
+      return true;
+    }
   });
 }
