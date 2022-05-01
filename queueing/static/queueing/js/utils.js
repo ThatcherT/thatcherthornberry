@@ -4,13 +4,13 @@ This document contains some helpful utils for shuffling, following, and queueing
 
 followingDJ = jQuery.data(document.body, "followingDJ")
 IAmDJ = jQuery.data(document.body, "IAmDJ")
-console.log(IAMDJ, followingDJ);
+console.log(IAmDJ, followingDJ);
 // STARTUP SCRIPT RUNS EVERY TIME!!!!!
 loadPage();
 
 function loadPage() {
   // check if any DJ relations exist
-  if ( followingDJ || IAmDJ) {
+  if (followingDJ || IAmDJ) {
     const bottomBar = document.getElementById("bottom-bar");
     bottomBar.style.display = "";
     if (IAmDJ) {

@@ -44,4 +44,12 @@ def queue(request):
         msg = 'There was an error trying to add {} to the queue: {}'.format(song, e)
     return JsonResponse({'msg': msg})
 
-# do something here with a new function
+def get_djs(request):
+    """
+    get the listener objects from the database
+    """
+    djs = Listener.objects.all()
+    djs_list = []
+    for dj in djs:
+        djs_list.append(dj.name)
+    return JsonResponse({'djs': djs_list})

@@ -8,6 +8,7 @@ urlpatterns = [
     path('ajax/follow-dj/', ajax.follow_dj, name="follow_dj"),
     path('ajax/queue/', ajax.queue, name="queue"),
     path('ajax/shuffle/', ajax.shuffle, name="shuffle"),
+    path('ajax/get-djs/', ajax.get_djs, name="get_djs"),
     path("redirect/", views.sp_redirect),
     path("sms/", SMS.SMS.as_view()),
     path("sms-failed/", SMS.sms_failed),
