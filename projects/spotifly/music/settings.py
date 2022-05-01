@@ -141,8 +141,8 @@ EMAIL_USE_TLS = True
 #############################################################################
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'queueing', 'serviceworker.js')
 
-PWA_APP_NAME = 'Spotifly'
-PWA_APP_DESCRIPTION = "Give Spotify Wings."
+PWA_APP_NAME = 'QSongs'
+PWA_APP_DESCRIPTION = "Queue Songs."
 PWA_APP_THEME_COLOR = '#0A0302'
 PWA_APP_BACKGROUND_COLOR = '#000000'
 PWA_APP_DISPLAY = 'standalone'
