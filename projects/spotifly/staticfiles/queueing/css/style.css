@@ -1,0 +1,151 @@
+html,
+body {
+    background-color: #1a2327;
+    color: white;
+    height: 100%;
+}
+
+.container-fluid {
+    width: 100%;
+    min-height: 100%;
+    font-size: 4rem;
+    text-align: center;
+}
+
+/* MAIN SECTION */
+.main-content {
+    position: absolute;
+    width: 100%;
+    top: 25%;
+    left: 0;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+/* TODO: add back fade in */
+.fade-out {
+    visibility: hidden;
+    opacity: 0;
+    /* transition: visibility 0s 1s, opacity 1s linear; */
+}
+
+.fade-in {
+    visibility: visible;
+    opacity: 1;
+    /* transition: visibility 1s 1s, opacity 1s linear; */
+}
+
+.get-started {
+    position: absolute;
+    bottom: 10%;
+    text-align: left;
+}
+
+.get-started:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* FORM */
+.form-head {
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    top: 25%;
+}
+
+.dj-form {
+    position: relative;
+    left: 10%;
+    width: 80%;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+.dj-form button {
+    font-size: 3rem;
+}
+
+.form-submit {
+    margin-top: 10%;
+}
+
+.form-group {
+    margin-top: 10%;
+}
+
+/* $BARZ$ */
+
+.top-bar {
+    padding-top: 7%;
+    padding-bottom: 7%;
+}
+
+.top-bar-content {
+    font-size: 3rem;
+}
+
+.bottom-bar {
+    height: 10%;
+}
+
+.bottom-bar .nav-icon {
+    /* invert svg colors from black to white */
+    height: 90px;
+    width: 90px;
+    filter: invert(50%);
+}
+
+.bottom-bar .nav-icon:hover {
+    filter: invert(100%);
+}
+
+.bottom-bar .active {
+    filter: invert(100%) !important;
+}
+
+/* BOOTSTRAP OVERRIDES */
+
+.btn-primary {
+    background-color: #3f5761;
+    border-color: #1a2327;
+}
+
+.btn-primary:hover {
+    background-color: #1a2327;
+    border-color: #3f5761;
+}
+
+.btn-primary:active {
+    background-color: #1a2327;
+    border-color: #3f5761;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.btn-primary:focus {
+    background-color: #1a2327;
+    border-color: #3f5761;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* UTILS */
+
+.big-ole-btn {
+    margin-top: 10%;
+    font-size: 4rem;
+}
+
+.big-ole-form-input {
+    height: 90px;
+    margin-top: 10%;
+    font-size: 4rem;
+}
+
+h1 {
+    position: relative;
+    top: -343%;
+}
