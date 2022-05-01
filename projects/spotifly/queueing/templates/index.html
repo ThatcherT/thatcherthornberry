@@ -64,14 +64,16 @@
     window.CSRF_TOKEN = '{{ csrf_token }}';
 </script>
 <script>
+    // set these jquery variables from django session
     jQuery.data(document.body, "IAmDJ", "{{ request.session.IAmDJ|default:'' }}");
     jQuery.data(document.body, "followingDJ", "{{ request.session.followingDJ|default:'' }}");
 </script>
 
-<script src="{% static 'queueing/js/welcome.js' %}"></script>
-<script src="{% static 'queueing/js/bottomBar.js' %}"></script>
-<script src="{% static 'queueing/js/loadPage.js' %}"></script>
-<script src="{% static 'queueing/js/spotify.js' %}"></script>
+<script src="{% static 'queueing/js/pages/welcome.js' %}"></script>
+<script src="{% static 'queueing/js/pages/queuePage.js' %}"></script>
+<script src="{% static 'queueing/js/pages/profilePage.js' %}"></script>
+<script src="{% static 'queueing/js/pages/DJPage.js' %}"></script>
+<script src="{% static 'queueing/js/utils.js' %}"></script>
 
 
 </html>

@@ -36,6 +36,12 @@ def queue(request):
     sp = get_spotify_client(listener)
     uri = get_uri_from_song_name(song, sp)
     # add to queue
-    sp.add_to_queue(uri, device_id=None)
-    return JsonResponse({'success': True})
+    try:
+        sp.add_to_queue(uri, device_id=None)
+        msg = 'We added {} to the queue!'.format(song)
+    except Exception as e:
+        print('there was an error trying to add to queue', e)
+        msg = 'There was an error trying to add {} to the queue: {}'.format(song, e)
+    return JsonResponse({'msg': msg})
 
+# do something here with a new function
