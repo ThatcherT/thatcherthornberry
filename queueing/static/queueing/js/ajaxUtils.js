@@ -52,15 +52,15 @@ function shuffle() {
         dataType: "json",
         success: function (data) {
             // shuffle success message
-            document.getElementById("shuffle-message").style.display = "";
-            document.getElementById("shuffle-message").style.color = "green";
-            document.getElementById("shuffle-message").innerHTML = "Shuffled!";
+            document.getElementById("profile-page-message").style.display = "";
+            document.getElementById("profile-page-message").style.color = "green";
+            document.getElementById("profile-page-message").innerHTML = "Shuffled!";
         },
         error: function (xhr, status, error) {
             // shuffle error message
-            document.getElementById("shuffle-message").style.display = "";
-            document.getElementById("shuffle-message").style.color = "red";
-            document.getElementById("shuffle-message").innerHTML = "Some error.. sorry";
+            document.getElementById("profile-page-message").style.display = "";
+            document.getElementById("profile-page-message").style.color = "red";
+            document.getElementById("profile-page-message").innerHTML = "Some error.. sorry";
         },
     });
 }

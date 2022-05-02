@@ -20,10 +20,15 @@ function loadProfilePage() {
                   </div>
               </div>
               <div class="row">
+                    <div class="col-12">
+                        <button id="copy-invite-link" class="btn btn-primary btn-lg big-ole-btn" onClick="copyInviteToClipboard()">
+                            Copy Invite Link
+                        </button>
+                    </div>
+              </div>
+              <div class="row">
                   <div class="col-12">
-                      <p id="shuffle-message" style="padding-top: 10%; display: none;">
-                          Shuffle Message
-                      </p>
+                      <p id="profile-page-message" style="padding-top: 10%;"></p>
                   </div>
               </div>`;
     } else {
@@ -44,9 +49,9 @@ function loadProfilePage() {
               <div class="row">
                   <div class="col-12">
                       <a href="${data.url}">
-                      <button id="connect-with-spotify" class="btn btn-primary btn-lg big-ole-btn" style="background-color: green;">
-                      Connect with Spotify
-                  </button>
+                        <button id="connect-with-spotify" class="btn btn-primary btn-lg big-ole-btn" style="background-color: green;">
+                            Connect with Spotify
+                        </button>
                       </a>
                   </div>
               </div>`;
