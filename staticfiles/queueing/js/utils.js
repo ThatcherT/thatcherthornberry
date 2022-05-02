@@ -182,7 +182,7 @@ function copyInviteToClipboard() {
   // the invite link is qsongs.thatcherthornberry.com/invite-link/<IAmDJ>
 
   const IAmDJ = getIAmDJ();
-  const inviteLink = `https://qsongs.thatcherthornberry.com/invite-link/${IAmDJ}`;
+  const inviteLink = `https://qsongs.thatcherthornberry.com/invite-link/${IAmDJ}/`;
   // copy to clipboard
   navigator.clipboard.writeText(inviteLink);
   // show message
