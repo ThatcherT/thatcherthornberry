@@ -29,103 +29,144 @@ function loadPage() {
 }
 
 
-// send ajax to server and shuffle for IAmDJ
-function shuffle() {
-  $.ajax({
-    url: "/ajax/shuffle/",
-    data: {
-      IAmDJ: getIAmDJ(),
-      csrfmiddlewaretoken: window.CSRF_TOKEN,
-    },
-    type: "POST",
-    dataType: "json",
-    success: function (data) {
-      // shuffle success message
-      document.getElementById("shuffle-message").style.display = "";
-      document.getElementById("shuffle-message").style.color = "green";
-      document.getElementById("shuffle-message").innerHTML = "Shuffled!";
-    },
-    error: function (xhr, status, error) {
-      // shuffle error message
-      document.getElementById("shuffle-message").style.display = "";
-      document.getElementById("shuffle-message").style.color = "red";
-      document.getElementById("shuffle-message").innerHTML = "Some error.. sorry";
-    },
-  });
-}
+// from an array of objects, add rows to the div with id="search-results"
+// each object should have its on row
+// it should have columns that show relevant information like:
+//  songObj.name
+//  songObj.album.images[0] (highest res)
+//  songObj.artists which is an array of objects that have attribute name
+function showSongsOnQueuePage(songObjs) {
+  const searchResults = document.getElementById("search-results");
+  // empty any previous results
+  searchResults.innerHTML = "";
+  // add rows to div
+  // only use the first 5 results
+  songObjs.slice(0, 5).forEach(function (songObj) {
 
-function followDJ() {
-  // store dj in session
-  const followingDJ = document.getElementById("dj-select").value;
-  // if value is 'Select a DJ', show error message
-  if (followingDJ === "Select a DJ") {
-    document.getElementById("follow-dj-error").innerHTML = "Use the dropdown!";
-    return;
-  }
-  $.ajax({
-    url: "/ajax/follow-dj/",
-    type: "POST",
-    data: {
-      csrfmiddlewaretoken: window.CSRF_TOKEN,
-      followingDJ: followingDJ,
-    },
-    dataType: "json",
-    success: function (data) {
-      // update jQuery data
-      jQuery.data(document.body, "followingDJ", followingDJ);
-      loadDJPage();
-      return true;
-    },
-    error: function (xhr, status, error) {
-      alert(xhr.responseText);
-      console.log(status, error);
-      document.getElementById("follow-dj-error").innerHTML = "IDK what happened";
-      return false;
-    },
-  });
-}
+    // IMPORTANT: this is the songs unique identifier
+    const URI = songObj.uri;
+    // create row, this is all the song data
+    const row = document.createElement("div");
+    row.classList.add("row", "search-item");
+    // add an attribute data-uri to the row
+    row.setAttribute("data-uri", URI);
 
+    // album image
+    const albumImageCol = document.createElement("div");
+    albumImageCol.classList.add("col-3");
+    row.appendChild(albumImageCol);
+    const albumImage = document.createElement("img");
+    albumImage.src = songObj.album.images[1].url;
+    albumImage.style.width = "128px";
+    albumImage.style.height = "128px";
+    albumImageCol.appendChild(albumImage);
 
-// remove the followDJ from django session
-function unfollowDJ() {
-  $.ajax({
-    url: "/ajax/unfollow-dj/",
-    type: "POST",
-    data: {
-      csrfmiddlewaretoken: window.CSRF_TOKEN,
-      followingDJ: getFollowingDJ(),
-    },
-    dataType: "json",
-    success: function (data) {
-      // update jQuery data
-      jQuery.data(document.body, "followingDJ", null);
-      loadDJPage();
-      return true;
-    },
-    error: function (xhr, status, error) {
-      alert(xhr.responseText);
-      console.log(status, error);
-      document.getElementById("follow-dj-error").innerHTML = "IDK what happened";
-      return false;
-    },
-  });
-}
+    // I feel like I should clarify what I am trying to achieve here...
+    // the second column should be a div with a class of "col-10"
+    // this column will contain two rows:
+    // the first row will have the song name
+    // the second row will have the artist names
+    // technically, each row will have a single column as bootstrap requires (I think?)
 
-// send an ajax request with local storage data and data from an input element
-function queue() {
-  // get dj from session
-  const song = document.getElementById("queue-song-input").value;
-  $.ajax({
-    url: "/ajax/queue/",
-    type: "POST",
-    data: {
-      csrfmiddlewaretoken: window.CSRF_TOKEN,
-      song: song,
-      dj: getFollowingDJ(),
-    },
-    success: function (data) {
-      return data.msg;
+    // this is the main column, containing the song details
+    const songDetails = document.createElement("div");
+    songDetails.classList.add("col");
+    // append this column to the row
+    row.appendChild(songDetails);
+
+    // the first row will have the song name
+    const songNameRow = document.createElement("div");
+    songNameRow.classList.add("row", "song-title");
+    // append this row to the main column
+    songDetails.appendChild(songNameRow);
+    // technically, the name will be in a column, in the row
+    const songName = document.createElement("div");
+    songName.classList.add("col", "text-left");
+    // limit name to 30 characters, if greater than 30 characters, add ...
+    if (songObj.name.length > 30) {
+      songName.innerHTML = songObj.name.substring(0, 27) + "...";
+    } else {
+      songName.innerHTML = songObj.name;
     }
+    // append this column to the row
+    songNameRow.appendChild(songName);
+
+    // the second row will have the artist names
+    const songArtistRow = document.createElement("div");
+    songArtistRow.classList.add("row", "song-artist");
+    // append this row to the main column
+    songDetails.appendChild(songArtistRow);
+    // technically, the artist names will be in a column, in the row
+    const songArtist = document.createElement("div");
+    songArtist.classList.add("col", "text-left");
+    const artistStr = songObj.artists.map(function (artist) {
+      return artist.name;
+    }).join(", ");
+    // limit artist names to 30 characters, if greater than 30 characters, add ...
+    if (artistStr.length > 40) {
+      songArtist.innerHTML = artistStr.substring(0, 37) + "...";
+    } else {
+      songArtist.innerHTML = artistStr;
+    }
+    // append this column to the row
+    songArtistRow.appendChild(songArtist);
+
+    // append this row to the div
+    searchResults.appendChild(row);
+
+    // add a click event to the row
+    row.addEventListener("click", async function () {
+      // get clicked element
+      let clickedElement = event.target;
+      // get the data-uri attribute from the clicked element
+      let URI = clickedElement.getAttribute("data-uri");
+      // while no URI
+      let safeCounter = 0;
+      while (!URI) {
+        // get the parent of the clicked element
+        clickedElement = clickedElement.parentElement;
+        // get the data-uri attribute from the parent element
+        URI = clickedElement.getAttribute("data-uri");
+        safeCounter++;
+        // if we have gone too far, break
+        if (safeCounter > 5) {
+          console.log("could not find URI!!!!! badness");
+          break;
+        }
+      }
+      // if we have a URI, we got the row containing the song data
+      if (URI) {
+        // add the song to the queue
+        const response = await queue(URI);
+        if (response.success) {
+          // change the color of clicked element to green
+          clickedElement.style.color = "green";
+          // get element with id "queue-message"
+          const queueMessage = document.getElementById("queue-message");
+          // change the text of the element to "added to queue"
+          queueMessage.innerHTML = "Queued!";
+          // add class success-message
+          queueMessage.classList.remove("error-message");
+          queueMessage.classList.add("success-message");
+        } else {
+          // change the color of clicked element to red
+          clickedElement.style.color = "red";
+          // get element with id "queue-message"
+          const queueMessage = document.getElementById("queue-message");
+          // see if response.error contains "NO_ACTIVE_DEVICE"
+          if (response.error.includes("NO_ACTIVE_DEVICE")) {
+            queueMessage.innerHTML = "Your DJ isn't playing music!";
+          } else {
+            queueMessage.innerHTML = response.error;
+          }
+          // add class error-message
+          queueMessage.classList.remove("success-message");
+          queueMessage.classList.add("error-message");
+        }
+      } else {
+        console.log("since there is no URI... idk what you want me to do here :/");
+      }
+    });
   });
 }
 
