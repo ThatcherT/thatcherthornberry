@@ -44,9 +44,9 @@ function loadProfilePage() {
               <div class="row">
                   <div class="col-12">
                       <a href="${data.url}">
-                          <button id="connect-with-spotify" class="btn btn-primary btn-lg">
-                              Connect with Spotify
-                          </button>
+                      <button id="connect-with-spotify" class="btn btn-primary btn-lg big-ole-btn" style="background-color: green;">
+                      Connect with Spotify
+                  </button>
                       </a>
                   </div>
               </div>`;
