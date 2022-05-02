@@ -84,6 +84,10 @@ function followDJ() {
         success: function (data) {
             // update jQuery data
             jQuery.data(document.body, "followingDJ", followingDJ);
+            // weird bug that causes invisible bottom bar..
+            const bottomBar = document.getElementById("bottom-bar");
+            bottomBar.style.display = "";
+            // show the DJ Page
             loadDJPage();
             return true;
         },
