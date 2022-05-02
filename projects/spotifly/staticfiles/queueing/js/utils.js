@@ -2,18 +2,23 @@
 This document contains some helpful utils for shuffling, following, and queueing, loadpage, other.
 */
 
-followingDJ = jQuery.data(document.body, "followingDJ")
-IAmDJ = jQuery.data(document.body, "IAmDJ")
-console.log(IAmDJ, followingDJ);
+function getFollowingDJ() {
+  return jQuery.data(document.body, "followingDJ")
+}
+
+function getIAmDJ() {
+  return jQuery.data(document.body, "IAmDJ")
+}
+
 // STARTUP SCRIPT RUNS EVERY TIME!!!!!
 loadPage();
 
 function loadPage() {
   // check if any DJ relations exist
-  if (followingDJ || IAmDJ) {
+  if (getFollowingDJ() || getIAmDJ()) {
     const bottomBar = document.getElementById("bottom-bar");
     bottomBar.style.display = "";
-    if (IAmDJ) {
+    if (getIAmDJ()) {
       loadProfilePage();
     } else {
       loadDJPage();
@@ -29,7 +34,7 @@ function shuffle() {
   $.ajax({
     url: "/ajax/shuffle/",
     data: {
-      IAmDJ: IAmDJ,
+      IAmDJ: getIAmDJ(),
       csrfmiddlewaretoken: window.CSRF_TOKEN,
     },
     type: "POST",
@@ -51,7 +56,12 @@ function shuffle() {
 
 function followDJ() {
   // store dj in session
-  const followingDJ = document.getElementById("follow-dj").value;
+  const followingDJ = document.getElementById("dj-select").value;
+  // if value is 'Select a DJ', show error message
+  if (followingDJ === "Select a DJ") {
+    document.getElementById("follow-dj-error").innerHTML = "Use the dropdown!";
+    return;
+  }
   $.ajax({
     url: "/ajax/follow-dj/",
     type: "POST",
@@ -62,13 +72,40 @@ function followDJ() {
     dataType: "json",
     success: function (data) {
       // update jQuery data
-      loadPage();
-
+      jQuery.data(document.body, "followingDJ", followingDJ);
+      loadDJPage();
       return true;
     },
     error: function (xhr, status, error) {
       alert(xhr.responseText);
       console.log(status, error);
+      document.getElementById("follow-dj-error").innerHTML = "IDK what happened";
+      return false;
+    },
+  });
+}
+
+
+// remove the followDJ from django session
+function unfollowDJ() {
+  $.ajax({
+    url: "/ajax/unfollow-dj/",
+    type: "POST",
+    data: {
+      csrfmiddlewaretoken: window.CSRF_TOKEN,
+      followingDJ: getFollowingDJ(),
+    },
+    dataType: "json",
+    success: function (data) {
+      // update jQuery data
+      jQuery.data(document.body, "followingDJ", null);
+      loadDJPage();
+      return true;
+    },
+    error: function (xhr, status, error) {
+      alert(xhr.responseText);
+      console.log(status, error);
+      document.getElementById("follow-dj-error").innerHTML = "IDK what happened";
       return false;
     },
   });
@@ -84,7 +121,7 @@ function queue() {
     data: {
       csrfmiddlewaretoken: window.CSRF_TOKEN,
       song: song,
-      dj: followingDJ,
+      dj: getFollowingDJ(),
     },
     success: function (data) {
       return data.msg;

@@ -113,6 +113,10 @@ body {
     border-color: #1a2327;
 }
 
+.btn-warning {
+    background-color: #941d1d;
+}
+
 .btn-primary:hover {
     background-color: #1a2327;
     border-color: #3f5761;
@@ -139,6 +143,23 @@ body {
     font-size: 4rem;
 }
 
+.bootstrap-select .big-ole-btn {
+    font-size: 3rem;
+}
+
+.bootstrap-select {
+    width: 100% !important;
+}
+
+.dropdown-menu {
+    font-size: 3rem;
+}
+
+.form-control {
+    font-size: 3rem;
+    height: inherit;
+}
+
 .big-ole-form-input {
     height: 90px;
     margin-top: 10%;
@@ -147,5 +168,11 @@ body {
 
 h1 {
     position: relative;
+    /* this is probably a good way to achieve what I want */
     top: -343%;
+}
+
+.error-message {
+    color: red;
+    font-size: 3rem;
 }
