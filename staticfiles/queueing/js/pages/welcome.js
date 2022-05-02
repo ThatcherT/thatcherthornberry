@@ -50,7 +50,8 @@ var djFormHeader = `
 
 
 // shows the form to follow a dj
-function followDJButton() {
+async function followDJButton() {
+    const djObj = await getDJs();
     mainContent.innerHTML =
         djFormHeader +
         `<div class="row">
