@@ -1,7 +1,7 @@
 // Profile Page
 function loadProfilePage() {
     updateActiveIcon(document.getElementById("profile-icon"));
-    if (IAmDJ) {
+    if (getIAmDJ()) {
       mainContent.innerHTML = `
               <div class="row">
                   <div class="col-12">
@@ -14,7 +14,7 @@ function loadProfilePage() {
                           This is your profile.
                       </p>
                       <p>
-                          You are DJ ${IAmDJ}
+                          You are DJ ${getIAmDJ()}
                       </p>
                       <button class="btn btn-primary big-ole-btn" onclick="shuffle()">Shuffle</button>
                   </div>

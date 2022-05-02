@@ -56,4 +56,5 @@ def sp_redirect(request):
     listener.expires_at = token_info["expires_at"]
     listener.save()
     request.session["IAmDJ"] = username
+    request.session.set_expiry(60*60*24*365*10) # expire in ten year
     return HttpResponseRedirect(reverse("home"))

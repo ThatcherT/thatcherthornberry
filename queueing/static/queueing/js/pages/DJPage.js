@@ -21,7 +21,7 @@ async function getDJs() {
 async function loadDJPage() {
     updateActiveIcon(document.getElementById("dj-icon"));
 
-    if (followingDJ) {
+    if (getFollowingDJ()) {
         mainContent.innerHTML = `
               <div class="row">
                   <div class="col-12">
@@ -31,10 +31,15 @@ async function loadDJPage() {
               <div class="row">
                   <div class="col-12">
                       <p>
-                          You are following ${followingDJ}
+                          You are following ${getFollowingDJ()}
                       </p>
                   </div>
-              </div>`;
+              </div>
+              <div class="row">
+                    <div class="col-12">
+                        <button class="btn big-ole-btn btn-warning" onclick="unfollowDJ()">Unfollow</button>
+                    </div>
+                </div>`;
     } else {
         const djObj = await getDJs();
         mainContent.innerHTML = `
@@ -45,7 +50,7 @@ async function loadDJPage() {
             </div>
             <div class="row">
                 <div class="col-12">
-                    <select id="dj-select" class="selectpicker dj-select" data-live-search="true">
+                    <select id="dj-select" class="selectpicker" data-style="btn-lg big-ole-btn" data-size="10" data-live-search="true">
                         <option selected disabled>Select a DJ</option>
                         ${djObj.djs.map(dj => `<option value="${dj}">${dj}</option>`).join("")}
                     </select>
@@ -53,12 +58,16 @@ async function loadDJPage() {
             </div>
             <div class="row">
                 <div class="col-12">
-                    <button id="follow-dj-btn" class="btn btn-primary btn-lg form-submit big-ole-btn">
+                    <button id="follow-dj-btn" class="btn btn-primary btn-lg form-submit big-ole-btn" onClick="followDJ()">
                         Submit
                     </button>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p id="follow-dj-error" class="error-message"></p>
+                </div>
             </div>`;
-        console.log('refreshing :)')
         $('#dj-select').selectpicker().selectpicker('refresh');
     }
 }
