@@ -8,19 +8,23 @@
     {% progressive_web_app_meta %}
     <meta charset="utf-8">
     <!-- bootstrap css -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!-- custom css :<) -->
     <link rel="stylesheet" href="{% static 'queueing/css/style.css' %}">
     <!-- jquery bootstrap select plugin css-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
 </head>
 
 <body>
     <div class="container-fluid" id="container-fluid">
         <!-- BEGIN NAVBAR -->
-        <nav class="navbar navbar-expand navbar-dark bg-dark top-bar">
-            <a class="navbar-brand mx-auto top-bar-content" href="#">
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <img src="{% static 'queueing/img/musicutils.png' %}" height="264px" width="128px" alt="logo"
+                class="navbar-logo-horse">
+            <a class="navbar-brand mx-auto navbar-title" href="#">
                 QSongs
             </a>
         </nav>
@@ -60,11 +64,14 @@
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- bootstrap js -->
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
 <!-- bootstrap select jquery plugin-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-
 
 <script>
     window.CSRF_TOKEN = '{{ csrf_token }}';
@@ -79,6 +86,7 @@
 <script src="{% static 'queueing/js/pages/queuePage.js' %}"></script>
 <script src="{% static 'queueing/js/pages/profilePage.js' %}"></script>
 <script src="{% static 'queueing/js/pages/DJPage.js' %}"></script>
+<script src="{% static 'queueing/js/ajaxUtils.js' %}"></script>
 <script src="{% static 'queueing/js/utils.js' %}"></script>
 
 

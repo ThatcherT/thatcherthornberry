@@ -1,6 +1,12 @@
 import random
 
 
+def get_song_matches(song, sp):
+    q = "track:" + song
+    uri_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
+    return uri_lst
+
+
 def get_uri_from_song_artist(song, artist, sp):
     # todo refactor uri_lst to better name
     q = ""
