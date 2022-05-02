@@ -3,7 +3,9 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from queueing.views import views, SMS, ajax 
 
 urlpatterns = [
+    # website stuff
     path("", views.home, name="home"),
+    path("invite-link/<str:username>/", views.invite_link, name="invite_link"),
 
     # ajax requests
     path('ajax/follow-dj/', ajax.follow_dj, name="follow_dj"),

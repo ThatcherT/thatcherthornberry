@@ -15,6 +15,22 @@ def home(request):
     return render(request, "index.html")
 
 
+def invite_link(request, username):
+    """
+    The person that clicked this link wants to follow the dj and open the app.
+    """
+    # get the listener with username
+    try:
+        listener = Listener.objects.get(name=username)
+    except Listener.DoesNotExist:
+        # something went wrong here...  just redirect them to the site.. I'm sure they can figure it out
+        return redirect(reverse("home"))
+    # set the dj in the session
+    request.session["followingDJ"] = listener.name
+    request.session.set_expiry(60*60*24*365*10) # expire in ten year
+    return redirect(reverse("home"))
+
+
 def spotify_connect_link(request):
     """
     return the link users can use to authenticate with spotify
