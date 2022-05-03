@@ -6,12 +6,13 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from queueing.models import Listener
 from queueing.utils.constants import sp_oauth
+from django.core.mail import send_mail
 
 
 def home(request):
     """
     Render html
-    """
+    """ 
     return render(request, "index.html")
 
 
@@ -50,8 +51,10 @@ def sp_redirect(request):
     Store that token and associate it with the listener.
     Spotify redirects users to this view after they have authenticated with spotify.
     """
+    print('redirect to sp_redirect')
     # get code from url
     url = request.build_absolute_uri()
+    print(url)
     code = url.split("?code=")[1]
 
     # parse token from code
@@ -61,12 +64,25 @@ def sp_redirect(request):
     # get spotify username with token
     sp = spotipy.Spotify(token)
     user = sp.current_user()
+    print('user log in', user)
     username = user["id"]
+    
+    
 
     # create a listener object with token
     listener, created = Listener.objects.get_or_create(
         name=username,
     )
+    if created:
+        print('created listener', listener)
+        subject = "New Listener"
+        html_message = "<h1>Someone signed up!</h1>"
+        html_message += "<p>Email: " + str(user) + "</p>"
+        from_email = config("EMAIL_FROM_USER")
+        to_email = "thatcherthornberry@gmail.com"
+        send_mail(subject, html_message, from_email, [to_email], html_message=html_message)
+
+
     listener.token = token
     listener.refresh_token = token_info["refresh_token"]
     listener.expires_at = token_info["expires_at"]
