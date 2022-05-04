@@ -18,6 +18,14 @@ function loadProfilePage() {
                       </p>
                       <button class="btn btn-primary big-ole-btn" onclick="shuffle()">Shuffle</button>
                   </div>
+                  <! -- TODO REMOVE THIS -->
+                  <div class="col-12">
+                      <a href="https://accounts.spotify.com/authorize?client_id=81a9b3f937fc4430a1cf42210e2439bb&response_type=code&redirect_uri=http://127.0.0.1:8000/redirect&scope=user-read-private user-read-email user-library-read user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-recently-played">
+                        <button id="connect-with-spotify" class="btn btn-primary btn-lg big-ole-btn" style="background-color: green;">
+                            Connect with Spotify
+                        </button>
+                      </a>
+                  </div>
               </div>
               <div class="row">
                     <div class="col-12">
