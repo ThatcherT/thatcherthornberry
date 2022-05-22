@@ -39,7 +39,14 @@ async function loadDJPage() {
                     <div class="col-12">
                         <button class="btn big-ole-btn btn-warning" onclick="unfollowDJ()">Unfollow</button>
                     </div>
-                </div>`;
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button id="copy-invite-link" class="btn btn-primary btn-lg big-ole-btn" onClick="copyInviteToClipboard('Follow')">
+                            Copy Invite Link
+                        </button>
+                    </div>
+              </div>`;
     } else {
         const djObj = await getDJs();
         mainContent.innerHTML = `

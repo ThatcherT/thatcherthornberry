@@ -178,11 +178,17 @@ function updateActiveIcon(icon) {
   icon.classList.add("active");
 }
 
-function copyInviteToClipboard() {
+function copyInviteToClipboard(setting) {
   // the invite link is qsongs.thatcherthornberry.com/invite-link/<IAmDJ>
+  let inviteLink;
+  if (setting === 'Follow') {
+    const followDj = getFollowingDJ()
+    inviteLink = 'https://qsongs.thatcherthornberry.com/invite-link/' + followDj;
+  } else {
 
-  const IAmDJ = getIAmDJ();
-  const inviteLink = `https://qsongs.thatcherthornberry.com/invite-link/${IAmDJ}/`;
+    const IAmDJ = getIAmDJ();
+    inviteLink = `https://qsongs.thatcherthornberry.com/invite-link/${IAmDJ}/`;
+  }
   // copy to clipboard
   navigator.clipboard.writeText(inviteLink);
   // show message
