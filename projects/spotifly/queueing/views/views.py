@@ -53,16 +53,20 @@ def sp_redirect(request):
     """
     print('redirect to sp_redirect')
     # get code from url
-    url = request.build_absolute_uri()
-    print(url)
-    code = url.split("?code=")[1]
-
+    uri = request.build_absolute_uri()
+    print(uri, 'uri')
+    code = uri.split("?code=")[1]
+    print(code, 'code')
     # parse token from code
-    token_info = sp_oauth.get_access_token(code)
+    print('oauth', sp_oauth)
+    token_info = sp_oauth.get_access_token(code=code)
+    print(token_info, 'token_info')
     token = token_info["access_token"]
+    print(token, 'token')
 
     # get spotify username with token
-    sp = spotipy.Spotify(token)
+    # sp = spotipy.Spotify(token)
+    sp = spotipy.Spotify(auth=token)
     user = sp.current_user()
     print('user log in', user)
     username = user["id"]

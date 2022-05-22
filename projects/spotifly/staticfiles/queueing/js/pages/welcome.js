@@ -87,17 +87,23 @@ function becomeDJButton() {
         },
         dataType: "json",
         success: function (data) {
-            mainContent.innerHTML =
-                djFormHeader + `
-                    <div class="row">
-                        <div class="col-12">
-                            <a href="${data.url}">
-                                <button id="connect-with-spotify" class="btn btn-primary btn-lg big-ole-btn" style="background-color: green;">
-                                    Connect with Spotify
-                                </button>
-                            </a>
-                        </div>
-                    </div>`;
+            // mainContent.innerHTML =
+            //     djFormHeader + `
+            //         <div class="row">
+            //             <div class="col-12">
+            //                 <a href="${data.url}">
+            //                     <button id="connect-with-spotify" class="btn btn-primary btn-lg big-ole-btn" style="background-color: green;">
+            //                         Connect with Spotify
+            //                     </button>
+            //                 </a>
+            //             </div>
+            //         </div>`;
+            mainContent.innerHTML = djFormHeader + `
+                <div class="row">
+                    <div class="col-12">
+                        <p class="error-message"> Currently fixing a bug w/ sign up, text Thatcher if interested 512 383 6834</p>
+                    </div>
+                </div>`;
         },
         error: function (xhr, status, error) {
             alert(xhr.responseText);
