@@ -7,7 +7,7 @@ from django.urls import reverse
 from queueing.models import Listener
 from queueing.utils.constants import sp_oauth
 from django.core.mail import send_mail
-
+import os
 
 def home(request):
     """
@@ -51,24 +51,27 @@ def sp_redirect(request):
     Store that token and associate it with the listener.
     Spotify redirects users to this view after they have authenticated with spotify.
     """
-    print('redirect to sp_redirect')
+    # listdir of root directory
+    root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    # if root_dir contains a file called .cache, remove it
+    if os.path.isfile(os.path.join(root_dir, ".cache")):
+        print('removing cache! this wasnt supposed to be here....')
+        os.remove(os.path.join(root_dir, ".cache"))
+
     # get code from url
     uri = request.build_absolute_uri()
-    print(uri, 'uri')
     code = uri.split("?code=")[1]
-    print(code, 'code')
-    # parse token from code
-    print('oauth', sp_oauth)
+    # parse token from code OPTIMIZE: this creates a file called .cache, we don't need it
     token_info = sp_oauth.get_access_token(code=code)
-    print(token_info, 'token_info')
+    if os.path.isfile(os.path.join(root_dir, ".cache")):
+        print('removing cache! this was expected, but not optimal')
+        os.remove(os.path.join(root_dir, ".cache"))
     token = token_info["access_token"]
-    print(token, 'token')
 
     # get spotify username with token
-    # sp = spotipy.Spotify(token)
     sp = spotipy.Spotify(auth=token)
     user = sp.current_user()
-    print('user log in', user)
+
     username = user["id"]
     
     
@@ -78,7 +81,6 @@ def sp_redirect(request):
         name=username,
     )
     if created:
-        print('created listener', listener)
         subject = "New Listener"
         html_message = "<h1>Someone signed up!</h1>"
         html_message += "<p>Email: " + str(user) + "</p>"
