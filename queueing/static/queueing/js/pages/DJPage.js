@@ -35,12 +35,6 @@ function getQueueHTML() {
 }
 
 
-function getCurrentSong() {
-    let songObj;    
-    return songObj
-}
-
-
 function getNowPlayingSongHTML() {
     // TODO: get current song obj
     let songObj = getCurrentSong();
