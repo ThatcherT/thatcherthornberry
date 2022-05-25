@@ -14,7 +14,6 @@ function search() {
         dataType: "json",
         success: function (data) {
             songObjs = data.uri_lst;
-            console.log(songObjs);
             showSongsOnQueuePage(songObjs);
         }
     });
