@@ -17,10 +17,44 @@ async function getDJs() {
     })
 }
 
+function getQueueHTML() {
+    let rowsHTML = "";
+    let queue = []
+    // TODO: get queue
+    if (queue.length > 0) {
+        // TODO: check this... thank you copilot ily
+        rowsHTML = queue.map(song => getSongRowHTML(song)).join("");
+    } else {
+        rowsHTML = `<div class="row">
+            <div class="col-12">
+                <h2>No songs in queue</h2>
+            </div>
+        </div>`;
+    }
+    return rowsHTML;
+}
+
+
+function getNowPlayingSongHTML() {
+    // TODO: get current song obj
+    let songObj = getCurrentSong();
+    let rowHTML;
+    if (songObj) {
+        console.log(songObj, 'song:)')
+        rowHTML = getSongRowHTML(songObj);
+    } else {
+        rowHTML = `<div class="row">
+            <div class="col-12">
+                <h2>No song playing</h2>
+            </div>
+        </div>`;
+    }
+    return rowHTML;
+}
+
 // DJ Page
 async function loadDJPage() {
     updateActiveIcon(document.getElementById("dj-icon"));
-
     if (getFollowingDJ()) {
         mainContent.innerHTML = `
               <div class="row">
@@ -46,7 +80,20 @@ async function loadDJPage() {
                             Copy Invite Link
                         </button>
                     </div>
-              </div>`;
+                </div>
+                <div class="row">
+                    <div class="col">
+                        Now Playing
+                    </div>
+                </div>
+                ${getNowPlayingSongHTML()}
+                <div class="row">
+                    <div class="col">
+                        Queue
+                    </div>
+                </div>
+                ${getQueueHTML()}
+              `;
     } else {
         const djObj = await getDJs();
         mainContent.innerHTML = `
