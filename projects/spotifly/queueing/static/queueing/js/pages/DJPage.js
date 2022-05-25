@@ -36,7 +36,6 @@ function getQueueHTML() {
 
 
 async function getNowPlayingSongHTML() {
-    // TODO: get current song obj
     let songData = await getNowPlaying();
     let rowHTML;
     if (songData.songObj) {
