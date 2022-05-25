@@ -17,7 +17,18 @@ def search(request):
     sp = get_spotify_client(listener)
     # get list of songs
     song_lst = get_song_matches(song, sp)
+    print(song_lst)
     return JsonResponse({'song_lst': song_lst})
+
+
+def now_playing(request):
+    """
+    Return Spotify Song Obj for song that is playing
+    """
+    listener = Listener.objects.get(name=request.POST['dj'])
+    sp = get_spotify_client(listener)
+    songObj = sp.current_user_playing_track()
+    return JsonResponse({'songObj': songObj['item']})
 
 
 def unfollow_dj(request):
