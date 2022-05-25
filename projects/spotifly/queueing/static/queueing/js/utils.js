@@ -28,6 +28,11 @@ function loadPage() {
   }
 }
 
+// clear out local storage and reload page
+function logOut() {
+  jQuery.data(document.body, "IAmDJ", "");
+  loadPage();
+}
 
 // from an array of objects, add rows to the div with id="search-results"
 // each object should have its on row

@@ -20,9 +20,14 @@ function loadProfilePage() {
                   </div>
               </div>
               <div class="row">
-                    <div class="col-12">
+                    <div class="col">
                         <button id="copy-invite-link" class="btn btn-primary btn-lg big-ole-btn" onClick="copyInviteToClipboard()">
                             Copy Invite Link
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button id="log-out" class="btn btn-danger btn-lg big-ole-btn" onClick="logOut()">
+                            Log Out
                         </button>
                     </div>
               </div>
