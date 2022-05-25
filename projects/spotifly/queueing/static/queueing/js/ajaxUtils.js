@@ -20,6 +20,12 @@ function search() {
 }
 
 
+function getCurrentSong() {
+    let songObj;    
+    return songObj
+}
+
+
 // send an ajax request with local storage data and data from an input element
 // this request should return a msg indicating queue success or failure
 function queue(URI) {

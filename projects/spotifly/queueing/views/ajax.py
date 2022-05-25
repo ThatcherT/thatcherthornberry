@@ -16,8 +16,8 @@ def search(request):
     # get spotify client
     sp = get_spotify_client(listener)
     # get list of songs
-    uri_lst = get_song_matches(song, sp)
-    return JsonResponse({'uri_lst': uri_lst})
+    song_lst = get_song_matches(song, sp)
+    return JsonResponse({'song_lst': song_lst})
 
 
 def unfollow_dj(request):
