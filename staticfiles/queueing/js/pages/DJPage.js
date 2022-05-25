@@ -35,13 +35,12 @@ function getQueueHTML() {
 }
 
 
-function getNowPlayingSongHTML() {
+async function getNowPlayingSongHTML() {
     // TODO: get current song obj
-    let songObj = getCurrentSong();
+    let songData = await getNowPlaying();
     let rowHTML;
-    if (songObj) {
-        console.log(songObj, 'song:)')
-        rowHTML = getSongRowHTML(songObj);
+    if (songData.songObj) {
+        rowHTML = getSongRowHTML(songData.songObj).outerHTML;
     } else {
         rowHTML = `<div class="row">
             <div class="col-12">
@@ -57,11 +56,6 @@ async function loadDJPage() {
     updateActiveIcon(document.getElementById("dj-icon"));
     if (getFollowingDJ()) {
         mainContent.innerHTML = `
-              <div class="row">
-                  <div class="col-12">
-                      <h1>DJ</h1>
-                  </div>
-              </div>
               <div class="row">
                   <div class="col-12">
                       <p>
@@ -86,7 +80,7 @@ async function loadDJPage() {
                         Now Playing
                     </div>
                 </div>
-                ${getNowPlayingSongHTML()}
+                ${await getNowPlayingSongHTML()}
                 <div class="row">
                     <div class="col">
                         Queue

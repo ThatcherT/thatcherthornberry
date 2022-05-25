@@ -13,16 +13,25 @@ function search() {
         },
         dataType: "json",
         success: function (data) {
-            songObjs = data.uri_lst;
+            songObjs = data.song_lst;
             showSongsOnQueuePage(songObjs);
         }
     });
 }
 
 
-function getCurrentSong() {
-    let songObj;    
-    return songObj
+function getNowPlaying() {
+    return $.ajax({
+        url: "/ajax/now-playing/",
+        type: "POST",
+        data: {
+            csrfmiddlewaretoken: window.CSRF_TOKEN,
+            dj: getFollowingDJ(),
+        },
+        success: function (data) {
+            return data.songObj;
+        }
+    });
 }
 
 
