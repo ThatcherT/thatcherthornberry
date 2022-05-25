@@ -14,6 +14,7 @@ urlpatterns = [
     path('ajax/search/', ajax.search, name="search"),
     path('ajax/shuffle/', ajax.shuffle, name="shuffle"),
     path('ajax/get-djs/', ajax.get_djs, name="get_djs"),
+    path('ajax/now-playing/', ajax.now_playing, name="now_playing"),
 
     # spotify web api
     path("redirect/", views.sp_redirect),
