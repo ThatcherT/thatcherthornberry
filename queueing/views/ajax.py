@@ -28,7 +28,9 @@ def now_playing(request):
     listener = Listener.objects.get(name=request.POST['dj'])
     sp = get_spotify_client(listener)
     songObj = sp.current_user_playing_track()
-    return JsonResponse({'songObj': songObj['item']})
+    # this gets something interesting.. like the duration left I believe
+    # playback = sp.current_playback()
+    return JsonResponse({'songObj': songObj['item'] if songObj else None})
 
 
 def unfollow_dj(request):
