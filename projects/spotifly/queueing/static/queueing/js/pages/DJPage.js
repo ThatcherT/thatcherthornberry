@@ -17,10 +17,11 @@ async function getDJs() {
     })
 }
 
+// return the HTML for the list of queued songs
 function getQueueHTML() {
     let rowsHTML = "";
     let queue = []
-    // TODO: get queue
+    // TODO: get queue from redis
     if (queue.length > 0) {
         // TODO: check this... thank you copilot ily
         rowsHTML = queue.map(song => getSongRowHTML(song)).join("");
