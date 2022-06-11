@@ -1,23 +1,33 @@
 import random
 
 
+def get_song_matches(song, sp):
+    q = "track:" + song
+    song_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
+    return song_lst
+
+
 def get_uri_from_song_artist(song, artist, sp):
-    # todo refactor uri_lst to better name
     q = ""
     if artist:
         q += "artist:" + artist + " "
     q += "track:" + song
     print('searching for: ' + q)
-    uri_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
-    if len(uri_lst) == 0:
-        uri_lst = sp.search(q=song, type="track", market="US")[
+    song_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
+    if len(song_lst) == 0:
+        song_lst = sp.search(q=song, type="track", market="US")[
             "tracks"]["items"]
-        if len(uri_lst) == 0:
+        if len(song_lst) == 0:
             no_results_msg = f"No results found for `{song} by {artist}`. Try again."
             # if there are no results,  guess we should return a string saying so
             return no_results_msg, None  # return two variables so things work
-    uri = uri_lst[0]["id"]
-    return uri, uri_lst
+    uri = song_lst[0]["id"]
+    return uri, song_lst
+
+
+# gets the first song URI that shows up from search
+def get_uri_from_song_name(song, sp):
+    return sp.search(q=f'track: {song}', type="track", market="US")["tracks"]["items"][0]["id"]
 
 
 def get_uri_from_q(message_body, sp):
@@ -30,20 +40,21 @@ def get_uri_from_q(message_body, sp):
     else:
         track = track_by_artist
         q = "track:" + track
-    uri_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
-    if len(uri_lst) == 0:
-        uri_lst = sp.search(q=track_by_artist, type="track", market="US")["tracks"][
+    print('searching for: ' + q)
+    song_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
+    if len(song_lst) == 0:
+        song_lst = sp.search(q=track_by_artist, type="track", market="US")["tracks"][
             "items"
         ]
-        if len(uri_lst) == 0:
-            uri_lst = sp.search(q=track, type="track", market="US")[
+        if len(song_lst) == 0:
+            song_lst = sp.search(q=track, type="track", market="US")[
                 "tracks"]["items"]
-            if len(uri_lst) == 0:
+            if len(song_lst) == 0:
                 no_results_msg = f"No results found for `{track_by_artist}`. Try again."
                 # TODO im pretty sure I broke this while refactoring...
                 return no_results_msg, None
-    uri = uri_lst[0]["id"]
-    return uri, uri_lst
+    uri = song_lst[0]["id"]
+    return uri, song_lst
 
 
 # queue 50 random songs

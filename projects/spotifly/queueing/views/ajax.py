@@ -1,5 +1,44 @@
 from django.http import JsonResponse
 from queueing.models import Listener
+from queueing.utils.spotify import get_spotify_client
+from queueing.utils.songs import get_uri_from_q, get_uri_from_song_name, get_song_matches
+
+
+def search(request):
+    """
+    Search for a song
+    """
+    # get dj from session
+    dj = request.session.get("followingDJ")
+    listener = Listener.objects.get(name=dj)
+    # get search term
+    song = request.POST.get("song")
+    # get spotify client
+    sp = get_spotify_client(listener)
+    # get list of songs
+    song_lst = get_song_matches(song, sp)
+    print(song_lst)
+    return JsonResponse({'song_lst': song_lst})
+
+
+def now_playing(request):
+    """
+    Return Spotify Song Obj for song that is playing
+    """
+    listener = Listener.objects.get(name=request.POST['dj'])
+    sp = get_spotify_client(listener)
+    songObj = sp.current_user_playing_track()
+    # this gets something interesting.. like the duration left I believe
+    # playback = sp.current_playback()
+    return JsonResponse({'songObj': songObj['item'] if songObj else None})
+
+
+def unfollow_dj(request):
+    """
+    Unfollow a dj
+    """
+    request.session.pop("followingDJ")
+    return JsonResponse({'success': True})
 
 
 def follow_dj(request):
@@ -10,7 +49,8 @@ def follow_dj(request):
     Listener.objects.get(name=followingDJ)
     # save to session
     request.session["followingDJ"] = followingDJ
-    return JsonResponse({'success': True})
+    request.session.set_expiry(60*60*24*365*10)  # expire in ten year
+    return JsonResponse({'followingDJ': followingDJ})
 
 
 def shuffle(request):
@@ -21,3 +61,32 @@ def shuffle(request):
     listener = Listener.objects.get(name=IAmDJ)
     listener.shuffle()
     return JsonResponse({'success': True})
+
+
+def queue(request):
+    """
+    Queue song, pass dj parameter and song title
+    """
+    uri = request.POST.get("uri")
+    dj = request.POST.get("dj")
+
+    listener = Listener.objects.get(name=dj)
+
+    sp = get_spotify_client(listener)
+    # add to queue
+    try:
+        sp.add_to_queue(uri, device_id=None)
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+def get_djs(request):
+    """
+    get the listener objects from the database
+    """
+    djs = Listener.objects.all()
+    djs_list = []
+    for dj in djs:
+        djs_list.append(dj.name)
+    return JsonResponse({'djs': djs_list})
