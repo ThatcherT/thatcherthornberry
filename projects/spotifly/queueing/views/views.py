@@ -39,7 +39,7 @@ def spotify_connect_link(request):
     # get secrets from env with decouple
     client_id = config("SPOTIFY_CLIENT_ID")
     redirect_uri = config("SPOTIFY_REDIRECT_URI")
-    scopes = "user-read-private user-read-email user-library-read user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-recently-played"
+    scopes = "user-read-private user-read-email user-library-read user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-recently-played user-top-read"
     url = f'https://accounts.spotify.com/authorize?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&scope={scopes}'
     # send url in json response
     return JsonResponse({'url': url})

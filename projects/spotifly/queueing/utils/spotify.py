@@ -11,7 +11,7 @@ def get_spotify_client(listener):
     sp = spotipy.Spotify(auth=listener.token)
     try:
         # hit api to see if token works
-        sp.me()
+        me = sp.me()
     except SpotifyException as e:
         print('there was an error trying to connect with spotify', e)
         print('requesting a new access_token using the refresh_token')
