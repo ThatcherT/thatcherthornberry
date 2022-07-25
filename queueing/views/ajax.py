@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from queueing.models import Listener
 from queueing.utils.spotify import get_spotify_client
-from queueing.utils.songs import get_uri_from_q, get_uri_from_song_name, get_song_matches
+from queueing.utils.songs import get_suggested_songs, get_song_matches
 
 
 def search(request):
@@ -17,9 +17,19 @@ def search(request):
     sp = get_spotify_client(listener)
     # get list of songs
     song_lst = get_song_matches(song, sp)
-    print(song_lst)
     return JsonResponse({'song_lst': song_lst})
 
+def suggest(request):
+    """
+    Use the signed in user to find a song they would like
+    """
+    iam = request.GET.get("iam")
+    listener = Listener.objects.get(name=iam)
+    # get spotify client
+    sp = get_spotify_client(listener)
+    # get songs they like
+    song_lst = get_suggested_songs(sp)
+    return JsonResponse({'song_lst': song_lst})
 
 def now_playing(request):
     """

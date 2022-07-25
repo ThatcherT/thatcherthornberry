@@ -1,6 +1,9 @@
 import random
 
 
+def get_suggested_songs(sp):
+    return sp.current_user_top_tracks(limit=10)["items"]
+
 def get_song_matches(song, sp):
     q = "track:" + song
     song_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]

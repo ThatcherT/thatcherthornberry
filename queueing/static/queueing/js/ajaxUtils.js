@@ -19,6 +19,22 @@ function search() {
     });
 }
 
+function suggest() {
+    $.ajax({
+        url: "/ajax/suggest/",
+        type: "GET",
+        data: {
+            csrfmiddlewaretoken: window.CSRF_TOKEN,
+            iam: getIAmDJ(),
+        },
+        success: function (data) {
+            songObjs = data.song_lst
+            showSongsOnQueuePage(songObjs);
+        }
+    });
+        
+}
+
 
 function getNowPlaying() {
     return $.ajax({

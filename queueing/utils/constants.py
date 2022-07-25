@@ -14,5 +14,6 @@ sp_oauth = spotipy.oauth2.SpotifyOAuth(
         "user-read-currently-playing",
         "user-modify-playback-state",
         "user-read-recently-played",
+        'user-top-read',
     ],
 )
