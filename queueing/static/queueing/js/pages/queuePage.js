@@ -26,7 +26,6 @@ function loadQueuePage() {
         <div id="search-results" class="search-box">
         </div>
         `;
-        console.log(getIAmDJ());
     } else {
         mainContent.innerHTML = "You aren't following a DJ. Can't queue!";
     }
