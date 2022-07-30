@@ -12,6 +12,7 @@ urlpatterns = [
     path('ajax/unfollow-dj/', ajax.unfollow_dj, name="unfollow_dj"),
     path('ajax/queue/', ajax.queue, name="queue"),
     path('ajax/search/', ajax.search, name="search"),
+    path('ajax/suggest/', ajax.suggest, name="suggest"),
     path('ajax/shuffle/', ajax.shuffle, name="shuffle"),
     path('ajax/get-djs/', ajax.get_djs, name="get_djs"),
     path('ajax/now-playing/', ajax.now_playing, name="now_playing"),
