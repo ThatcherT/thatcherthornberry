@@ -12,7 +12,7 @@ services:
       - web
     volumes:
       - ./projects/me/staticfiles:/app/me/staticfiles
-      - ./projects/spotifly/staticfiles:/home/spotifly/staticfiles
+      - ./projects/spotifly/staticfiles:/app/spotifly/staticfiles
       - ./config/etc/letsencrypt:/etc/letsencrypt
       - ./data/nginx:/etc/nginx/conf.d # this is how we use custom nginx build
     ports:
