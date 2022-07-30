@@ -11,8 +11,8 @@ services:
     depends_on:
       - web
     volumes:
-      - ./projects/me/staticfiles:/home/app/web/staticfiles
-      - ./projects/spotifly/staticfiles:/home/app/staticfiles
+      - ./projects/me/staticfiles:/app/staticfiles
+      - ./projects/spotifly/staticfiles:/app/staticfiles
       - ./config/etc/letsencrypt:/etc/letsencrypt
       - ./data/nginx:/etc/nginx/conf.d # this is how we use custom nginx build
     ports:
