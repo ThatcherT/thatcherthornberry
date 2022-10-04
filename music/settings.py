@@ -77,16 +77,24 @@ WSGI_APPLICATION = "music.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("POSTGRES_DB"),
-        "USER": config("POSTGRES_USER"),
-        "PASSWORD": config("POSTGRES_PASSWORD"),
-        "HOST": config("POSTGRES_HOST"),  # docker container name
-        "PORT": "5432",
+if config("LOCAL"):
+  DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
+else:
+  DATABASES = {
+      "default": {
+          "ENGINE": "django.db.backends.postgresql",
+          "NAME": config("POSTGRES_DB"),
+          "USER": config("POSTGRES_USER"),
+          "PASSWORD": config("POSTGRES_PASSWORD"),
+          "HOST": config("POSTGRES_HOST"),  # docker container name
+          "PORT": "5432",
+      }
+  }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
