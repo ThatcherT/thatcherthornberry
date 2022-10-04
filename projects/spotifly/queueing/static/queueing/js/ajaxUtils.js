@@ -46,6 +46,12 @@ function getNowPlaying() {
         },
         success: function (data) {
             return data.songObj;
+        },
+        error: function (xhr, status, error) {
+            alert(xhr.responseText);
+            console.log(status, error);
+            document.getElementById("follow-dj-error").innerHTML = "IDK what happened";
+            return false;
         }
     });
 }

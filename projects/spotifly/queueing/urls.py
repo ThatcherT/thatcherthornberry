@@ -1,6 +1,5 @@
 from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from queueing.views import views, SMS, ajax 
+from queueing.views import views, ajax 
 
 urlpatterns = [
     # website stuff
@@ -20,11 +19,4 @@ urlpatterns = [
     # spotify web api
     path("redirect/", views.sp_redirect),
     path('spotify/connect-link/', views.spotify_connect_link, name="spotify_connect_link"),
-
-    # sms stuff... deprecated?
-    path("sms/", SMS.SMS.as_view()),
-    path("sms-failed/", SMS.sms_failed),
-    path("send/", SMS.send.as_view()),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
