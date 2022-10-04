@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    "rest_framework",
     "queueing.apps.QueueingConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -77,7 +76,7 @@ WSGI_APPLICATION = "music.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if config("LOCAL"):
+if config('LOCAL') and not config("LOCALPOSTGRES"):
   DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

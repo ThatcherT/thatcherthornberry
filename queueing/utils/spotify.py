@@ -8,10 +8,13 @@ from queueing.utils.constants import sp_oauth
 # naively, we just test if the client is working, if it doesn't work we try to refresh the token
 # then, we return the client not knowing if it worked or not
 def get_spotify_client(listener):
+    # misconfig db
+    if not listener.token:
+        return None
     sp = spotipy.Spotify(auth=listener.token)
     try:
         # hit api to see if token works
-        me = sp.me()
+        sp.me()
     except SpotifyException as e:
         print('there was an error trying to connect with spotify', e)
         print('requesting a new access_token using the refresh_token')
