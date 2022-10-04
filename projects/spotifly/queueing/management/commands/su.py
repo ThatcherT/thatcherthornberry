@@ -12,7 +12,9 @@ class Command(BaseCommand):
             print("creating user object")
 
             user = User.objects.create(
-                username="thatcher", is_superuser=True, is_staff=True,
+                username="thatcher",
+                is_superuser=True,
+                is_staff=True,
             )
             user.set_password("pizza891")
             print(user.username, user.email, "pizza891")

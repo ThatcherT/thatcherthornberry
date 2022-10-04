@@ -11,6 +11,8 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name="listener", old_name="expires_in", new_name="expires_at",
+            model_name="listener",
+            old_name="expires_in",
+            new_name="expires_at",
         ),
     ]

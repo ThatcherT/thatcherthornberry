@@ -4,6 +4,7 @@ import random
 def get_suggested_songs(sp):
     return sp.current_user_top_tracks(limit=10)["items"]
 
+
 def get_song_matches(song, sp):
     q = "track:" + song
     song_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
@@ -15,11 +16,10 @@ def get_uri_from_song_artist(song, artist, sp):
     if artist:
         q += "artist:" + artist + " "
     q += "track:" + song
-    print('searching for: ' + q)
+    print("searching for: " + q)
     song_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
     if len(song_lst) == 0:
-        song_lst = sp.search(q=song, type="track", market="US")[
-            "tracks"]["items"]
+        song_lst = sp.search(q=song, type="track", market="US")["tracks"]["items"]
         if len(song_lst) == 0:
             no_results_msg = f"No results found for `{song} by {artist}`. Try again."
             # if there are no results,  guess we should return a string saying so
@@ -30,7 +30,9 @@ def get_uri_from_song_artist(song, artist, sp):
 
 # gets the first song URI that shows up from search
 def get_uri_from_song_name(song, sp):
-    return sp.search(q=f'track: {song}', type="track", market="US")["tracks"]["items"][0]["id"]
+    return sp.search(q=f"track: {song}", type="track", market="US")["tracks"]["items"][
+        0
+    ]["id"]
 
 
 def get_uri_from_q(message_body, sp):
@@ -43,15 +45,14 @@ def get_uri_from_q(message_body, sp):
     else:
         track = track_by_artist
         q = "track:" + track
-    print('searching for: ' + q)
+    print("searching for: " + q)
     song_lst = sp.search(q=q, type="track", market="US")["tracks"]["items"]
     if len(song_lst) == 0:
         song_lst = sp.search(q=track_by_artist, type="track", market="US")["tracks"][
             "items"
         ]
         if len(song_lst) == 0:
-            song_lst = sp.search(q=track, type="track", market="US")[
-                "tracks"]["items"]
+            song_lst = sp.search(q=track, type="track", market="US")["tracks"]["items"]
             if len(song_lst) == 0:
                 no_results_msg = f"No results found for `{track_by_artist}`. Try again."
                 # TODO im pretty sure I broke this while refactoring...
@@ -69,8 +70,7 @@ def queue_50_songs(sp, listener):
             random_offset = random.randint(
                 0, listener.max_offset
             )  # get a random song between 0 and current known max offset
-            results = sp.current_user_saved_tracks(
-                limit=1, offset=random_offset)
+            results = sp.current_user_saved_tracks(limit=1, offset=random_offset)
             song = list(results["items"])
             if song == []:
                 # max_offset is too high rebase it at one under current random offset

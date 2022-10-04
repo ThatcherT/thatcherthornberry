@@ -16,8 +16,8 @@ def get_spotify_client(listener):
         # hit api to see if token works
         sp.me()
     except SpotifyException as e:
-        print('there was an error trying to connect with spotify', e)
-        print('requesting a new access_token using the refresh_token')
+        print("there was an error trying to connect with spotify", e)
+        print("requesting a new access_token using the refresh_token")
         # get new token from refresh token
         token_info = sp_oauth.refresh_access_token(listener.refresh_token)
         # update listener with new token info
