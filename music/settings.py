@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'pwa',
+    "pwa",
+    "django_rq",
 ]
 
 MIDDLEWARE = [
@@ -76,24 +77,24 @@ WSGI_APPLICATION = "music.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if config('LOCAL') and not config("LOCALPOSTGRES"):
-  DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+if config("LOCAL") and not config("LOCALPOSTGRES"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": "mydatabase",
+        }
     }
-}
 else:
-  DATABASES = {
-      "default": {
-          "ENGINE": "django.db.backends.postgresql",
-          "NAME": config("POSTGRES_DB"),
-          "USER": config("POSTGRES_USER"),
-          "PASSWORD": config("POSTGRES_PASSWORD"),
-          "HOST": config("POSTGRES_HOST"),  # docker container name
-          "PORT": "5432",
-      }
-  }
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("POSTGRES_DB"),
+            "USER": config("POSTGRES_USER"),
+            "PASSWORD": config("POSTGRES_PASSWORD"),
+            "HOST": config("POSTGRES_HOST"),  # docker container name
+            "PORT": "5432",
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -102,9 +103,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -146,42 +153,42 @@ EMAIL_USE_TLS = True
 #############################################################################
 ############### PROGRESSIVE WEB APP SETTINGS ################################
 #############################################################################
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'queueing', 'serviceworker.js')
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, "queueing", "serviceworker.js")
 
-PWA_APP_NAME = 'QSongs'
+PWA_APP_NAME = "QSongs"
 PWA_APP_DESCRIPTION = "Queue Songs."
-PWA_APP_THEME_COLOR = '#0A0302'
-PWA_APP_BACKGROUND_COLOR = '#000000'
-PWA_APP_DISPLAY = 'standalone'
-PWA_APP_SCOPE = '/'
-PWA_APP_ORIENTATION = 'any'
-PWA_APP_START_URL = '/'
-PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_THEME_COLOR = "#0A0302"
+PWA_APP_BACKGROUND_COLOR = "#000000"
+PWA_APP_DISPLAY = "standalone"
+PWA_APP_SCOPE = "/"
+PWA_APP_ORIENTATION = "any"
+PWA_APP_START_URL = "/"
+PWA_APP_STATUS_BAR_COLOR = "default"
 PWA_APP_ICONS = [
-  {
-    "src": "staticfiles/queueing/img/icons/manifest-icon-192.maskable.png",
-    "sizes": "192x192",
-    "type": "image/png",
-    "purpose": "any"
-  },
-  {
-    "src": "staticfiles/queueing/img/icons/manifest-icon-192.maskable.png",
-    "sizes": "192x192",
-    "type": "image/png",
-    "purpose": "maskable"
-  },
-  {
-    "src": "staticfiles/queueing/img/icons/manifest-icon-512.maskable.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "any"
-  },
-  {
-    "src": "staticfiles/queueing/img/icons/manifest-icon-512.maskable.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "maskable"
-  }
+    {
+        "src": "staticfiles/queueing/img/icons/manifest-icon-192.maskable.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any",
+    },
+    {
+        "src": "staticfiles/queueing/img/icons/manifest-icon-192.maskable.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "maskable",
+    },
+    {
+        "src": "staticfiles/queueing/img/icons/manifest-icon-512.maskable.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any",
+    },
+    {
+        "src": "staticfiles/queueing/img/icons/manifest-icon-512.maskable.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable",
+    },
 ]
-PWA_APP_DIR = 'ltr'
-PWA_APP_LANG = 'en-US'
+PWA_APP_DIR = "ltr"
+PWA_APP_LANG = "en-US"

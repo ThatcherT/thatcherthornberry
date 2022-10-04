@@ -17,7 +17,8 @@ def search(request):
     sp = get_spotify_client(listener)
     # get list of songs
     song_lst = get_song_matches(song, sp)
-    return JsonResponse({'song_lst': song_lst})
+    return JsonResponse({"song_lst": song_lst})
+
 
 def suggest(request):
     """
@@ -29,20 +30,21 @@ def suggest(request):
     sp = get_spotify_client(listener)
     # get songs they like
     song_lst = get_suggested_songs(sp)
-    return JsonResponse({'song_lst': song_lst})
+    return JsonResponse({"song_lst": song_lst})
+
 
 def now_playing(request):
     """
     Return Spotify Song Obj for song that is playing
     """
-    listener = Listener.objects.get(name=request.POST['dj'])
+    listener = Listener.objects.get(name=request.POST["dj"])
     sp = get_spotify_client(listener)
     if not sp:
-        return JsonResponse({'success': False, 'error': 'no spotify client'})
+        return JsonResponse({"success": False, "error": "no spotify client"})
     songObj = sp.current_user_playing_track()
     # this gets something interesting.. like the duration left I believe
     # playback = sp.current_playback()
-    return JsonResponse({'songObj': songObj['item'] if songObj else None})
+    return JsonResponse({"songObj": songObj["item"] if songObj else None})
 
 
 def unfollow_dj(request):
@@ -50,7 +52,7 @@ def unfollow_dj(request):
     Unfollow a dj
     """
     request.session.pop("followingDJ")
-    return JsonResponse({'success': True})
+    return JsonResponse({"success": True})
 
 
 def follow_dj(request):
@@ -61,18 +63,18 @@ def follow_dj(request):
     Listener.objects.get(name=followingDJ)
     # save to session
     request.session["followingDJ"] = followingDJ
-    request.session.set_expiry(60*60*24*365*10)  # expire in ten year
-    return JsonResponse({'followingDJ': followingDJ})
+    request.session.set_expiry(60 * 60 * 24 * 365 * 10)  # expire in ten year
+    return JsonResponse({"followingDJ": followingDJ})
 
 
 def shuffle(request):
     """
     Shuffle the playlist
     """
-    IAmDJ = request.POST.get('IAmDJ')
+    IAmDJ = request.POST.get("IAmDJ")
     listener = Listener.objects.get(name=IAmDJ)
     listener.shuffle()
-    return JsonResponse({'success': True})
+    return JsonResponse({"success": True})
 
 
 def queue(request):
@@ -88,9 +90,9 @@ def queue(request):
     # add to queue
     try:
         sp.add_to_queue(uri, device_id=None)
-        return JsonResponse({'success': True})
+        return JsonResponse({"success": True})
     except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)})
+        return JsonResponse({"success": False, "error": str(e)})
 
 
 def get_djs(request):
@@ -101,4 +103,4 @@ def get_djs(request):
     djs_list = []
     for dj in djs:
         djs_list.append(dj.name)
-    return JsonResponse({'djs': djs_list})
+    return JsonResponse({"djs": djs_list})

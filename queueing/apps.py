@@ -13,6 +13,7 @@ def my_watch_dog(sender, *args, **kwargs):
             file_path = os.path.join(root, file)
             watch(Path(file_path))
 
+
 class QueueingConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "queueing"

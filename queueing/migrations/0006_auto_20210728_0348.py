@@ -11,7 +11,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name="listener", old_name="code", new_name="token",
+            model_name="listener",
+            old_name="code",
+            new_name="token",
         ),
         migrations.AddField(
             model_name="follower",
