@@ -81,34 +81,38 @@ if config("LOCAL") and not config("LOCALPOSTGRES"):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
-            "NAME": "mydatabase",
+            "NAME": config("DB_NAME", default="spotifly", cast=str),
         }
     }
 else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": config("POSTGRES_DB"),
-            "USER": config("POSTGRES_USER"),
+            # TODO: is this secure or is this swiss cheese?
+            "NAME": config("DB_NAME", default="spotifly", cast=str),
+            "USER": config("POSTGRES_USER", default="thatcher", cast=str),
             "PASSWORD": config("POSTGRES_PASSWORD"),
-            "HOST": config("POSTGRES_HOST"),  # docker container name
-            "PORT": "5432",
+            "HOST": config(
+                "POSTGRES_HOST", default="localhost", cast=str
+            ),  # docker container name
+            "PORT": config("POSTGRES_PORT", default=5432, cast=int),
         }
     }
 RQ_QUEUES = {
     "default": {
-        "HOST": config("REDIS_HOST"),
-        "PORT": config("REDIS_PORT"),
+        "HOST": config("REDIS_HOST", default="redis", cast=str),
+        "PORT": config("REDIS_PORT", default=6379, cast=int),
         "DB": 0,
         "PASSWORD": config("REDIS_PASSWORD"),
         "DEFAULT_TIMEOUT": 360,
     }
 }
 
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/0",
+        "LOCATION": f"redis://{config('REDIS_HOST', default='redis', cast=str)}:{config('REDIS_PORT', default=6379, cast=int)}/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PASSWORD": config("REDIS_PASSWORD"),
@@ -158,7 +162,7 @@ LOGIN_REDIRECT_URL = "/dash"
 
 STATIC_URL = "/staticfiles/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
