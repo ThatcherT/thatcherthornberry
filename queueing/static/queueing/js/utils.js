@@ -3,11 +3,11 @@ This document contains some helpful utils for shuffling, following, and queueing
 */
 
 function getFollowingDJ() {
-  return jQuery.data(document.body, "followingDJ")
+  return jQuery.data(document.body, "followingDJ");
 }
 
 function getIAmDJ() {
-  return jQuery.data(document.body, "IAmDJ")
+  return jQuery.data(document.body, "IAmDJ");
 }
 
 // STARTUP SCRIPT RUNS EVERY TIME!!!!!
@@ -93,9 +93,11 @@ function getSongRowHTML(songObj) {
   // technically, the artist names will be in a column, in the row, see above notes block
   const songArtist = document.createElement("div");
   songArtist.classList.add("col", "text-left");
-  const artistStr = songObj.artists.map(function (artist) {
-    return artist.name;
-  }).join(", ");
+  const artistStr = songObj.artists
+    .map(function (artist) {
+      return artist.name;
+    })
+    .join(", ");
   // limit artist names to 30 characters, if greater than 30 characters, add ...
   if (artistStr.length > 40) {
     songArtist.innerHTML = artistStr.substring(0, 37) + "...";
@@ -105,7 +107,7 @@ function getSongRowHTML(songObj) {
   // append this column to the row
   songArtistRow.appendChild(songArtist);
 
-  return songRowHTML
+  return songRowHTML;
 }
 
 // handy util for updating the active icon
@@ -119,11 +121,11 @@ function updateActiveIcon(icon) {
 function copyInviteToClipboard(setting) {
   // the invite link is qsongs.thatcherthornberry.com/invite-link/<IAmDJ>
   let inviteLink;
-  if (setting === 'Follow') {
-    const followDj = getFollowingDJ()
-    inviteLink = 'https://qsongs.thatcherthornberry.com/invite-link/' + followDj;
+  if (setting === "Follow") {
+    const followDj = getFollowingDJ();
+    inviteLink =
+      "https://qsongs.thatcherthornberry.com/invite-link/" + followDj;
   } else {
-
     const IAmDJ = getIAmDJ();
     inviteLink = `https://qsongs.thatcherthornberry.com/invite-link/${IAmDJ}/`;
   }

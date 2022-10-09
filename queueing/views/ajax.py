@@ -86,6 +86,15 @@ def start_session(request):
     return JsonResponse({"success": True})
 
 
+def queue_mgmt(request):
+    """
+    Return the queue management object
+    """
+    dj = request.POST.get("dj")
+    listener = Listener.objects.get(name=dj)
+    return JsonResponse({"q_mgmt": listener.q_mgmt})
+
+
 def queue(request):
     """
     Queue song, pass dj parameter and song title

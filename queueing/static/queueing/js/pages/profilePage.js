@@ -1,8 +1,8 @@
 // Profile Page
 function loadProfilePage() {
-    updateActiveIcon(document.getElementById("profile-icon"));
-    if (getIAmDJ()) {
-      mainContent.innerHTML = `
+  updateActiveIcon(document.getElementById("profile-icon"));
+  if (getIAmDJ()) {
+    mainContent.innerHTML = `
               <div class="row">
                   <div class="col-12">
                       <h1>Profile</h1>
@@ -37,16 +37,16 @@ function loadProfilePage() {
                       <p id="profile-page-message" style="padding-top: 10%;"></p>
                   </div>
               </div>`;
-    } else {
-      $.ajax({
-        url: "/spotify/connect-link/",
-        type: "GET",
-        dataType: "json",
-        data: {
-          csrfmiddlewaretoken: window.CSRF_TOKEN,
-        },
-        success: function (data) {
-          mainContent.innerHTML = `
+  } else {
+    $.ajax({
+      url: "/spotify/connect-link/",
+      type: "GET",
+      dataType: "json",
+      data: {
+        csrfmiddlewaretoken: window.CSRF_TOKEN,
+      },
+      success: function (data) {
+        mainContent.innerHTML = `
               <div class="row">
                   <div class="col-12">
                       <h1>Connect with spotify to become a DJ</h1>
@@ -61,10 +61,10 @@ function loadProfilePage() {
                       </a>
                   </div>
               </div>`;
-        },
-        error: function (xhr, status, error) {
-          alert(xhr.responseText);
-        },
-      });
-    }
+      },
+      error: function (xhr, status, error) {
+        alert(xhr.responseText);
+      },
+    });
   }
+}
