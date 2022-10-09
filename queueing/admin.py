@@ -5,7 +5,6 @@ from django.contrib.sessions.models import Session
 # register listener model
 
 admin.site.register(Listener)
-admin.site.register(Follower)
 
 
 class SessionAdmin(admin.ModelAdmin):

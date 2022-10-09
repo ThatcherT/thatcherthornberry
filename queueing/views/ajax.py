@@ -1,6 +1,5 @@
 from django.http import JsonResponse
 from queueing.models import Listener
-from queueing.utils.spotify import get_spotify_client
 from queueing.utils.songs import get_suggested_songs, get_song_matches
 
 
@@ -14,7 +13,7 @@ def search(request):
     # get search term
     song = request.POST.get("song")
     # get spotify client
-    sp = get_spotify_client(listener)
+    sp = listener.sp_client.sp
     # get list of songs
     song_lst = get_song_matches(song, sp)
     return JsonResponse({"song_lst": song_lst})
@@ -27,7 +26,7 @@ def suggest(request):
     iam = request.GET.get("iam")
     listener = Listener.objects.get(name=iam)
     # get spotify client
-    sp = get_spotify_client(listener)
+    sp = listener.sp_client.sp
     # get songs they like
     song_lst = get_suggested_songs(sp)
     return JsonResponse({"song_lst": song_lst})
@@ -38,7 +37,7 @@ def now_playing(request):
     Return Spotify Song Obj for song that is playing
     """
     listener = Listener.objects.get(name=request.POST["dj"])
-    sp = get_spotify_client(listener)
+    sp = listener.sp_client.sp
     if not sp:
         return JsonResponse({"success": False, "error": "no spotify client"})
     songObj = sp.current_user_playing_track()
@@ -77,6 +76,16 @@ def shuffle(request):
     return JsonResponse({"success": True})
 
 
+def start_session(request):
+    """
+    Start a session for a dj
+    """
+    IAmDJ = request.POST.get("IAmDJ")
+    listener = Listener.objects.get(name=IAmDJ)
+    listener.start_session()
+    return JsonResponse({"success": True})
+
+
 def queue(request):
     """
     Queue song, pass dj parameter and song title
@@ -85,14 +94,13 @@ def queue(request):
     dj = request.POST.get("dj")
 
     listener = Listener.objects.get(name=dj)
-
-    sp = get_spotify_client(listener)
-    # add to queue
-    try:
-        sp.add_to_queue(uri, device_id=None)
+    if listener.session_active:
+        listener.q_mgmt.queue_add(uri)
         return JsonResponse({"success": True})
-    except Exception as e:
-        return JsonResponse({"success": False, "error": str(e)})
+
+    else:
+        listener.queue_song(uri)
+        return JsonResponse({"success": True})
 
 
 def get_djs(request):

@@ -75,6 +75,17 @@ function queue(URI) {
 }
 
 
+function startSession() {
+    $.ajax({
+        url: "/ajax/start-session/",
+        type: "POST",
+        data: {
+            csrfmiddlewaretoken: window.CSRF_TOKEN,
+            IAmDJ: getIAmDJ(),
+        },
+        dataType: "json",
+    });
+}
 
 // send ajax to server and shuffle for IAmDJ
 function shuffle() {
