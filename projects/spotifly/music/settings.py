@@ -85,6 +85,12 @@ if config("LOCAL") and not config("LOCALPOSTGRES"):
         }
     }
 else:
+    # this is so we can set a DOCKER environment variable when running in docker
+
+    if config("DOCKER_LOCAL", default=False, cast=bool):
+        POSTGRES_HOST = "postgres"
+    else:
+        POSTGRES_HOST = config("POSTGRES_HOST", default="localhost", cast=str)
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
@@ -92,15 +98,18 @@ else:
             "NAME": config("DB_NAME", default="spotifly", cast=str),
             "USER": config("POSTGRES_USER", default="thatcher", cast=str),
             "PASSWORD": config("POSTGRES_PASSWORD"),
-            "HOST": config(
-                "POSTGRES_HOST", default="localhost", cast=str
-            ),  # docker container name
+            "HOST": POSTGRES_HOST,
             "PORT": config("POSTGRES_PORT", default=5432, cast=int),
         }
     }
+if config("DOCKER_LOCAL", default=False, cast=bool):
+    REDIS_HOST = "redis"
+else:
+    REDIS_HOST = config("REDIS_HOST", default="localhost", cast=str)
+
 RQ_QUEUES = {
     "default": {
-        "HOST": config("REDIS_HOST", default="redis", cast=str),
+        "HOST": REDIS_HOST,
         "PORT": config("REDIS_PORT", default=6379, cast=int),
         "DB": 0,
         "PASSWORD": config("REDIS_PASSWORD"),
@@ -108,11 +117,10 @@ RQ_QUEUES = {
     }
 }
 
-
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{config('REDIS_HOST', default='redis', cast=str)}:{config('REDIS_PORT', default=6379, cast=int)}/0",
+        "LOCATION": f"redis://{REDIS_HOST}:{config('REDIS_PORT', default=6379, cast=int)}/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PASSWORD": config("REDIS_PASSWORD"),

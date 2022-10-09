@@ -1,0 +1,78 @@
+version: "3"
+
+volumes:
+  pgdata:
+  redisdata:
+
+
+services:
+  # TODO: implement a local version of ngninx that can somehow compile to the main project
+  # nginx:
+  #   restart: always
+  #   image: nginx:1.15-alpine
+  #   depends_on:
+  #     - spotifly
+  #   volumes:
+  #     - ./projects/spotifly/staticfiles:/app/spotifly/staticfiles
+  #     - ./nginx/dev:/etc/nginx/conf.d # this is how we use custom nginx build
+  #   ports:
+  #     - "80:80"
+
+  spotifly:
+    restart: always
+    build: .
+    image: thatcherthornberry/spotifly:latest
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - .:/app/spotifly
+    env_file:
+      - .env
+    environment:
+      - DOCKER_LOCAL=True
+    depends_on:
+      - postgres
+  postgres:
+    restart: always
+    image: postgres:12.0-alpine
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_HOST=postgres
+  redis:
+    restart: always
+    image: redis:6
+    command: >
+      --requirepass ${REDIS_PASSWORD}
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    volumes:
+      - redisdata:/data
+  # TODO: refactor these to their own repo or something
+  scheduler:
+    restart: always
+    image: thatcherthornberry/spotifly:latest
+    command: python manage.py rqscheduler --queue default
+    env_file:
+      - .env
+    environment:
+      - DOCKER_LOCAL=True
+    depends_on:
+      - "redis"
+
+  # TODO: refactor these to their own repo or something
+  worker:
+    restart: always
+    image: thatcherthornberry/spotifly:latest
+    command: python manage.py rqworker default
+    env_file:
+      - .env
+    environment:
+      - DOCKER_LOCAL=True
+    depends_on:
+      - "redis"
