@@ -49,6 +49,7 @@ for line in output.splitlines():
     docker_compose_paths.append("./" + line.decode("utf-8") + "/docker-compose.yaml")
 
 yml = {}
+print('paths', docker_compose_paths)
 for path in docker_compose_paths:
     # use yaml to open as ymlfile
     with open(path, "r") as ymlfile:
