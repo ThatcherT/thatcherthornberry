@@ -19,6 +19,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: docker-compose.yml compile w/ Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x' # largest minor
+        execute file ./scripts/compile-docker-compose.py   
+
     - id: 'auth'
       uses: 'google-github-actions/auth@v0'
       with:

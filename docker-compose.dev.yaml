@@ -5,6 +5,7 @@ volumes:
   pgdata:
 
 services:
+  # TODO: figure out nginx locally
   nginx:
     restart: always
     image: nginx:1.15-alpine
