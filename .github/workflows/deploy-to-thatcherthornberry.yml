@@ -24,8 +24,8 @@ jobs:
       with:
         python-version: '3.x' # largest minor
     - run: pwd
-    - run: pip install -r requirements.workflows.txt
-    - run: python ./scripts/compile-docker-compose.py   
+    - run: pip install -r ./.github/workflows/requirements.workflows.txt
+    - run: python ./.github/workflows/scripts/compile-docker-compose.py   
 
     - id: 'auth'
       uses: 'google-github-actions/auth@v0'
