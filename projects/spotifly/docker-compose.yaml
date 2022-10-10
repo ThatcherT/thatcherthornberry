@@ -1,8 +1,8 @@
 version: "3"
 
 volumes:
-  pgdata:
-  redisdata:
+  pgdata: null
+  redisdata: null
 
 
 services:
@@ -31,8 +31,7 @@ services:
   redis:
     restart: always
     image: redis:6
-    command: >
-      --requirepass ${REDIS_PASSWORD}
+    command: --requirepass ${REDIS_PASSWORD}
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
