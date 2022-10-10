@@ -1,0 +1,22 @@
+start-dev:
+	pwd
+	sudo docker-compose -f docker-compose.dev.yaml up --build
+
+get-env:
+	# fetch env file from github secrets... or maybe gcloud..?
+
+push-env:
+	# push env file to github secrets... or maybe gcloud..?
+
+requirements:
+	pip install -r requirements.txt
+
+dev-requirements:
+	pip install -r requirements.dev.txt
+
+docker-dependencies:
+	# docker-compose
+	
+project-dependencies:
+	# postgresql 
+	# redis
