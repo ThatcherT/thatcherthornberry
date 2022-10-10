@@ -27,7 +27,6 @@ os.chdir(
     )
 )
 # print working directory
-print(os.getcwd())
 docker_compose_paths = []
 # git log | grep git-subtree-dir | tr -d ' ' | cut -d ":" -f2 | sort | uniq
 p1 = subprocess.Popen(shlex.split("git log"), stdout=subprocess.PIPE)
