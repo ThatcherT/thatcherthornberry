@@ -29,14 +29,15 @@ from pprint import pprint
 
 docker_compose_paths = []
 for folder in os.listdir("projects"):
-    docker_compose_paths.append('/projects/{}/docker-compose.yml'.format(folder))
+    docker_compose_paths.append('./projects/{}/docker-compose.yaml'.format(folder))
 
 # print working directory
 print(os.getcwd(), 'WPDDPWPDPWDP')
 yml = {}
 for path in docker_compose_paths:
     # add cwd to path
-    path = os.path.join(os.getcwd(), path)
+    print(os.getcwd())
+    # path = os.path.join(os.getcwd(), path)
     print(path, 'NEW PATH')
     # use yaml to open as ymlfile
     
