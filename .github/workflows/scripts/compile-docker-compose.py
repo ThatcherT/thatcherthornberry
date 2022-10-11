@@ -29,7 +29,7 @@ from pprint import pprint
 
 docker_compose_paths = []
 for folder in os.listdir("projects"):
-    docker_compose_paths.append('./projects/{}/docker-compose.yml'.format(folder))
+    docker_compose_paths.append('/projects/{}/docker-compose.yml'.format(folder))
 
 # print working directory
 print(os.getcwd(), 'WPDDPWPDPWDP')
