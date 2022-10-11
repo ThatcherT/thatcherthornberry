@@ -77,7 +77,7 @@ WSGI_APPLICATION = "music.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if config("LOCAL") and not config("LOCALPOSTGRES"):
+if config("LOCAL", default=False, cast=bool) and not config("LOCALPOSTGRES", default=False, cast=bool):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
