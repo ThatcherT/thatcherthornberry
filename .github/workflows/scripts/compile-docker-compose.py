@@ -21,11 +21,11 @@ import shlex
 from pprint import pprint
 
 # set working directory to ../../../ 3 parents up.. use os.chdir()
-os.chdir(
-    os.path.dirname(
-        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    )
-)
+# os.chdir(
+#     os.path.dirname(
+#         os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#     )
+# )
 
 docker_compose_paths = []
 for folder in os.listdir("projects"):
