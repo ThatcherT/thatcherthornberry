@@ -8,8 +8,6 @@ services:
   nginx:
     restart: always
     image: nginx:1.15-alpine
-    depends_on:
-      - web
     volumes:
       - ./projects/me/staticfiles:/app/me/staticfiles
       - ./projects/spotifly/staticfiles:/app/spotifly/staticfiles
