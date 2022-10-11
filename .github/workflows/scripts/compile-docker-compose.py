@@ -26,31 +26,12 @@ os.chdir(
         os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     )
 )
-# print working directory
+
 docker_compose_paths = []
-# TODO: figure out why the subtrees aren't available... :) ?
-# git log | grep git-subtree-dir | tr -d ' ' | cut -d ":" -f2 | sort | uniq
-p1 = subprocess.Popen(shlex.split("git log"), stdout=subprocess.PIPE)
-p2 = subprocess.Popen(
-    shlex.split("grep git-subtree-dir"), stdin=p1.stdout, stdout=subprocess.PIPE
-)
-p3 = subprocess.Popen(shlex.split('tr -d " "'), stdin=p2.stdout, stdout=subprocess.PIPE)
-p4 = subprocess.Popen(
-    shlex.split('cut -d ":" -f2'), stdin=p3.stdout, stdout=subprocess.PIPE
-)
-p5 = subprocess.Popen(shlex.split("sort"), stdin=p4.stdout, stdout=subprocess.PIPE)
-p6 = subprocess.Popen(shlex.split("uniq"), stdin=p5.stdout, stdout=subprocess.PIPE)
-p1.stdout.close()
-p2.stdout.close()
-p3.stdout.close()
-p4.stdout.close()
-p5.stdout.close()
-output = p6.communicate()[0]
-for line in output.splitlines():
-    docker_compose_paths.append("./" + line.decode("utf-8") + "/docker-compose.yaml")
+for folder in os.listdir("projects"):
+    docker_compose_paths.append('./projects/{}/docker-compose.yml'.format(folder))
 
 yml = {}
-print('paths', docker_compose_paths)
 for path in docker_compose_paths:
     # use yaml to open as ymlfile
     with open(path, "r") as ymlfile:
