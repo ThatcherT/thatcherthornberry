@@ -35,7 +35,10 @@ for folder in os.listdir("projects"):
 print(os.getcwd(), 'WPDDPWPDPWDP')
 yml = {}
 for path in docker_compose_paths:
+    # add cwd to path
+    path = os.path.join(os.getcwd(), path)
     # use yaml to open as ymlfile
+    
     with open(path, "r") as ymlfile:
         # read the file and write it to a python object where services are keys and the data contained within each is mapped to a string
         file_yml = yaml.load(ymlfile, Loader=yaml.FullLoader)
