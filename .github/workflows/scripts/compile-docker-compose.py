@@ -31,6 +31,8 @@ docker_compose_paths = []
 for folder in os.listdir("projects"):
     docker_compose_paths.append('./projects/{}/docker-compose.yml'.format(folder))
 
+# print working directory
+print(os.getcwd())
 yml = {}
 for path in docker_compose_paths:
     # use yaml to open as ymlfile
