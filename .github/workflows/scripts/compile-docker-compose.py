@@ -37,6 +37,7 @@ yml = {}
 for path in docker_compose_paths:
     # add cwd to path
     path = os.path.join(os.getcwd(), path)
+    print(path, 'NEW PATH')
     # use yaml to open as ymlfile
     
     with open(path, "r") as ymlfile:
