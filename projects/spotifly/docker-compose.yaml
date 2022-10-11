@@ -12,6 +12,7 @@ services:
     image: thatcherthornberry/spotifly:latest
     command: bash -c "
         python manage.py migrate &&
+        python manage.py collectstatic --noinput &&
         gunicorn music.wsgi:application --bind 0.0.0.0:8001"
     expose:
       - 8001
