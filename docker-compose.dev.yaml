@@ -19,6 +19,7 @@ services:
   #     - "80:80"
 
   spotifly:
+  # TODO: probably need some volumes to port code while developing.. bong
     restart: always
     build: .
     image: thatcherthornberry/spotifly:latest
