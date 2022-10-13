@@ -2,23 +2,9 @@ version: "3"
 
 volumes:
   pgdata:
+  static_me:
 
 services:
-  nginx:
-    restart: always
-    image: nginx:1.15-alpine
-    depends_on:
-      - web
-    volumes:
-      - ./staticfiles:/home/app/web/staticfiles
-      - ../spotifly/staticfiles:/home/app/staticfiles
-      - ../config/etc/letsencrypt:/etc/letsencrypt
-      - ./data/nginx:/etc/nginx/conf.d # this is how we use custom nginx build
-
-      
-    ports:
-      - "80:80"
-      - "443:443"
   postgres:
     restart: always
     image: postgres:12.0-alpine
@@ -41,3 +27,5 @@ services:
       - ./projects/me/.env
     depends_on:
       - postgres
+    volumes:
+      - static_me:/app/me/staticfiles
