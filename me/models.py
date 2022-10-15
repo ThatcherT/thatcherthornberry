@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Review(models.Model):
     title = models.CharField(max_length=200)
     review = models.TextField()
@@ -16,6 +17,6 @@ class Review(models.Model):
 
     def __str__(self):
         return self.title
+
     class Meta:
-        ordering = ['-created_at']
-    
+        ordering = ["-created_at"]

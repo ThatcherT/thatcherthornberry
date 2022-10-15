@@ -7,20 +7,27 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Review',
+            name="Review",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('review', models.TextField()),
-                ('rating', models.IntegerField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('author', models.CharField(max_length=55)),
-                ('relation', models.CharField(max_length=55)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("review", models.TextField()),
+                ("rating", models.IntegerField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("author", models.CharField(max_length=55)),
+                ("relation", models.CharField(max_length=55)),
             ],
         ),
     ]
