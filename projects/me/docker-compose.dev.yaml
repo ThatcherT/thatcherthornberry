@@ -32,9 +32,7 @@ services:
     restart: always
     build: .
     image: thatcherthornberry
-    command: bash -c "
-        python manage.py migrate &&
-        gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000"
+    command: bash -c " python manage.py migrate && gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000"
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
@@ -45,6 +43,7 @@ services:
       - DOCKER_LOCAL=True
     depends_on:
       - postgres
+
 # TODO: revisit networks
 # networks:
 #   default:
