@@ -4,3 +4,4 @@ data/certbot/
 .senv
 TODO.txt
 db.sqlite3
+*.pyc

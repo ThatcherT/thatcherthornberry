@@ -7,36 +7,34 @@ volumes:
 
 services:
   # TODO: figure out local implementation
-  # nginx:
-  #   restart: always
-  #   image: nginx:1.15-alpine
-  #   depends_on:
-  #     - web
-  #   volumes:
-  #     - ./staticfiles:/home/app/web/staticfiles
-  #     - ../spotifly/staticfiles:/home/app/staticfiles
-  #     - ../config/etc/letsencrypt:/etc/letsencrypt
-  #     - ./data/nginx:/etc/nginx/conf.d # this is how we use custom nginx build
+  nginx:
+    restart: always
+    image: nginx:1.15-alpine
+    depends_on:
+      - me
+    volumes:
+      - ./nginx:/etc/nginx/conf.d # this is how we use custom nginx build
 
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
+    ports:
+      - "80:80"
   postgres:
     restart: always
     image: postgres:12.0-alpine
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - 5432:5432
     env_file:
       - .env
     environment:
       - POSTGRES_HOST=postgres
-  web:
+  me:
     restart: always
     build: .
     image: thatcherthornberry
-    command: python manage.py runserver
+    command: bash -c "
+        python manage.py migrate &&
+        gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000"
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     volumes:
