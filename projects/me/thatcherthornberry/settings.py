@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -74,14 +74,17 @@ WSGI_APPLICATION = 'thatcherthornberry.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+if config("DOCKER_LOCAL", default=False, cast=bool):
+        POSTGRES_HOST = "postgres"
+else:
+    POSTGRES_HOST = config("POSTGRES_HOST", default="localhost", cast=str)
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": config("POSTGRES_DB"),
         "USER": config("POSTGRES_USER"),
         "PASSWORD": config("POSTGRES_PASSWORD"),
-        # "HOST": config("SQL_HOST"),
-        "HOST": 'postgres', # docker container name
+        "HOST": POSTGRES_HOST, # docker container name
         "PORT": "5432"
     }
 }
