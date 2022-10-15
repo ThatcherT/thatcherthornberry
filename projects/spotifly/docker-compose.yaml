@@ -3,6 +3,7 @@ version: "3"
 volumes:
   pgdata: null
   redisdata: null
+  static_spotifly: null
 
 
 services:
@@ -16,6 +17,8 @@ services:
         gunicorn music.wsgi:application --bind 0.0.0.0:8001"
     expose:
       - 8001
+    volumes:
+      - static_spotifly:/app/spotifly/staticfiles
     env_file:
       - ./projects/spotifly/.env
     depends_on:
