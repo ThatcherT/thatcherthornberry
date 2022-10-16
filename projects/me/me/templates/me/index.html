@@ -12,7 +12,6 @@
         <meta property="og:image" content="{% static 'me/images/headshot.jpeg' %}" />
 
         <title>Thatcher Thornberry</title>
-        <!--  load static style.css -->
         <link rel="stylesheet" href="{% static 'me/css/style.css' %}">
     </head>
     <body id="top">
@@ -173,7 +172,6 @@
 
                                     <p class="reviews-text w-100">{{ review.review }}</p>
                                     <!-- TODO: get profile pic from linkedin, we need thatcher's token so as not to get randos -->
-                                    <!-- <img src="{% static 'me/images/beautiful-woman-face-portrait-brown-background.jpeg' %}" class="img-fluid reviews-image" alt=""> -->
 
                                     <figcaption class="ms-4">
                                         <strong>{{ review.author }}</strong>
@@ -334,21 +332,6 @@
                     </div>
                 </div>
             </section>
-            <!-- <section class="gallery">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-lg-6 col-6 ps-0">
-                            <img src="{% static 'me/images/medium-shot-man-getting-vaccine.jpg' %}" class="img-fluid galleryImage" alt="get a vaccine" title="get a vaccine for yourself">
-                        </div>
-
-                        <div class="col-lg-6 col-6 pe-0">
-                            <img src="{% static 'me/images/female-doctor-with-presenting-hand-gesture.jpg' %}" class="img-fluid galleryImage" alt="wear a mask" title="wear a mask to protect yourself">
-                        </div>
-
-                    </div>
-                </div>
-            </section> -->
 
             <section class="section-padding pb-0" id="timeline">
                 <div class="container">
