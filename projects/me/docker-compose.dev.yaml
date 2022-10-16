@@ -6,7 +6,6 @@ volumes:
   static_me:
 
 services:
-  # TODO: figure out local implementation
   nginx:
     restart: always
     image: nginx:1.15-alpine
