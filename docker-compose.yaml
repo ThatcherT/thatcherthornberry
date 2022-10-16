@@ -2,8 +2,6 @@ version: "3"
 
 volumes:
   pgdata:
-  static_me:
-
 
 services:
   postgres:
@@ -20,12 +18,9 @@ services:
     build: ./projects/me
     image: thatcherthornberry
     command: bash -c " python manage.py migrate && gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000"
-    expose:
-      - "8000"
+    ports:
+      - 8000:8000
     env_file:
       - ./projects/me/.env
     depends_on:
       - postgres
-    volumes:
-      - ./projects/me:/usr/src/me
-      - static_me:/app/me/staticfiles
