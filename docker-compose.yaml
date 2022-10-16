@@ -16,6 +16,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - me
+      - spotifly
   postgres:
     restart: always
     image: postgres:12.0-alpine
