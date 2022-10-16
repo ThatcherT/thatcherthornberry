@@ -35,8 +35,6 @@ services:
     command: bash -c " python manage.py migrate && gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000"
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
-    volumes:
-      - .:/app/me
     env_file:
       - .env
     environment:

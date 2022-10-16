@@ -12,41 +12,17 @@
         <meta property="og:image" content="{% static 'me/images/headshot.jpeg' %}" />
 
         <title>Thatcher Thornberry</title>
-
-        <!-- CSS FILES -->        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-        <link href="{% static 'me/css/bootstrap.min.css' %}" rel="stylesheet">
-
-        <link href="{% static 'me/css/bootstrap-icons.css' %}" rel="stylesheet">
-
-        <link href="{% static 'me/css/owl.carousel.min.css' %}" rel="stylesheet">
-
-        <link href="{% static 'me/css/owl.theme.default.min.css' %}" rel="stylesheet">
-
-        <link href="{% static 'me/css/templatemo-medic-care.css' %}" rel="stylesheet">
-<!--
-
-TemplateMo 566 Medic Care
-
-https://templatemo.com/tm-566-medic-care
-
--->
+        <!--  load static style.css -->
+        <link rel="stylesheet" href="{% static 'me/css/style.css' %}">
     </head>
-    
     <body id="top">
     
         <main>
 
-            <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg">
+            <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg redness">
                 <div class="container">
                     <a class="navbar-brand mx-auto d-lg-none" href="index.html">
                         Thatcher Thornberry
-                        <strong class="d-block">Technical Services</strong>
                     </a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,9 +96,8 @@ https://templatemo.com/tm-566-medic-care
                                 <p class="mb-4">I'm a self-taught developer with experience across the web development stack. I also do science-y stuff like machine learning, neural networks, and Julia.</p>
 
                                 <div class="heroLinks d-flex flex-wrap align-items-center">
-                                    <a class="custom-link me-4" href="#me" data-hover="Learn More">Learn More</a>
 
-                                    <p class="contact-phone mb-0"><i class="bi-phone"></i> 737-275-4382</p>
+                                    <p>512-383-6834</p>
                                 </div>
                             </div>
                         </div>
@@ -517,9 +492,6 @@ https://templatemo.com/tm-566-medic-care
         <!-- JAVASCRIPT FILES -->
         <script src="{% static 'me/js/jquery.min.js' %}"></script>
         <script src="{% static 'me/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'me/js/owl.carousel.min.js' %}"></script>
-        <script src="{% static 'me/js/scrollspy.min.js' %}"></script>
-        <script src="{% static 'me/js/custom.js' %}"></script>
         <script>
             // get total github contributions for user ThatcherT
             $.getJSON('https://api.github.com/users/ThatcherT/repos?callback=foo', function(data) {
