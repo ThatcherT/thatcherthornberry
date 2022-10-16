@@ -9,8 +9,8 @@ services:
     restart: always
     image: nginx:1.15-alpine
     volumes:
-      # - ./projects/me/staticfiles:/app/me/staticfiles
-      # - ./projects/spotifly/staticfiles:/app/spotifly/staticfiles
+      - static_me:/app/me/staticfiles
+      - static_spotfily:/app/spotfily/staticfiles
       - ./config/etc/letsencrypt:/etc/letsencrypt
       - ./nginx:/etc/nginx/conf.d # this is how we use custom nginx build
     ports:
