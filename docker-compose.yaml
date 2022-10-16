@@ -10,7 +10,7 @@ services:
     image: nginx:1.15-alpine
     volumes:
       - static_me:/app/me/staticfiles
-      - static_spotifly:/app/spotfily/staticfiles
+      - static_spotifly:/app/spotifly/staticfiles
       - ./config/etc/letsencrypt:/etc/letsencrypt
       - ./nginx:/etc/nginx/conf.d # this is how we use custom nginx build
     ports:
