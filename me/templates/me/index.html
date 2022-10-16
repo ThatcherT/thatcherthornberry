@@ -12,7 +12,6 @@
         <meta property="og:image" content="{% static 'me/images/headshot.jpeg' %}" />
 
         <title>Thatcher Thornberry</title>
-        <!--  load static style.css -->
         <link rel="stylesheet" href="{% static 'me/css/style.css' %}">
     </head>
     <body id="top">
@@ -173,7 +172,6 @@
 
                                     <p class="reviews-text w-100">{{ review.review }}</p>
                                     <!-- TODO: get profile pic from linkedin, we need thatcher's token so as not to get randos -->
-                                    <!-- <img src="{% static 'me/images/beautiful-woman-face-portrait-brown-background.jpeg' %}" class="img-fluid reviews-image" alt=""> -->
 
                                     <figcaption class="ms-4">
                                         <strong>{{ review.author }}</strong>
