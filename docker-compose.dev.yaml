@@ -3,7 +3,7 @@ version: "3"
 volumes:
   pgdata:
   redisdata:
-  static_spotfily:
+  static_spotifly:
 
 
 services:
