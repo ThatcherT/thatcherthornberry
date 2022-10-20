@@ -2,7 +2,7 @@ import random
 
 
 def get_suggested_songs(sp):
-    return sp.current_user_top_tracks(limit=10)["items"]
+    return sp.current_user_top_tracks()["items"]
 
 
 def get_song_matches(song, sp):

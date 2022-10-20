@@ -3,11 +3,11 @@ This document contains some helpful utils for shuffling, following, and queueing
 */
 
 function getFollowingDJ() {
-  return jQuery.data(document.body, "followingDJ");
+  return $("body").data("followingDJ");
 }
 
 function getIAmDJ() {
-  return jQuery.data(document.body, "IAmDJ");
+  return $("body").data("IAmDJ");
 }
 
 // STARTUP SCRIPT RUNS EVERY TIME!!!!!
@@ -30,20 +30,19 @@ function loadPage() {
 
 // clear out local storage and reload page
 function logOut() {
-  jQuery.data(document.body, "IAmDJ", "");
+  $("body").data("IAmDJ", "");
   loadPage();
 }
 
 function getSongRowHTML(songObj) {
   // IMPORTANT: this is the songs unique identifier
-  const URI = songObj.uri;
   let songRowHTML = document.createElement("div");
 
   // TODO: return row from function called songRowHTML
 
   songRowHTML.classList.add("row", "search-item");
-  // add an attribute data-uri to the row
-  songRowHTML.setAttribute("data-uri", URI);
+  // add the stringified songObj to the row
+  songRowHTML.setAttribute('data-song-object', JSON.stringify(songObj));
 
   // album image
   const albumImageCol = document.createElement("div");

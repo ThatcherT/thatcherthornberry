@@ -9,7 +9,7 @@ function loadWelcomePage() {
         <div class="row">
             <div class="col-12">
                 <p>
-                    QSongs allows you to queue songs on your friends' devices. Or, become the
+                    QSongs lets you to queue songs on your friends' devices. Or, become the
                     DJ, and enable others to queue songs on your device.
                 </p>
             </div>
@@ -31,7 +31,7 @@ var djFormHeader = `
     <div class="row">
         <div class="col-12">
             <p>
-                The choice is yours.
+                The choice is yours...
             </p>
         </div>
     </div>

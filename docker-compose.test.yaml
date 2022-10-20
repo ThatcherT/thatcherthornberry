@@ -11,7 +11,7 @@ services:
     restart: always
     image: nginx:1.15-alpine
     depends_on:
-      - me
+      - spotifly
     volumes:
       - ./nginx:/etc/nginx/conf.d # this is how we use custom nginx build
       - static_spotifly:/app/spotifly/staticfiles
@@ -19,11 +19,10 @@ services:
       - "80:80"
 
   spotifly:
-  # TODO: probably need some volumes to port code while developing.. bong
     restart: always
     build: .
     image: thatcherthornberry/spotifly:latest
-    command: bash -c "python manage.py migrate && gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000"
+    command: bash -c "python manage.py migrate && gunicorn music.wsgi:application -b 0.0.0.0:8000"
     expose:
       - 8000
     volumes:
