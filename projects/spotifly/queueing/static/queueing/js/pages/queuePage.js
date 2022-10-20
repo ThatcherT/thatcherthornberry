@@ -9,7 +9,7 @@ function loadQueuePage() {
         <div class="row">
             <div class="col-12">
                 <p>
-                    Queue Songs
+                    Queue a Song
                 </p>
             </div>
         </div>
@@ -44,7 +44,7 @@ function showSongsOnQueuePage(songObjs) {
   searchResults.innerHTML = "";
   // add rows to div
   // only use the first 5 results
-  songObjs.slice(0, 5).forEach(function (songObj) {
+  songObjs.forEach(function (songObj) {
     const row = getSongRowHTML(songObj);
     // append this row to the div
     searchResults.appendChild(row);
@@ -53,15 +53,15 @@ function showSongsOnQueuePage(songObjs) {
     row.addEventListener("click", async function () {
       // get clicked element
       let clickedElement = event.target;
-      // get the data-uri attribute from the clicked element
-      let URI = clickedElement.getAttribute("data-uri");
+      // get the song object from the clicked element
+      let dataSongObj = clickedElement.getAttribute("data-song-object");
       // while no URI
       let safeCounter = 0;
-      while (!URI) {
+      while (!dataSongObj) {
         // get the parent of the clicked element
         clickedElement = clickedElement.parentElement;
         // get the data-uri attribute from the parent element
-        URI = clickedElement.getAttribute("data-uri");
+        dataSongObj = clickedElement.getAttribute("data-song-object");
         safeCounter++;
         // if we have gone too far, break
         if (safeCounter > 5) {
@@ -70,9 +70,9 @@ function showSongsOnQueuePage(songObjs) {
         }
       }
       // if we have a URI, we got the row containing the song data
-      if (URI) {
+      if (dataSongObj) {
         // add the song to the queue
-        const response = await queue(URI);
+        const response = await queue(dataSongObj);
         if (response.success) {
           // change the color of clicked element to green
           clickedElement.style.color = "green";

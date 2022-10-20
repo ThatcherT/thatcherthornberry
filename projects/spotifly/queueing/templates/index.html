@@ -107,13 +107,11 @@
   </script>
   <script>
     // set these jquery variables from django session
-    jQuery.data(
-      document.body,
+    $("body").data(
       "IAmDJ",
       "{{ request.session.IAmDJ|default:'' }}"
     );
-    jQuery.data(
-      document.body,
+    $("body").data(
       "followingDJ",
       "{{ request.session.followingDJ|default:'' }}"
     );

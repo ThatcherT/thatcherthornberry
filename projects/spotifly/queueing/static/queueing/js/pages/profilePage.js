@@ -17,7 +17,8 @@ function loadProfilePage() {
                           You are DJ ${getIAmDJ()}
                       </p>
                       <button class="btn btn-primary big-ole-btn" onclick="shuffle()">Shuffle</button>
-                      <button class="btn btn-primary big-ole-btn" onclick="startSession()">Start Session</button>
+                      <button class="btn btn-primary big-ole-btn" onclick="session()">Start Session</button>
+                      <button class="btn btn-primary big-ole-btn" onclick="session(true)">Stop Session</button>
                   </div>
               </div>
               <div class="row">

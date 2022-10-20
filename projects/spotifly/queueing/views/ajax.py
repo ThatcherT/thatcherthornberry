@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from queueing.models import Listener
 from queueing.utils.songs import get_suggested_songs, get_song_matches
-
+import json
 
 def search(request):
     """
@@ -76,12 +76,16 @@ def shuffle(request):
     return JsonResponse({"success": True})
 
 
-def start_session(request):
+def session(request):
     """
     Start a session for a dj
     """
     IAmDJ = request.POST.get("IAmDJ")
+    stopSession = request.POST.get("stop")
     listener = Listener.objects.get(name=IAmDJ)
+    if stopSession:
+        listener.stop_session()
+        return JsonResponse({"success": True})
     listener.start_session()
     return JsonResponse({"success": True})
 
@@ -92,19 +96,22 @@ def queue_mgmt(request):
     """
     dj = request.POST.get("dj")
     listener = Listener.objects.get(name=dj)
-    return JsonResponse({"q_mgmt": listener.q_mgmt})
+    return JsonResponse({"q_mgmt": listener.q_mgmt.queue_mgmt})
 
 
 def queue(request):
     """
     Queue song, pass dj parameter and song title
     """
-    uri = request.POST.get("uri")
+    song_object = request.POST.get("songObj")
+    # convert json string to python dict
+    song_object = json.loads(song_object)
+    uri = song_object["uri"]
     dj = request.POST.get("dj")
 
     listener = Listener.objects.get(name=dj)
     if listener.session_active:
-        listener.q_mgmt.queue_add(uri)
+        listener.q_mgmt.queue_add(song_object)
         return JsonResponse({"success": True})
 
     else:
