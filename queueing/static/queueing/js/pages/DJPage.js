@@ -22,7 +22,6 @@ function getQueueHTML() {
   let rowsHTML = "";
   // use jquery to get "queueMgmt"
   let queueMgmt = $("body").data("queueMgmt");
-  console.log('session data', queueMgmt);
   if (Object.keys(queueMgmt.on_deck).length > 0) {
     rowsHTML += `<div class="row">
         <div class="col">

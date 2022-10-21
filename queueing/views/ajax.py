@@ -1,7 +1,10 @@
-from django.http import JsonResponse
-from queueing.models import Listener
-from queueing.utils.songs import get_suggested_songs, get_song_matches
 import json
+
+from django.http import JsonResponse
+
+from queueing.models import Listener
+from queueing.utils.songs import get_song_matches, get_suggested_songs
+
 
 def search(request):
     """

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -91,7 +92,9 @@ WSGI_APPLICATION = "music.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if config("LOCAL", default=False, cast=bool) and not config("LOCALPOSTGRES", default=False, cast=bool):
+if config("LOCAL", default=False, cast=bool) and not config(
+    "LOCALPOSTGRES", default=False, cast=bool
+):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",

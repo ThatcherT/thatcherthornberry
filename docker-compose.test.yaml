@@ -5,7 +5,6 @@ volumes:
   redisdata:
   static_spotifly:
 
-
 services:
   nginx:
     restart: always

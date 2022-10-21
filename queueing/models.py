@@ -75,13 +75,13 @@ class Listener(models.Model):
     def start_session(self):
         """Start a session. A session is a repeated job which checks playback periodically and decides when to queue the next song."""
         # delete existing with id if exists
-        print('Let the Seshing Begin!')
+        print("Let the Seshing Begin!")
         for j in scheduler.get_jobs():
             if j.id == self.name:
                 scheduler.cancel(j)
         # delete existing redis queue
         cache.delete(self.name)
-        
+
         scheduler.schedule(
             scheduled_time=datetime.now(),
             func=self.decide_to_queue,
@@ -89,9 +89,10 @@ class Listener(models.Model):
             repeat=180,  # 3 hours
             id=self.name,
         )
+
     def stop_session(self):
         """Stop a session"""
-        print('Seshing no mo')
+        print("Seshing no mo")
         for j in scheduler.get_jobs():
             if j.id == self.name:
                 scheduler.cancel(j)
@@ -106,15 +107,15 @@ class Listener(models.Model):
             or self.q_mgmt.queue_mgmt["queue"] == {}
         ):
             # song is still playing or queue empty
-            print('Decided not to queue')
-            print('playback == current', playback == self.q_mgmt.queue_mgmt["current"])
-            print('queue empty', self.q_mgmt.queue_mgmt["queue"] == {})
+            print("Decided not to queue")
+            print("playback == current", playback == self.q_mgmt.queue_mgmt["current"])
+            print("queue empty", self.q_mgmt.queue_mgmt["queue"] == {})
             return
         else:
             # song is done playing
-            print('Decided to queue')
-            print('playback == current', playback == self.q_mgmt.queue_mgmt["current"])
-            print('queue empty', self.q_mgmt.queue_mgmt["queue"] == {})
+            print("Decided to queue")
+            print("playback == current", playback == self.q_mgmt.queue_mgmt["current"])
+            print("queue empty", self.q_mgmt.queue_mgmt["queue"] == {})
             self.q_mgmt.queue_next()
 
     class SpotifyClient:
@@ -201,6 +202,7 @@ class Listener(models.Model):
                     else:
                         queue_mgmt["queue"][uri] = value
                     cache.set(value["listener_to"], json.dumps(queue_mgmt))
+
                 def __delitem__(self, key):
                     listener_name = self[key]["listener_to"]
                     queue_mgmt = json.loads(cache.get(listener_name))
@@ -232,7 +234,7 @@ class Listener(models.Model):
         def queue_next(self):
             """If the current song is done playing, set the top song from queue to on deck and then queue it"""
             # TODO: pretty sure this broke
-            print('time to queue next :0))))')
+            print("time to queue next :0))))")
             if self.listener.playback != self.queue_mgmt["on_deck"]:
                 print("Somebody messed up.. I think the queue will be a bit ahead now")
             # update queue_mgmt
@@ -245,15 +247,17 @@ class Listener(models.Model):
                     -self.queue_mgmt["queue"][x]["queued_time"],
                 ),
             )
-            print('setting ')
-            self.queue_mgmt["on_deck"] = {on_deck_uri:self.queue_mgmt["queue"][on_deck_uri]}
+            print("setting ")
+            self.queue_mgmt["on_deck"] = {
+                on_deck_uri: self.queue_mgmt["queue"][on_deck_uri]
+            }
             # rm from queue
             del self.queue_mgmt["queue"][on_deck_uri]
-            print('new queue mgmt', self.queue_mgmt['queue'].keys())
+            print("new queue mgmt", self.queue_mgmt["queue"].keys())
 
         def queue_add(self, song_object):
             """Add track with zero votes"""
-            print('Adding to Queue!', song_object['uri'])
+            print("Adding to Queue!", song_object["uri"])
             # init song with 0 votes
             # HARD LESSON: the setter doesn't work for sub dicts :')
             track_uri = song_object["uri"]

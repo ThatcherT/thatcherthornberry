@@ -1,5 +1,6 @@
 from django.urls import path
-from queueing.views import views, ajax
+
+from queueing.views import ajax, views
 
 urlpatterns = [
     # website stuff
