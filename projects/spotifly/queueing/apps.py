@@ -1,7 +1,8 @@
+import os
+from pathlib import Path
+
 from django.apps import AppConfig
 from django.utils.autoreload import autoreload_started
-from pathlib import Path
-import os
 
 
 def my_watch_dog(sender, *args, **kwargs):

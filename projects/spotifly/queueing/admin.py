@@ -1,6 +1,7 @@
 from django.contrib import admin
-from queueing.models import *
 from django.contrib.sessions.models import Session
+
+from queueing.models import *
 
 # register listener model
 

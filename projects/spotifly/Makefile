@@ -15,7 +15,7 @@ dev-requirements:
 
 docker-dependencies:
 	# docker-compose
-	
+
 project-dependencies:
-	# postgresql 
+	# postgresql
 	# redis

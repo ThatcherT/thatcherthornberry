@@ -1,13 +1,15 @@
+import os
+
 import spotipy
 from decouple import config
+from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
+
 from queueing.models import Listener
 from queueing.utils.constants import sp_oauth
-from django.core.mail import send_mail
-import os
 
 
 def home(request):

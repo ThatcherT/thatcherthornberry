@@ -1,6 +1,5 @@
-from decouple import config
 import spotipy
-
+from decouple import config
 
 sp_oauth = spotipy.oauth2.SpotifyOAuth(
     config("SPOTIFY_CLIENT_ID"),

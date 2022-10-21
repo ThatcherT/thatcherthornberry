@@ -10,5 +10,3 @@ COPY . /app/spotifly/
 
 # collectstatic will copy the staticfiles_src to staticfiles (published under /static)
 RUN python manage.py collectstatic --noinput
-
-

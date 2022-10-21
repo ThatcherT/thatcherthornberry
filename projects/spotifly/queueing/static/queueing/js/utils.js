@@ -42,7 +42,7 @@ function getSongRowHTML(songObj) {
 
   songRowHTML.classList.add("row", "search-item");
   // add the stringified songObj to the row
-  songRowHTML.setAttribute('data-song-object', JSON.stringify(songObj));
+  songRowHTML.setAttribute("data-song-object", JSON.stringify(songObj));
 
   // album image
   const albumImageCol = document.createElement("div");
