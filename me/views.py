@@ -1,16 +1,15 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse
+import requests
+from bs4 import BeautifulSoup
+from decouple import config
 from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.urls import reverse
+
+from me.models import Review
 
 # Create your views here.
 
-from django.http import HttpResponse
-import requests
-from decouple import config
-
-from me.models import Review
-import requests
-from bs4 import BeautifulSoup
 
 GITHUB_URL = "https://github.com/"
 
