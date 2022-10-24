@@ -78,8 +78,8 @@ def submit_review(request):
         message += "Rating: {0}\n".format(review.rating)
 
         # now send an email
-        email_from = config("EMAIL_FROM_USER")
-        recipient_list = [config("EMAIL_FROM_USER")]
+        email_from = config("EMAIL_FROM_USER", "thatcherthornberry@gmail.com")
+        recipient_list = [config("EMAIL_FROM_USER", "thatcherthornberry@gmail.com")]
         send_mail(subject, message, email_from, recipient_list)
         return redirect(reverse("thank-you") + "#reviews")
 
@@ -93,8 +93,8 @@ def contact_me(request):
         message += "Message: {0}\n".format(request.POST["message"])
 
         # now send an email
-        email_from = config("EMAIL_FROM_USER")
-        recipient_list = [config("EMAIL_FROM_USER")]
+        email_from = config("EMAIL_FROM_USER", "thatcherthornberry@gmail.com")
+        recipient_list = [config("EMAIL_FROM_USER", "thatcherthornberry@gmail.com")]
         send_mail(subject, message, email_from, recipient_list)
         return redirect(reverse("index-contacted", args=["contacted"]) + "#contact")
 
