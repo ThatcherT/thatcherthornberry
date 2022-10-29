@@ -45,9 +45,9 @@ function getQueueHTML() {
       // it has a value of a dict with a key song_object
       // the value of the key song_object should be passed to getSongRowHTML
       for (let songURI in queueMgmt.queue) {
-        let song = queueMgmt.queue[songURI].song_object;
+        let songObj = queueMgmt.queue[songURI].song_object;
         // TODO: this is pretty jank, no?
-        rowsHTML += getSongRowHTML(song).outerHTML;
+        rowsHTML += getSongRowHTML(songObj, (voting = true)).outerHTML;
       }
     } else {
       rowsHTML += `<div class="row">
@@ -63,6 +63,13 @@ function getQueueHTML() {
             </div>
         </div>`;
   }
+  // add a div that is 15 pixels tall to add some space between the queue and the footer
+  // TODO: please fix this
+  rowsHTML += `<div class="row">
+        <div class="col-12">
+            <div style="height: 125px;"></div>
+        </div>
+    </div>`;
   return rowsHTML;
 }
 
