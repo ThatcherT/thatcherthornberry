@@ -33,11 +33,14 @@ function loadProfilePage() {
                         </button>
                     </div>
               </div>
+              <div class="row" id="profile-playlists">
+              </div>
               <div class="row">
                   <div class="col-12">
                       <p id="profile-page-message" style="padding-top: 10%;"></p>
                   </div>
               </div>`;
+    getPlaylists();
   } else {
     $.ajax({
       url: "/spotify/connect-link/",
