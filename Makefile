@@ -1,5 +1,7 @@
 start-dev:
 	docker-compose -f docker-compose.local.yaml up --build
+prod:
+	docker-compose -f docker-compose.test.yaml up --build
 
 get-env:
 	# fetch env file from github secrets... or maybe gcloud..?
