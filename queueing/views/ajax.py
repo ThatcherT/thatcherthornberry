@@ -1,11 +1,13 @@
 import json
 
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 from queueing.models import Listener
 from queueing.utils.songs import get_song_matches, get_suggested_songs
 
 
+@csrf_exempt
 def search(request):
     """
     Search for a song
@@ -22,6 +24,7 @@ def search(request):
     return JsonResponse({"song_lst": song_lst})
 
 
+@csrf_exempt
 def suggest(request):
     """
     Use the signed in user to find a song they would like
@@ -35,6 +38,7 @@ def suggest(request):
     return JsonResponse({"song_lst": song_lst})
 
 
+@csrf_exempt
 def now_playing(request):
     """
     Return Spotify Song Obj for song that is playing
@@ -49,6 +53,7 @@ def now_playing(request):
     return JsonResponse({"songObj": songObj["item"] if songObj else None})
 
 
+@csrf_exempt
 def unfollow_dj(request):
     """
     Unfollow a dj
@@ -57,6 +62,7 @@ def unfollow_dj(request):
     return JsonResponse({"success": True})
 
 
+@csrf_exempt
 def follow_dj(request):
     """
     Follow a dj
@@ -69,6 +75,7 @@ def follow_dj(request):
     return JsonResponse({"followingDJ": followingDJ})
 
 
+@csrf_exempt
 def shuffle(request):
     """
     Shuffle the playlist
@@ -79,6 +86,7 @@ def shuffle(request):
     return JsonResponse({"success": True})
 
 
+@csrf_exempt
 def session(request):
     """
     Start a session for a dj
@@ -93,6 +101,7 @@ def session(request):
     return JsonResponse({"success": True})
 
 
+@csrf_exempt
 def queue_mgmt(request):
     """
     Return the queue management object
@@ -102,6 +111,7 @@ def queue_mgmt(request):
     return JsonResponse({"q_mgmt": listener.q_mgmt.queue_mgmt})
 
 
+@csrf_exempt
 def vote_song(request):
     dj = request.POST.get("dj")
     listener = Listener.objects.get(name=dj)
@@ -114,6 +124,7 @@ def vote_song(request):
     return JsonResponse({"q_mgmt": listener.q_mgmt.queue_mgmt})
 
 
+@csrf_exempt
 def queue(request):
     """
     Queue song, pass dj parameter and song title
@@ -134,6 +145,7 @@ def queue(request):
         return JsonResponse({"success": True})
 
 
+@csrf_exempt
 def get_djs(request):
     """
     get the listener objects from the database
