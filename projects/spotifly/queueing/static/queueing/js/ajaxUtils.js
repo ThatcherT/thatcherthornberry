@@ -17,6 +17,27 @@ function search() {
   });
 }
 
+function voteSong(songUri) {
+  // get object iwth id songUri-votes
+  const songVotes = document.getElementById(songUri + "-votes");
+  songVotes.innerHTML = parseInt(songVotes.innerHTML) + 1;
+  $.ajax({
+    url: "/ajax/vote-song/",
+    type: "POST",
+    data: {
+      csrfmiddlewaretoken: window.CSRF_TOKEN,
+      songUri: songUri,
+      dj: getFollowingDJ(),
+    },
+    dataType: "json",
+    success: function (data) {
+      // update jQuery data
+      $("body").data("queueMgmt", data.q_mgmt);
+      return true;
+    },
+  });
+}
+
 function queueManagement() {
   $.ajax({
     url: "/ajax/queue-mgmt/",

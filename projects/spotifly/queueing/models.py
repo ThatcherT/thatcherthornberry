@@ -224,7 +224,7 @@ class Listener(models.Model):
         def queue_mgmt(self):
             """Get queue_mgmt object from redis, don't forget those sub classes"""
             queue_mgmt = self.QueueMgmtObj(json.loads(cache.get(self.listener.name)))
-            # the key queue is a dict, convert to seflf.QueueMgmtObj.QueueObj
+            # the key queue is a dict, convert to self.QueueMgmtObj.QueueObj
             queue_mgmt["queue"] = self.QueueMgmtObj.QueueObj(queue_mgmt["queue"])
             return queue_mgmt
 
@@ -234,7 +234,6 @@ class Listener(models.Model):
         def queue_next(self):
             """If the current song is done playing, set the top song from queue to on deck and then queue it"""
             # TODO: pretty sure this broke
-            print("time to queue next :0))))")
             if self.listener.playback != self.queue_mgmt["on_deck"]:
                 print("Somebody messed up.. I think the queue will be a bit ahead now")
             # update queue_mgmt
@@ -247,7 +246,6 @@ class Listener(models.Model):
                     -self.queue_mgmt["queue"][x]["queued_time"],
                 ),
             )
-            print("setting ")
             self.queue_mgmt["on_deck"] = {
                 on_deck_uri: self.queue_mgmt["queue"][on_deck_uri]
             }
@@ -271,4 +269,7 @@ class Listener(models.Model):
 
         def queue_vote(self, track_uri):
             """Vote for a song in the queue"""
-            self.queue_mgmt["queue"][track_uri]["votes"] += 1
+            # this is a hacky workaround because, as we know, this architecture is a mess
+            new_queue = self.queue_mgmt["queue"]
+            new_queue[track_uri]["votes"] += 1
+            self.queue_mgmt["queue"] = new_queue

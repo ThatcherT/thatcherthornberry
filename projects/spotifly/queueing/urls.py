@@ -15,6 +15,7 @@ urlpatterns = [
     path("ajax/shuffle/", ajax.shuffle, name="shuffle"),
     path("ajax/session/", ajax.session, name="session"),
     path("ajax/queue-mgmt/", ajax.queue_mgmt, name="queue_mgmt"),
+    path("ajax/vote-song/", ajax.vote_song, name="vote_song"),
     path("ajax/get-djs/", ajax.get_djs, name="get_djs"),
     path("ajax/now-playing/", ajax.now_playing, name="now_playing"),
     # spotify web api
