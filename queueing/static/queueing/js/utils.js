@@ -34,6 +34,27 @@ function logOut() {
   loadPage();
 }
 
+function getPlaylistsHTML(playlists) {
+  // each row should have 2 columns with the album image
+  // and the album name
+  let html = "";
+  for (let i = 0; i < playlists.length; i++) {
+    const albumImageCol = document.createElement("div");
+    albumImageCol.classList.add("col-6");
+    const albumImage = document.createElement("img");
+    if (!playlists[i].images.length) {
+      albumImage.alt = playlists[i].name;
+    } else {
+      albumImage.src = playlists[i].images[1].url;
+    }
+    albumImage.style.width = "256px";
+    albumImage.style.height = "256px";
+    albumImageCol.appendChild(albumImage);
+    html += albumImageCol.outerHTML;
+  }
+  return html;
+}
+
 function getSongRowHTML(songObj, voting = false) {
   // IMPORTANT: this is the songs unique identifier
   let songRowHTML = document.createElement("div");

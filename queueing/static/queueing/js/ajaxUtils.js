@@ -125,6 +125,23 @@ function session(stop = "") {
   });
 }
 
+function getPlaylists() {
+  return $.ajax({
+    url: "/ajax/playlists/",
+    type: "GET",
+    data: {
+      IAmDJ: getIAmDJ(),
+      csrfmiddlewaretoken: window.CSRF_TOKEN,
+    },
+    dataType: "json",
+    success: function (data) {
+      let html = getPlaylistsHTML(data.playlists);
+      document.getElementById("profile-playlists").innerHTML = html;
+      return html;
+    },
+  });
+}
+
 // send ajax to server and shuffle for IAmDJ
 function shuffle() {
   $.ajax({

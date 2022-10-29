@@ -145,6 +145,19 @@ def queue(request):
         return JsonResponse({"success": True})
 
 
+def playlists(request):
+    """
+    Get the playlists for the user
+    """
+    iam = request.GET.get("IAmDJ")
+    listener = Listener.objects.get(name=iam)
+    # get spotify client
+    sp = listener.sp_client.sp
+    playlists = sp.current_user_playlists()
+    print(playlists["items"])
+    return JsonResponse({"playlists": playlists["items"]})
+
+
 @csrf_exempt
 def get_djs(request):
     """
