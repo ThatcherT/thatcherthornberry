@@ -101,8 +101,5 @@ function becomeDJButton() {
                         </div>
                     </div>`;
     },
-    error: function (xhr, status, error) {
-      alert(xhr.responseText);
-    },
   });
 }

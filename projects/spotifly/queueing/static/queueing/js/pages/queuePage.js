@@ -19,13 +19,14 @@ function loadQueuePage() {
                     <input type="text" class="form-control big-ole-form-input" id="queue-song-input" placeholder="Search for a song">
                 </div>
                 <button class="btn btn-primary big-ole-btn" onclick="search()">Search</button>`;
-    mainContent.innerHTML += getIAmDJ()
-      ? `<button class="btn btn-primary big-ole-btn" onclick="suggest()">Suggest</button>`
-      : "";
+    if (getIAmDJ() && !getAnon()) {
+      mainContent.innerHTML += `<button class="btn btn-primary big-ole-btn" onclick="suggest()">Suggest</button>`;
+    }
     mainContent.innerHTML += `</div>
         </div>
         <div id="search-results" class="search-box">
         </div>
+        <div style="height: 125px;"></div>
         `;
   } else {
     mainContent.innerHTML = "You aren't following a DJ. Can't queue!";

@@ -26,6 +26,7 @@ class Listener(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(blank=True, null=True)
     max_offset = models.IntegerField(default=5000)
+    anon = models.BooleanField(default=False)
 
     @property
     def q_mgmt(self):

@@ -1,4 +1,5 @@
 import os
+import random
 
 import spotipy
 from decouple import config
@@ -75,9 +76,31 @@ def sp_redirect(request):
 
     # get spotify username with token
     sp = spotipy.Spotify(auth=token)
-    user = sp.current_user()
+    not_in_dashboard = False
+    try:
+        user = sp.current_user()
+        username = user["id"]
+    except:
+        # generate a username using queueing/random_names/adjectives.txt and queueing/random_names/animals.txt
+        # get the adjectives
+        not_in_dashboard = True
+        with open("queueing/random_names/adjectives.txt", "r") as f:
+            adjectives = f.read().splitlines()
+        # get the animals
+        with open("queueing/random_names/animals.txt", "r") as f:
+            animals = f.read().splitlines()
 
-    username = user["id"]
+        # get a random adjective and animal
+        adjective = random.choice(adjectives)
+
+        # get random animal that starts with the first letter of the adjective
+        animals_ = [animal for animal in animals if animal[0] == adjective[0]]
+
+        animal = random.choice(animals_)
+        # create a username
+        username = adjective + " " + animal
+        request.session["anonymous"] = True
+        print("user not in dashboard!")
 
     # create a listener object with token
     listener, created = Listener.objects.get_or_create(
@@ -86,17 +109,19 @@ def sp_redirect(request):
     if created:
         subject = "New Listener"
         html_message = "<h1>Someone signed up!</h1>"
-        html_message += "<p>Email: " + str(user) + "</p>"
-        from_email = config("EMAIL_FROM_USER")
-        to_email = "thatcherthornberry@gmail.com"
+        html_message += "<p>Email: " + str(username) + "</p>"
+        from_email = config("EMAIL_HOST_USER")
+        to_email = config("EMAIL_HOST_USER")
         send_mail(
             subject, html_message, from_email, [to_email], html_message=html_message
         )
-
+    if not_in_dashboard:
+        listener.anon = True
     listener.token = token
     listener.refresh_token = token_info["refresh_token"]
     listener.expires_at = token_info["expires_at"]
     listener.save()
+
     request.session["IAmDJ"] = username
     request.session.set_expiry(60 * 60 * 24 * 365 * 10)  # expire in ten year
     return HttpResponseRedirect(reverse("home"))

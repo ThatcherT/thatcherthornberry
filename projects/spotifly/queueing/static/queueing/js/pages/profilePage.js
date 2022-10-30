@@ -15,8 +15,15 @@ function loadProfilePage() {
                       </p>
                       <p>
                           You are DJ ${getIAmDJ()}
-                      </p>
-                      <button class="btn btn-primary big-ole-btn" onclick="shuffle()">Shuffle</button>
+                      </p>`;
+
+    if (getAnon()) {
+      mainContent.innerHTML += `
+            <p style='padding-top: 90px'>
+                To complete sign up, send me the email you use for Spotify.
+            </p>`;
+    } else {
+      mainContent.innerHTML += `<button class="btn btn-primary big-ole-btn" onclick="shuffle()">Shuffle</button>
                       <button class="btn btn-primary big-ole-btn" onclick="session()">Start Session</button>
                       <button class="btn btn-primary big-ole-btn" onclick="session(true)">Stop Session</button>
                   </div>
@@ -40,7 +47,8 @@ function loadProfilePage() {
                       <p id="profile-page-message" style="padding-top: 10%;"></p>
                   </div>
               </div>`;
-    getPlaylists();
+      getPlaylists();
+    }
   } else {
     $.ajax({
       url: "/spotify/connect-link/",
@@ -65,9 +73,6 @@ function loadProfilePage() {
                       </a>
                   </div>
               </div>`;
-      },
-      error: function (xhr, status, error) {
-        alert(xhr.responseText);
       },
     });
   }
