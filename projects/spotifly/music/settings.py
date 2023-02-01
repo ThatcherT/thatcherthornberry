@@ -116,7 +116,7 @@ else:
             "USER": config("POSTGRES_USER", default="thatcher", cast=str),
             "PASSWORD": config("POSTGRES_PASSWORD"),
             "HOST": POSTGRES_HOST,
-            "PORT": config("POSTGRES_PORT", default=5432, cast=int),
+            "PORT": 5432
         }
     }
 if config("DOCKER_LOCAL", default=False, cast=bool):
@@ -127,7 +127,7 @@ else:
 RQ_QUEUES = {
     "default": {
         "HOST": REDIS_HOST,
-        "PORT": config("REDIS_PORT", default=6379, cast=int),
+        "PORT": 6379,
         "DB": 0,
         "PASSWORD": config("REDIS_PASSWORD"),
         "DEFAULT_TIMEOUT": 360,
@@ -137,7 +137,7 @@ RQ_QUEUES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{REDIS_HOST}:{config('REDIS_PORT', default=6379, cast=int)}/0",
+        "LOCATION": f"redis://{REDIS_HOST}:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PASSWORD": config("REDIS_PASSWORD"),
