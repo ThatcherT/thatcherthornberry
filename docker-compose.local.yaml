@@ -27,7 +27,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - 5432:5432
     env_file:
       - .env
     environment:
@@ -38,7 +38,7 @@ services:
     command: >
       --requirepass ${REDIS_PASSWORD}
     ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
+      - 6379:6379
     volumes:
       - redisdata:/data
   # TODO: refactor these to their own repo or something
