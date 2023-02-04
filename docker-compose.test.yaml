@@ -28,8 +28,6 @@ services:
       - static_spotifly:/app/spotifly/staticfiles
     env_file:
       - .env
-    environment:
-      - DOCKER_LOCAL=True
     depends_on:
       - postgres
   postgres:
@@ -41,8 +39,6 @@ services:
       - 5432:5432
     env_file:
       - .env
-    environment:
-      - POSTGRES_HOST=postgres
   redis:
     restart: always
     image: redis:6
@@ -59,8 +55,6 @@ services:
     command: python manage.py rqscheduler --queue default
     env_file:
       - .env
-    environment:
-      - DOCKER_LOCAL=True
     depends_on:
       - "redis"
 
@@ -71,7 +65,5 @@ services:
     command: python manage.py rqworker default
     env_file:
       - .env
-    environment:
-      - DOCKER_LOCAL=True
     depends_on:
       - "redis"

@@ -2,6 +2,7 @@ import os
 import random
 
 import spotipy
+from queueing.utils.constants import SCOPE
 from decouple import config
 from django.core.mail import send_mail
 from django.http import JsonResponse
@@ -36,6 +37,13 @@ def invite_link(request, username):
     return redirect(reverse("home"))
 
 
+def playlist_sink_link(request):
+    """
+    We're gonna call it Sync Links. This function 
+    """
+    return
+
+
 def spotify_connect_link(request):
     """
     return the link users can use to authenticate with spotify
@@ -43,8 +51,9 @@ def spotify_connect_link(request):
     # get secrets from env with decouple
     client_id = config("SPOTIFY_CLIENT_ID")
     redirect_uri = config("SPOTIFY_REDIRECT_URI")
-    scopes = "user-read-private user-read-email user-library-read user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-recently-played user-top-read"
-    url = f"https://accounts.spotify.com/authorize?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&scope={scopes}"
+    scope = SCOPE
+    url = f"https://accounts.spotify.com/authorize?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&scope={scope}"
+    print(url)
     # send url in json response
     return JsonResponse({"url": url})
 

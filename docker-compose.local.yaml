@@ -17,7 +17,6 @@ services:
     env_file:
       - .env
     environment:
-      - DOCKER_LOCAL=True
       - SPOTIFY_REDIRECT_URI=http://0.0.0.0:8000/redirect
     depends_on:
       - postgres
@@ -30,8 +29,6 @@ services:
       - 5432:5432
     env_file:
       - .env
-    environment:
-      - POSTGRES_HOST=postgres
   redis:
     restart: always
     image: redis:6
@@ -48,8 +45,6 @@ services:
     command: python manage.py rqscheduler --queue default
     env_file:
       - .env
-    environment:
-      - DOCKER_LOCAL=True
     depends_on:
       - "redis"
 
@@ -60,7 +55,5 @@ services:
     command: python manage.py rqworker default
     env_file:
       - .env
-    environment:
-      - DOCKER_LOCAL=True
     depends_on:
       - "redis"
