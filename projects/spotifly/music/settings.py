@@ -73,7 +73,7 @@ ROOT_URLCONF = "music.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["queueing"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -88,45 +88,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "music.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-if config("LOCAL", default=False, cast=bool) and not config(
-    "LOCALPOSTGRES", default=False, cast=bool
-):
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": config("DB_NAME", default="spotifly", cast=str),
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        # TODO: is this secure or is this swiss cheese?
+        "NAME": config("POSTGRES_DB", default="spotifly", cast=str),
+        "USER": config("POSTGRES_USER", default="thatcher", cast=str),
+        "PASSWORD": config("POSTGRES_PASSWORD", cast=str),
+        "HOST": "postgres",
+        "PORT": 5432,
     }
-else:
-    # this is so we can set a DOCKER environment variable when running in docker
-
-    if config("DOCKER_LOCAL", default=False, cast=bool):
-        POSTGRES_HOST = "postgres"
-    else:
-        POSTGRES_HOST = config("POSTGRES_HOST", default="localhost", cast=str)
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            # TODO: is this secure or is this swiss cheese?
-            "NAME": config("DB_NAME", default="spotifly", cast=str),
-            "USER": config("POSTGRES_USER", default="thatcher", cast=str),
-            "PASSWORD": config("POSTGRES_PASSWORD"),
-            "HOST": POSTGRES_HOST,
-            "PORT": 5432
-        }
-    }
-if config("DOCKER_LOCAL", default=False, cast=bool):
-    REDIS_HOST = "redis"
-else:
-    REDIS_HOST = config("REDIS_HOST", default="localhost", cast=str)
-
+}
 RQ_QUEUES = {
     "default": {
-        "HOST": REDIS_HOST,
+        "HOST": "redis",
         "PORT": 6379,
         "DB": 0,
         "PASSWORD": config("REDIS_PASSWORD"),
@@ -137,7 +112,7 @@ RQ_QUEUES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://{REDIS_HOST}:6379/0",
+        "LOCATION": f"redis://redis:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PASSWORD": config("REDIS_PASSWORD"),
