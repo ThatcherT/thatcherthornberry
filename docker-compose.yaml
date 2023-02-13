@@ -28,3 +28,19 @@ services:
       - 5432:5432
     env_file:
       - .env
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - URL=thatcherthornberry.com
+      - SUBDOMAINS=auxocracy,
+      - VALIDATION=dns
+      - DNSPLUGIN=google
+      - EMAIL=thatcherthornberry@gmail.com
+      - DHLEVEL=4096
+    volumes:
+      - /home/thatcherthornberry/config:/config
+    restart: unless-stopped
