@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% load static %} {% block title %}.{% endblock %} {%
+block content %}
+
+<div class="row post-row">
+  {% for post in posts %} {% if forloop.first %}
+  <div class="col-12 mb-4">
+    <a href="{% url 'post' post.title %}">
+      <div class="row">
+        <div class="col-6">
+          <img
+            src="{% static 'portability/post_images/' %}{{ post.image }}"
+            class="img-fluid"
+            alt="Post Image"
+          />
+        </div>
+        <div class="col-6">
+          <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.subheading }}</p>
+            <p class="card-text">{{ post.date }}</p>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% else %}
+  <div class="col-md-4 mb-4">
+    <a href="{% url 'post' post.title %}">
+      <div class="card">
+        <img
+          src="{% static 'portability/post_images/' %}{{ post.image }}"
+          class="card-img-top"
+          alt="Post Image"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ post.title }}</h5>
+          <p class="card-text">{{ post.date }}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endif %} {% if forloop.counter0|divisibleby:3 %}
+</div>
+<div class="row post-row">{% endif %} {% endfor %}</div>
+{% endblock %}
