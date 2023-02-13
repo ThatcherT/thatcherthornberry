@@ -1,0 +1,154 @@
+{% extends "base.html" %} {% load static %} {% block title %}init{% endblock %}
+{% block content %}
+<h1>Init</h1>
+<p>
+  The purpose of this blog site is to provide technical information,
+  demonstrations, and tutorials relating to software projects I've completed.
+  For my first post, I'm going to discuss the current architecture of this blog.
+</p>
+<h2>Overall Architecture</h2>
+<p>
+  I've been developing Python based web applications for almost 4 years. So, the
+  architecture of this application is similar to most of my other projects. In a
+  sentence, I'm running a Django based web application in a Docker container.
+</p>
+<p>The rest of this post will cover each major component from the bottom up.</p>
+<h2>Docker</h2>
+<p>
+  Docker is my favorite technology. It allows the creation of portable,
+  reproducible environments isolated from their host system. It's also a key
+  component in my
+  <a href="https://blog.thatcherthornberry.com/posts/my-megalith"
+    >megalith hosting strategy</a
+  >. This project consists of 4 containers: a Postgres database, a Django
+  application, an Nginx reverse proxy, and a Redis database.
+</p>
+<p>
+  All of the containers run on the same network and when this project is
+  deployed to the megalith VM, this project will share the Postgres and Redis
+  servers with other projects.
+</p>
+<h2>Nginx</h2>
+<p>
+  This project is deployed within my megalith VM. The megalith VM is a single
+  server that hosts multiple projects. Nginx isn't a direct part of this project
+  but, in operation, it plays a key role. In one sentence, I'm running Nginx as
+  a reverse proxy. When you visit any subdomain of
+  <code>thatcherthornberry.com</code>, Nginx routes the request to the correct
+  application.
+</p>
+<h2>Django</h2>
+<p>
+  Django is a python web framework which abstracts many standard web development
+  tasks. Namely, it provides a database abstraction layer, a templating engine,
+  and a URL routing system. It also provides a development server for testing
+  and debugging.
+</p>
+<p>
+  Django follows the software architectural pattern known as
+  Model-View-Controller (MVC). The model is the database, the view is the HTML
+  template, and the controller is the Python code that handles the request. In
+  operation, when a user requests the url
+  <code>https://blog.thatcherthornberry.com</code>, Django routes that request
+  to a specific view. The view then queries the database for the data it needs
+  to render the page. The view then renders the HTML template with the data and
+  returns the result to the user.
+</p>
+<h3>Gunicorn</h3>
+<p>
+  Django provides a development server out of the box but leaves it to the
+  developer to implement their own production web server; I'm using Gunicorn: a
+  Python WSGI HTTP Server for UNIX. It's based on the pre-fork worker model. The
+  pre-fork worker model The Gunicorn server is lightweight and fast.
+</p>
+<p>It's also easy to configure.</p>
+<p>Development server:</p>
+<pre><code>```python manage.py runserver 0.0.0.0:8000```
+</code></pre>
+<p>Gunicorn:</p>
+<pre><code>```gunicorn blog.wsgi:application --bind 0.0.0.0:8000```
+</code></pre>
+<h2>Redis</h2>
+<p>
+  Redis is an in-memory key-value store. I'm using it as a cache for this
+  application which means I'm storing the rendered HTML of each page in Redis.
+  When a user requests a page, Django first checks Redis to see if the page is
+  cached. If it is, Django returns the cached page. If it isn't, Django renders
+  the page, stores it in Redis, and returns it to the user. This gives a small
+  performance boost relative to Django's built in caching system.
+</p>
+<h2>Postgres</h2>
+<p>
+  Postgres is a relational database. Django provides a database abstraction
+  layer as well as an ORM (Object Relational Mapper). The ORM allows you to
+  interact with the database using Python objects. For example, if you have a
+  table called <code>blog_post</code> with a column called <code>title</code>,
+  you can query the database for all posts with the title
+  <code>Hello World</code> using the following code:
+</p>
+<pre><code>```python
+from blog.models import Post
+posts = Post.objects.filter(title="Init")
+```
+</code></pre>
+<h2>Markdown</h2>
+<p>
+  All of my posts are written in Markdown, a lightweight markup language. I have
+  a simple script which converts them to HTML using the python library
+  <a href="https://pypi.org/project/Markdown/">Markdown</a>. This script also
+  handles creating database artificats for each post. When a page is rendered,
+  Django queries the database for the post and renders the HTML template with
+  the post data.
+</p>
+<h2>Bootstrap</h2>
+<p>
+  Bootstrap is my favorite CSS framework. It is super lightweight and abstracts
+  one of the most important functionalities of a website: responsiveness. There
+  are two dominant mediums for viewing a webpage: desktop and mobile. There are
+  stark differences between these mediums; most importantly screen size and
+  screen orientation. Bootstrap provides a grid based layout system which allows
+  you to create a single layout that works on both mediums.
+</p>
+<h2>DALL-E 2</h2>
+<p>
+  Each post has a unique image associated with it. I'm using
+  <a href="https://openai.com/blog/dall-e/">DALL-E 2</a> to generate these
+  images. DALL-E 2 is a neural network which takes a text prompt and generates
+  an image.
+</p>
+<h2>TODO</h2>
+<p>
+  To be honest, I'm deploying this project against my will. There are so many
+  things I want to add. But, I need to work on getting projects out the door
+  before I've implemented all of the fun things I want to. For now, I'll list
+  the things I want to add in the future.
+</p>
+<ul>
+  <li>
+    An Elasticsearch database that synchronizes with the data in Postgres for
+    full text search
+  </li>
+  <li>User visits tracking</li>
+  <li>A TODO post page</li>
+  <li>
+    While I'm writing, I often think I should write a post about X thing. I want
+    to create the link within the post I'm writing tot he future post. If the
+    post doesn't exist, a TODO page explaining the post hasn't been written yet.
+  </li>
+  <li>
+    When users visit the page, I'll increment a counter which will motivate me
+    to write the post
+  </li>
+  <li>Also, an email sign up to notify users when the post is published</li>
+  <li>A comment system</li>
+  <li>An RSS feed</li>
+  <li>Blog email subscription, read posts directly in email</li>
+  <li>An ML powered grammar/spelling checker</li>
+  <li>Estimated reading time</li>
+  <li>Post change history</li>
+  <li>
+    Better formatting for code blocks (line numbers, syntax highlighting, copy
+    command, etc.)
+  </li>
+</ul>
+{% endblock %}

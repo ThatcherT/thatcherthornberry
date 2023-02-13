@@ -1,0 +1,82 @@
+/* helvetica font */
+@import url("https://fonts.googleapis.com/css2?family=Helvetica&display=swap");
+
+/* fronts from fontesk.com */
+@font-face {
+  font-family: "logo";
+  src: url("/staticfiles/portability/fonts/MatrixSans.otf"),
+    url("/staticfiles/portability/fonts/MatrixSans.ttf"),
+    url("/staticfiles/portability/fonts/MatrixSans.woff2");
+}
+
+@font-face {
+  font-family: "blog";
+  src: url("/staticfiles/portability/fonts/FragmentMono.otf"),
+    url("/staticfiles/portability/fonts/FragmentMono.ttf"),
+    url("/staticfiles/portability/fonts/FragmentMono.woff2");
+}
+
+:root {
+  --dark-gray: #141414;
+  --light-gray: #2e2a2a;
+}
+
+body {
+  background-color: var(--dark-gray);
+  color: #d6d6d6;
+  font-family: "blog";
+}
+
+a {
+  text-decoration: underline;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: inherit;
+}
+.card {
+  background-color: var(--light-gray);
+  color: #d6d6d6;
+}
+
+.logo {
+  font-family: "logo";
+  color: #fff;
+}
+
+/* Add some padding to the header to create space between the header and content */
+header {
+  padding-top: 60px;
+}
+
+/* Update the header background color */
+.navbar {
+  background-color: var(--dark-gray);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.navbar-toggler {
+  background-color: var(--light-gray);
+}
+.navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='lightgray' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Update the footer background color */
+footer {
+  background-color: var(--dark-gray);
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  height: 10%;
+  width: 100%;
+}
+
+code {
+  background-color: #413535;
+  color: #fff;
+}
