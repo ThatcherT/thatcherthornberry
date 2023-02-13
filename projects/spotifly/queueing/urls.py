@@ -1,5 +1,6 @@
 from django.urls import path
-from queueing.views import views, ajax
+
+from queueing.views import ajax, views
 
 urlpatterns = [
     # website stuff
@@ -12,10 +13,12 @@ urlpatterns = [
     path("ajax/search/", ajax.search, name="search"),
     path("ajax/suggest/", ajax.suggest, name="suggest"),
     path("ajax/shuffle/", ajax.shuffle, name="shuffle"),
-    path("ajax/start-session/", ajax.start_session, name="start_session"),
+    path("ajax/session/", ajax.session, name="session"),
     path("ajax/queue-mgmt/", ajax.queue_mgmt, name="queue_mgmt"),
+    path("ajax/vote-song/", ajax.vote_song, name="vote_song"),
     path("ajax/get-djs/", ajax.get_djs, name="get_djs"),
     path("ajax/now-playing/", ajax.now_playing, name="now_playing"),
+    path("ajax/playlists/", ajax.playlists, name="playlists"),
     # spotify web api
     path("redirect/", views.sp_redirect),
     path(

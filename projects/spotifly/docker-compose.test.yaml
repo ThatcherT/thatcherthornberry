@@ -1,24 +1,33 @@
 version: "3"
 
 volumes:
-  pgdata: null
-  redisdata: null
-  static_spotifly: null
+  pgdata:
+  redisdata:
+  static_spotifly:
 
 services:
+  nginx:
+    restart: always
+    image: nginx:1.15-alpine
+    depends_on:
+      - spotifly
+    volumes:
+      - ./nginx:/etc/nginx/conf.d # this is how we use custom nginx build
+      - static_spotifly:/app/spotifly/staticfiles
+    ports:
+      - "80:80"
+
   spotifly:
     restart: always
-    build: ./projects/spotifly
+    build: .
     image: thatcherthornberry/spotifly:latest
-    command: bash -c "
-      python manage.py migrate &&
-      gunicorn music.wsgi:application --bind 0.0.0.0:8001"
+    command: bash -c "python manage.py migrate && gunicorn music.wsgi:application -b 0.0.0.0:8000"
     expose:
-      - 8001
+      - 8000
     volumes:
       - static_spotifly:/app/spotifly/staticfiles
     env_file:
-      - ./projects/spotifly/.env
+      - .env
     depends_on:
       - postgres
   postgres:
@@ -33,7 +42,8 @@ services:
   redis:
     restart: always
     image: redis:6
-    command: --requirepass ${REDIS_PASSWORD}
+    command: >
+      --requirepass ${REDIS_PASSWORD}
     ports:
       - 6379:6379
     volumes:
@@ -46,7 +56,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - redis
+      - "redis"
 
   # TODO: refactor these to their own repo or something
   worker:
@@ -56,4 +66,4 @@ services:
     env_file:
       - .env
     depends_on:
-      - redis
+      - "redis"

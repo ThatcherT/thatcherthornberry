@@ -17,18 +17,39 @@ function search() {
   });
 }
 
-function queueManagement() {
+function voteSong(songUri) {
+  // get object iwth id songUri-votes
+  const songVotes = document.getElementById(songUri + "-votes");
+  songVotes.innerHTML = parseInt(songVotes.innerHTML) + 1;
   $.ajax({
-    url: "/ajax/queue-management/",
+    url: "/ajax/vote-song/",
     type: "POST",
     data: {
       csrfmiddlewaretoken: window.CSRF_TOKEN,
-      IAmDJ: getIAmDJ(),
+      songUri: songUri,
+      dj: getFollowingDJ(),
     },
     dataType: "json",
     success: function (data) {
       // update jQuery data
-      jQuery.data(document.body, "queueMgmt", data);
+      $("body").data("queueMgmt", data.q_mgmt);
+      return true;
+    },
+  });
+}
+
+function queueManagement() {
+  $.ajax({
+    url: "/ajax/queue-mgmt/",
+    type: "POST",
+    data: {
+      csrfmiddlewaretoken: window.CSRF_TOKEN,
+      dj: getFollowingDJ(),
+    },
+    dataType: "json",
+    success: function (data) {
+      // update jQuery data
+      $("body").data("queueMgmt", data.q_mgmt);
       return true;
     },
     error: function (xhr, status, error) {
@@ -59,30 +80,27 @@ function getNowPlaying() {
     type: "POST",
     data: {
       csrfmiddlewaretoken: window.CSRF_TOKEN,
-      dj: getFollowingDJ(),
+      followingDj: getFollowingDJ(),
     },
     success: function (data) {
       return data.songObj;
     },
     error: function (xhr, status, error) {
-      alert(xhr.responseText);
       console.log(status, error);
-      document.getElementById("follow-dj-error").innerHTML =
-        "IDK what happened";
-      return false;
+      return {};
     },
   });
 }
 
 // send an ajax request with local storage data and data from an input element
 // this request should return a msg indicating queue success or failure
-function queue(URI) {
+function queue(songObj) {
   return $.ajax({
     url: "/ajax/queue/",
     type: "POST",
     data: {
       csrfmiddlewaretoken: window.CSRF_TOKEN,
-      uri: URI,
+      songObj: songObj,
       dj: getFollowingDJ(),
     },
     success: function (data) {
@@ -91,15 +109,33 @@ function queue(URI) {
   });
 }
 
-function startSession() {
+function session(stop = "") {
   $.ajax({
-    url: "/ajax/start-session/",
+    url: "/ajax/session/",
     type: "POST",
     data: {
       csrfmiddlewaretoken: window.CSRF_TOKEN,
       IAmDJ: getIAmDJ(),
+      stop: stop,
     },
     dataType: "json",
+  });
+}
+
+function getPlaylists() {
+  return $.ajax({
+    url: "/ajax/playlists/",
+    type: "GET",
+    data: {
+      IAmDJ: getIAmDJ(),
+      csrfmiddlewaretoken: window.CSRF_TOKEN,
+    },
+    dataType: "json",
+    success: function (data) {
+      let html = getPlaylistsHTML(data.playlists);
+      document.getElementById("profile-playlists").innerHTML = html;
+      return html;
+    },
   });
 }
 
@@ -147,7 +183,7 @@ function followDJ() {
     dataType: "json",
     success: function (data) {
       // update jQuery data
-      jQuery.data(document.body, "followingDJ", followingDJ);
+      $("body").data("followingDJ", followingDJ);
       // weird bug that causes invisible bottom bar..
       const bottomBar = document.getElementById("bottom-bar");
       bottomBar.style.display = "";
@@ -156,7 +192,6 @@ function followDJ() {
       return true;
     },
     error: function (xhr, status, error) {
-      alert(xhr.responseText);
       console.log(status, error);
       document.getElementById("follow-dj-error").innerHTML =
         "IDK what happened";
@@ -177,12 +212,11 @@ function unfollowDJ() {
     dataType: "json",
     success: function (data) {
       // update jQuery data
-      jQuery.data(document.body, "followingDJ", null);
+      $("body").data("followingDJ", null);
       loadDJPage();
       return true;
     },
     error: function (xhr, status, error) {
-      alert(xhr.responseText);
       console.log(status, error);
       document.getElementById("follow-dj-error").innerHTML =
         "IDK what happened";

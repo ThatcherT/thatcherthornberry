@@ -3,35 +3,21 @@ version: "3"
 volumes:
   pgdata:
   redisdata:
-  static_spotifly:
-
 
 services:
-  nginx:
-    restart: always
-    image: nginx:1.15-alpine
-    depends_on:
-      - me
-    volumes:
-      - ./nginx:/etc/nginx/conf.d # this is how we use custom nginx build
-      - static_spotifly:/app/spotifly/staticfiles
-    ports:
-      - "80:80"
-
   spotifly:
-  # TODO: probably need some volumes to port code while developing.. bong
     restart: always
     build: .
     image: thatcherthornberry/spotifly:latest
-    command: bash -c "python manage.py migrate && gunicorn thatcherthornberry.wsgi:application -b 0.0.0.0:8000"
-    expose:
-      - 8000
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
     volumes:
-      - static_spotifly:/app/spotifly/staticfiles
+      - .:/app/spotifly
     env_file:
       - .env
     environment:
-      - DOCKER_LOCAL=True
+      - SPOTIFY_REDIRECT_URI=http://0.0.0.0:8000/redirect
     depends_on:
       - postgres
   postgres:
@@ -40,18 +26,16 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+      - 5432:5432
     env_file:
       - .env
-    environment:
-      - POSTGRES_HOST=postgres
   redis:
     restart: always
     image: redis:6
     command: >
       --requirepass ${REDIS_PASSWORD}
     ports:
-      - ${REDIS_PORT}:${REDIS_PORT}
+      - 6379:6379
     volumes:
       - redisdata:/data
   # TODO: refactor these to their own repo or something
@@ -61,8 +45,6 @@ services:
     command: python manage.py rqscheduler --queue default
     env_file:
       - .env
-    environment:
-      - DOCKER_LOCAL=True
     depends_on:
       - "redis"
 
@@ -73,7 +55,5 @@ services:
     command: python manage.py rqworker default
     env_file:
       - .env
-    environment:
-      - DOCKER_LOCAL=True
     depends_on:
       - "redis"

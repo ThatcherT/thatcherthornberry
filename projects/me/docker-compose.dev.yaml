@@ -42,7 +42,6 @@ services:
       - DOCKER_LOCAL=True
     depends_on:
       - postgres
-
 # TODO: revisit networks
 # networks:
 #   default:

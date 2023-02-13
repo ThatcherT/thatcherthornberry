@@ -1,6 +1,7 @@
 start-dev:
-	pwd
-	sudo docker-compose -f docker-compose.dev.yaml up --build
+	docker-compose -f docker-compose.local.yaml up --build
+prod:
+	docker-compose -f docker-compose.test.yaml up --build
 
 get-env:
 	# fetch env file from github secrets... or maybe gcloud..?
@@ -16,7 +17,7 @@ dev-requirements:
 
 docker-dependencies:
 	# docker-compose
-	
+
 project-dependencies:
-	# postgresql 
+	# postgresql
 	# redis

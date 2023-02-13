@@ -14,7 +14,11 @@
       crossorigin="anonymous"
     />
     <!-- custom css :<) -->
-    <link href="{% static 'queueing/css/style.css' %}" rel="stylesheet" type="text/css" />
+    <link
+      href="{% static 'queueing/css/style.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
     <!-- jquery bootstrap select plugin css-->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"
@@ -107,16 +111,12 @@
   </script>
   <script>
     // set these jquery variables from django session
-    jQuery.data(
-      document.body,
-      "IAmDJ",
-      "{{ request.session.IAmDJ|default:'' }}"
-    );
-    jQuery.data(
-      document.body,
+    $("body").data("IAmDJ", "{{ request.session.IAmDJ|default:'' }}");
+    $("body").data(
       "followingDJ",
       "{{ request.session.followingDJ|default:'' }}"
     );
+    $("body").data("anonymous", "{{ request.session.anonymous|default:'' }}");
   </script>
 
   <script src="{% static 'queueing/js/pages/welcome.js' %}"></script>

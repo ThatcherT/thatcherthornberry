@@ -26,6 +26,7 @@ class Listener(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     email = models.EmailField(blank=True, null=True)
     max_offset = models.IntegerField(default=5000)
+    anon = models.BooleanField(default=False)
 
     @property
     def q_mgmt(self):
@@ -75,11 +76,13 @@ class Listener(models.Model):
     def start_session(self):
         """Start a session. A session is a repeated job which checks playback periodically and decides when to queue the next song."""
         # delete existing with id if exists
+        print("Let the Seshing Begin!")
         for j in scheduler.get_jobs():
             if j.id == self.name:
                 scheduler.cancel(j)
         # delete existing redis queue
         cache.delete(self.name)
+
         scheduler.schedule(
             scheduled_time=datetime.now(),
             func=self.decide_to_queue,
@@ -88,6 +91,16 @@ class Listener(models.Model):
             id=self.name,
         )
 
+    def stop_session(self):
+        """Stop a session"""
+        print("Seshing no mo")
+        for j in scheduler.get_jobs():
+            if j.id == self.name:
+                scheduler.cancel(j)
+                break
+        cache.delete(self.name)
+        return False
+
     def decide_to_queue(self):
         playback = self.playback  # static copy
         if (
@@ -95,9 +108,15 @@ class Listener(models.Model):
             or self.q_mgmt.queue_mgmt["queue"] == {}
         ):
             # song is still playing or queue empty
+            print("Decided not to queue")
+            print("playback == current", playback == self.q_mgmt.queue_mgmt["current"])
+            print("queue empty", self.q_mgmt.queue_mgmt["queue"] == {})
             return
         else:
             # song is done playing
+            print("Decided to queue")
+            print("playback == current", playback == self.q_mgmt.queue_mgmt["current"])
+            print("queue empty", self.q_mgmt.queue_mgmt["queue"] == {})
             self.q_mgmt.queue_next()
 
     class SpotifyClient:
@@ -177,7 +196,7 @@ class Listener(models.Model):
                     # TODO: this is oviously a consequence of a poorly architected class structure
                     queue_mgmt = json.loads(cache.get(value["listener_to"]))
                     if queue_mgmt["on_deck"] == "":
-                        queue_mgmt["on_deck"] = uri
+                        queue_mgmt["on_deck"] = {uri: value}
                         # queue the song
                         listener = Listener.objects.get(name=value["listener_to"])
                         listener.queue_song(uri)
@@ -185,10 +204,19 @@ class Listener(models.Model):
                         queue_mgmt["queue"][uri] = value
                     cache.set(value["listener_to"], json.dumps(queue_mgmt))
 
+                def __delitem__(self, key):
+                    listener_name = self[key]["listener_to"]
+                    queue_mgmt = json.loads(cache.get(listener_name))
+                    del queue_mgmt["queue"][key]
+                    cache.set(listener_name, json.dumps(queue_mgmt))
+                    super().__delitem__(key)
+
             def __setitem__(self, key, value):
                 if key == "on_deck":
                     listener = Listener.objects.get(name=self["listener_name"])
-                    listener.queue_song(value)
+                    # get first key from value which is a dict
+                    uri = list(value.keys())[0]
+                    listener.queue_song(uri)
                 # any changes to the queue_mgmt var will be saved to redis
                 super().__setitem__(key, value)
                 cache.set(self["listener_name"], json.dumps(self))
@@ -197,7 +225,7 @@ class Listener(models.Model):
         def queue_mgmt(self):
             """Get queue_mgmt object from redis, don't forget those sub classes"""
             queue_mgmt = self.QueueMgmtObj(json.loads(cache.get(self.listener.name)))
-            # the key queue is a dict, convert to seflf.QueueMgmtObj.QueueObj
+            # the key queue is a dict, convert to self.QueueMgmtObj.QueueObj
             queue_mgmt["queue"] = self.QueueMgmtObj.QueueObj(queue_mgmt["queue"])
             return queue_mgmt
 
@@ -206,33 +234,43 @@ class Listener(models.Model):
 
         def queue_next(self):
             """If the current song is done playing, set the top song from queue to on deck and then queue it"""
+            # TODO: pretty sure this broke
             if self.listener.playback != self.queue_mgmt["on_deck"]:
                 print("Somebody messed up.. I think the queue will be a bit ahead now")
             # update queue_mgmt
             self.queue_mgmt["current"] = self.listener.playback
             # get song with most votes, if equal votes, get earliest added from self.queue['queued_time]
-            self.queue_mgmt["on_deck"] = max(
+            on_deck_uri = max(
                 self.queue_mgmt["queue"],
                 key=lambda x: (
                     self.queue_mgmt["queue"][x]["votes"],
                     -self.queue_mgmt["queue"][x]["queued_time"],
                 ),
             )
+            self.queue_mgmt["on_deck"] = {
+                on_deck_uri: self.queue_mgmt["queue"][on_deck_uri]
+            }
             # rm from queue
-            del self.queue_mgmt["queue"][self.queue_mgmt["on_deck"]]
+            del self.queue_mgmt["queue"][on_deck_uri]
+            print("new queue mgmt", self.queue_mgmt["queue"].keys())
 
-        def queue_add(self, track_uri):
+        def queue_add(self, song_object):
             """Add track with zero votes"""
+            print("Adding to Queue!", song_object["uri"])
             # init song with 0 votes
             # HARD LESSON: the setter doesn't work for sub dicts :')
+            track_uri = song_object["uri"]
             self.queue_mgmt["queue"][track_uri] = {
                 "votes": 0,
                 "queued_time": datetime.now().timestamp(),
+                "song_object": song_object,
                 "listener_from": "",
                 "listener_to": self.listener.name,
             }
-            print(self.queue_mgmt)
 
         def queue_vote(self, track_uri):
             """Vote for a song in the queue"""
-            self.queue_mgmt["queue"][track_uri]["votes"] += 1
+            # this is a hacky workaround because, as we know, this architecture is a mess
+            new_queue = self.queue_mgmt["queue"]
+            new_queue[track_uri]["votes"] += 1
+            self.queue_mgmt["queue"] = new_queue

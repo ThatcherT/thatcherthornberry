@@ -3,11 +3,15 @@ This document contains some helpful utils for shuffling, following, and queueing
 */
 
 function getFollowingDJ() {
-  return jQuery.data(document.body, "followingDJ");
+  return $("body").data("followingDJ");
 }
 
 function getIAmDJ() {
-  return jQuery.data(document.body, "IAmDJ");
+  return $("body").data("IAmDJ");
+}
+
+function getAnon() {
+  return $("body").data("anonymous");
 }
 
 // STARTUP SCRIPT RUNS EVERY TIME!!!!!
@@ -30,23 +34,58 @@ function loadPage() {
 
 // clear out local storage and reload page
 function logOut() {
-  jQuery.data(document.body, "IAmDJ", "");
+  $("body").data("IAmDJ", "");
   loadPage();
 }
 
-function getSongRowHTML(songObj) {
+function getPlaylistsHTML(playlists) {
+  // each row should have 2 columns with the album image
+  // and the album name
+  let html = "";
+  for (let i = 0; i < playlists.length; i++) {
+    const albumImageCol = document.createElement("div");
+    albumImageCol.classList.add("col-6");
+    const albumImage = document.createElement("img");
+    if (!playlists[i].images.length) {
+      albumImage.alt = playlists[i].name;
+    } else {
+      albumImage.src = playlists[i].images[1].url;
+    }
+    albumImage.style.width = "256px";
+    albumImage.style.height = "256px";
+    albumImageCol.appendChild(albumImage);
+    html += albumImageCol.outerHTML;
+  }
+  return html;
+}
+
+function getSongRowHTML(songObj, voting = false) {
   // IMPORTANT: this is the songs unique identifier
-  const URI = songObj.uri;
   let songRowHTML = document.createElement("div");
+  songRowHTML.name = "songRow";
 
   // TODO: return row from function called songRowHTML
 
   songRowHTML.classList.add("row", "search-item");
-  // add an attribute data-uri to the row
-  songRowHTML.setAttribute("data-uri", URI);
-
+  // add the stringified songObj to the row
+  songRowHTML.setAttribute("data-song-object", JSON.stringify(songObj));
+  // if voting bool is true, add a column with a vote button
+  if (voting) {
+    let queueMgmt = $("body").data("queueMgmt");
+    let votes = queueMgmt.queue[songObj.uri].votes;
+    songRowHTML.innerHTML += `
+      <div class="col-1">
+        <div class="row">
+          <div class="triangle-up" onClick="voteSong('${songObj.uri}')"></div>
+        </div>
+        <div class="row" id='${songObj.uri}-votes' name="voteCount">
+          ${votes}
+        </div>
+      </div>`;
+  }
   // album image
   const albumImageCol = document.createElement("div");
+  albumImageCol.name = "albumImageCol";
   albumImageCol.classList.add("col-3");
   songRowHTML.appendChild(albumImageCol);
   const albumImage = document.createElement("img");
@@ -64,17 +103,20 @@ function getSongRowHTML(songObj) {
 
   // this is the main column, containing the song details
   const songDetails = document.createElement("div");
+  songDetails.name = "songDetails";
   songDetails.classList.add("col");
   // append this column to the row
   songRowHTML.appendChild(songDetails);
 
   // the first row will have the song name
   const songNameRow = document.createElement("div");
+  songNameRow.name = "songNameRow";
   songNameRow.classList.add("row", "song-title");
   // append this row to the main column
   songDetails.appendChild(songNameRow);
   // technically, the name will be in a column, in the row
   const songName = document.createElement("div");
+  songName.name = "songName";
   songName.classList.add("col", "text-left");
   // limit name to 30 characters, if greater than 30 characters, add ...
   if (songObj.name.length > 30) {

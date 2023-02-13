@@ -1,16 +1,15 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse
+import requests
+from bs4 import BeautifulSoup
+from decouple import config
 from django.core.mail import send_mail
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.urls import reverse
+
+from me.models import Review
 
 # Create your views here.
 
-from django.http import HttpResponse
-import requests
-from decouple import config
-
-from me.models import Review
-import requests
-from bs4 import BeautifulSoup
 
 GITHUB_URL = "https://github.com/"
 
@@ -78,8 +77,8 @@ def submit_review(request):
         message += "Rating: {0}\n".format(review.rating)
 
         # now send an email
-        email_from = config("EMAIL_FROM_USER")
-        recipient_list = [config("EMAIL_FROM_USER")]
+        email_from = config("EMAIL_FROM_USER", "thatcherthornberry@gmail.com")
+        recipient_list = [config("EMAIL_FROM_USER", "thatcherthornberry@gmail.com")]
         send_mail(subject, message, email_from, recipient_list)
         return redirect(reverse("thank-you") + "#reviews")
 
@@ -93,8 +92,8 @@ def contact_me(request):
         message += "Message: {0}\n".format(request.POST["message"])
 
         # now send an email
-        email_from = config("EMAIL_FROM_USER")
-        recipient_list = [config("EMAIL_FROM_USER")]
+        email_from = config("EMAIL_FROM_USER", "thatcherthornberry@gmail.com")
+        recipient_list = [config("EMAIL_FROM_USER", "thatcherthornberry@gmail.com")]
         send_mail(subject, message, email_from, recipient_list)
         return redirect(reverse("index-contacted", args=["contacted"]) + "#contact")
 
