@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-
+from decouple import config
 
 class Command(BaseCommand):
     help = "Create su"
@@ -16,8 +16,9 @@ class Command(BaseCommand):
                 is_superuser=True,
                 is_staff=True,
             )
-            user.set_password("pizza891")
-            print(user.username, user.email, "pizza891")
+            password = config("DJANGO_ADMIN_PASSWORD")
+            user.set_password(password)
+            print(user.username, user.email, password)
             user.save()
         else:
             print("user already exists")

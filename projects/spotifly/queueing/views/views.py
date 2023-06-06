@@ -116,14 +116,17 @@ def sp_redirect(request):
         name=username,
     )
     if created:
-        subject = "New Listener"
-        html_message = "<h1>Someone signed up!</h1>"
-        html_message += "<p>Email: " + str(username) + "</p>"
-        from_email = config("EMAIL_HOST_USER")
-        to_email = config("EMAIL_HOST_USER")
-        send_mail(
-            subject, html_message, from_email, [to_email], html_message=html_message
-        )
+        try:
+            subject = "New Listener"
+            html_message = "<h1>Someone signed up!</h1>"
+            html_message += "<p>Email: " + str(username) + "</p>"
+            from_email = config("EMAIL_HOST_USER")
+            to_email = config("EMAIL_HOST_USER")
+            send_mail(
+                subject, html_message, from_email, [to_email], html_message=html_message
+            )
+        except:
+            print("email failed to send")
     if not_in_dashboard:
         listener.anon = True
     listener.token = token
